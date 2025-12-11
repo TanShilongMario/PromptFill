@@ -8,6 +8,9 @@
 ![Vite](https://img.shields.io/badge/Vite-5.x-646CFF.svg)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC.svg)
 
+<img width="1160" height="897" alt="image" src="https://github.com/user-attachments/assets/b873be66-ed6c-4952-95c6-7e6937a7ef73" />
+
+
 ## ✨ 核心特性
 
 *   **🧩 智能词库管理**：
