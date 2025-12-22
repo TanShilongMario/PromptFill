@@ -421,7 +421,7 @@ export const INITIAL_TEMPLATES_CONFIG = [
     author: "@dotey(宝玉)",
     selections: {
       "character_groups": "中國古代開國皇帝",
-      "social_media": "微信朋友圈",
+      "social_media": "臉書塗鴉牆",
       "ratio": "9:16直式構圖"
     },
     tags: ["創意", "人物", "攝影"]

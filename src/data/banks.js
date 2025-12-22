@@ -106,7 +106,7 @@ export const INITIAL_BANKS = {
     label: "社交媒體",
     category: "location",
     options: [
-      "微信朋友圈",
+      "臉書塗鴉牆",
       "微博",
       "Twitter(X)",
       "小紅書",
@@ -431,7 +431,7 @@ export const INITIAL_DEFAULTS = {
   expressions: "瘋狂、病嬌、狂喜",
   character_originality: "創作一個原創人物",
   character_groups: "中外知名偵探（包青天、狄仁傑、福爾摩斯、柯南等）",
-  social_media: "微信朋友圈",
+  social_media: "臉書塗鴉牆",
   texture_zoom: "凌亂感與私處汗漬",
   action_detail: "帶著項圈的爬行",
   special_view: "被踩在腳下的仰視視角",
