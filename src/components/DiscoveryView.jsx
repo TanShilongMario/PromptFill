@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  ImageIcon, ArrowUpRight, LayoutGrid, RotateCcw, 
-  Globe, Settings, ArrowUpDown 
+import {
+  ImageIcon, ArrowUpRight, LayoutGrid, RotateCcw,
+  Globe, Settings, ArrowUpDown, Github
 } from 'lucide-react';
 
 /**
  * DiscoveryView 元件 - 瀑布流展示所有模板
  */
-export const DiscoveryView = React.memo(({ 
+export const DiscoveryView = React.memo(({
   filteredTemplates,
   setActiveTemplateId,
   setDiscoveryView,
@@ -34,9 +34,9 @@ export const DiscoveryView = React.memo(({
 
   if (isMobile) {
     return (
-      <div 
+      <div
         className="fixed inset-0 z-[100] flex flex-col overflow-y-auto pb-20"
-        style={{ 
+        style={{
           backgroundImage: 'url(/background1.png)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
@@ -46,9 +46,9 @@ export const DiscoveryView = React.memo(({
         <div className="flex flex-col w-full min-h-full px-5 py-8 gap-6">
           {/* 1. 頂部 SVG 標題區域 */}
           <div className="w-full flex justify-center px-4">
-            <img 
-              src="/Title.svg" 
-              alt="Prompt Fill Logo" 
+            <img
+              src="/Title.svg"
+              alt="Prompt Fill Logo"
               className="w-full max-w-[280px] h-auto"
             />
           </div>
@@ -60,15 +60,15 @@ export const DiscoveryView = React.memo(({
 
           {/* 3. 功能按鈕區域 */}
           <div className="flex items-center justify-center gap-4 py-2">
-            <button 
-              onClick={() => setIsSortMenuOpen(!isSortMenuOpen)} 
+            <button
+              onClick={() => setIsSortMenuOpen(!isSortMenuOpen)}
               className="flex flex-col items-center gap-1.5 group"
             >
               <div className="p-3 bg-white rounded-2xl shadow-sm border border-gray-100 group-hover:bg-orange-50 transition-all">
                 <ArrowUpDown size={20} className="text-gray-600 group-hover:text-orange-600" />
               </div>
               <span className="text-[10px] font-bold text-gray-500">排序</span>
-              
+
               {isSortMenuOpen && (
                 <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/60 py-2 min-w-[140px] z-[110] animate-in slide-in-from-top-2 duration-200">
                   {[
@@ -95,8 +95,8 @@ export const DiscoveryView = React.memo(({
               )}
             </button>
 
-            <button 
-              onClick={() => setLanguage(language === 'zh-tw' ? 'en' : 'zh-tw')} 
+            <button
+              onClick={() => setLanguage(language === 'zh-tw' ? 'en' : 'zh-tw')}
               className="flex flex-col items-center gap-1.5 group"
             >
               <div className="p-3 bg-white rounded-2xl shadow-sm border border-gray-100 group-hover:bg-orange-50 transition-all">
@@ -105,7 +105,7 @@ export const DiscoveryView = React.memo(({
               <span className="text-[10px] font-bold text-gray-500">{language === 'zh-tw' ? '中文' : 'English'}</span>
             </button>
 
-            <button 
+            <button
               onClick={() => setIsSettingsOpen(true)}
               className="flex flex-col items-center gap-1.5 group"
             >
@@ -115,7 +115,7 @@ export const DiscoveryView = React.memo(({
               <span className="text-[10px] font-bold text-gray-500">設定</span>
             </button>
 
-            <button 
+            <button
               onClick={handleRefreshSystemData}
               className="flex flex-col items-center gap-1.5 group"
             >
@@ -124,12 +124,24 @@ export const DiscoveryView = React.memo(({
               </div>
               <span className="text-[10px] font-bold text-gray-500">同步</span>
             </button>
+
+            <a
+              href="https://github.com/doggy8088/PromptFill"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center gap-1.5 group"
+            >
+              <div className="p-3 bg-white rounded-2xl shadow-sm border border-gray-100 group-hover:bg-orange-50 transition-all">
+                <Github size={20} className="text-gray-600 group-hover:text-gray-900" />
+              </div>
+              <span className="text-[10px] font-bold text-gray-500">GitHub</span>
+            </a>
           </div>
 
           {/* 4. 圖像展示（單列） */}
           <div className="flex flex-col gap-6 mt-2">
             {filteredTemplates.map(t_item => (
-              <div 
+              <div
                 key={t_item.id}
                 onClick={() => {
                   setActiveTemplateId(t_item.id);
@@ -139,9 +151,9 @@ export const DiscoveryView = React.memo(({
               >
                 <div className="relative w-full bg-gray-50">
                   {t_item.imageUrl ? (
-                    <img 
-                      src={t_item.imageUrl} 
-                      alt={t_item.name} 
+                    <img
+                      src={t_item.imageUrl}
+                      alt={t_item.name}
                       className="w-full h-auto block"
                       referrerPolicy="no-referrer"
                       loading="lazy"
@@ -165,9 +177,9 @@ export const DiscoveryView = React.memo(({
   }
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden bg-[#F3F4F6]"
-      style={{ 
+      style={{
         backgroundImage: 'url(/background1.png)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
@@ -175,16 +187,16 @@ export const DiscoveryView = React.memo(({
       }}
     >
       {/* Poster Content Container */}
-      <div 
+      <div
         className="flex flex-col w-full h-full bg-white/40 border-2 border-white/60 shadow-[0_4px_10px_0_rgba(0,0,0,0.3)] backdrop-blur-[80px] overflow-hidden relative z-10 p-4 md:p-6 lg:p-9"
       >
           <div className="flex-1 flex flex-col lg:flex-row gap-8 lg:gap-20 overflow-hidden py-6 lg:py-10 px-4 lg:px-8">
               {/* Left Side: Logo & Slogan */}
               <div className="flex flex-col justify-center items-center lg:items-start lg:w-[380px] xl:w-[460px] flex-shrink-0 px-4 lg:pl-8 lg:pr-6 gap-8">
                   <div className="w-full max-w-[400px] scale-75 sm:scale-90 lg:scale-100 origin-center lg:origin-left">
-                      <img 
-                          src="/Title.svg" 
-                          alt="Prompt Fill Logo" 
+                      <img
+                          src="/Title.svg"
+                          alt="Prompt Fill Logo"
                           className="w-full h-auto"
                       />
                   </div>
@@ -192,7 +204,7 @@ export const DiscoveryView = React.memo(({
               </div>
 
               {/* Right Side: Waterfall Grid */}
-              <div 
+              <div
                   ref={posterScrollRef}
                   className="flex-1 overflow-y-auto overflow-x-visible pr-4 lg:pr-8 scroll-smooth poster-scrollbar"
                   onMouseEnter={() => setIsPosterAutoScrollPaused(true)}
@@ -201,7 +213,7 @@ export const DiscoveryView = React.memo(({
                   <div className="h-full w-full py-8 lg:py-12 px-6 lg:px-12">
                       <div className={currentMasonryStyle.container}>
                           {filteredTemplates.map(t_item => (
-                              <div 
+                              <div
                                   key={t_item.id}
                                   onClick={() => {
                                       setActiveTemplateId(t_item.id);
@@ -211,9 +223,9 @@ export const DiscoveryView = React.memo(({
                               >
                                   <div className="relative w-full overflow-hidden rounded-xl bg-gray-100">
                                       {t_item.imageUrl ? (
-                                          <img 
-                                              src={t_item.imageUrl} 
-                                              alt={t_item.name} 
+                                          <img
+                                              src={t_item.imageUrl}
+                                              alt={t_item.name}
                                               className="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                                               referrerPolicy="no-referrer"
                                               loading="lazy"
@@ -223,7 +235,7 @@ export const DiscoveryView = React.memo(({
                                               <ImageIcon size={32} />
                                           </div>
                                       )}
-                                      
+
                                       {/* Hover Overlay: Bottom Glass Mask */}
                                       <div className="absolute inset-x-0 bottom-0 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-[opacity,transform] duration-500 ease-out z-20">
                                           <div className="backdrop-blur-md bg-white/40 border-t border-white/40 py-4 px-6 shadow-2xl">
@@ -235,7 +247,7 @@ export const DiscoveryView = React.memo(({
 
                                       {/* Floating Actions */}
                                       <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-all duration-500 flex gap-2 z-30 translate-y-[-10px] group-hover:translate-y-0">
-                                          <button 
+                                          <button
                                               onClick={(e) => {
                                                   e.stopPropagation();
                                                   setZoomedImage(t_item.imageUrl);
@@ -258,10 +270,11 @@ export const DiscoveryView = React.memo(({
           <div className="mt-auto flex items-center justify-between px-8 py-6 relative z-20">
               {/* Left: Tools */}
               <div className="flex items-center gap-3 p-2">
+
                   {/* Discovery View Toggle (Back to Editor) */}
-                  <button 
-                      onClick={() => setDiscoveryView(false)} 
-                      className="p-2.5 rounded-xl transition-all text-gray-500 hover:text-orange-600 hover:bg-white/50 shadow-sm" 
+                  <button
+                      onClick={() => setDiscoveryView(false)}
+                      className="p-2.5 rounded-xl transition-all text-gray-500 hover:text-orange-600 hover:bg-white/50 shadow-sm"
                       title="返回編輯器"
                   >
                       <LayoutGrid size={20} />
@@ -271,9 +284,9 @@ export const DiscoveryView = React.memo(({
 
                   {/* Sort Menu Button */}
                   <div className="relative">
-                      <button 
-                          onClick={() => setIsSortMenuOpen(!isSortMenuOpen)} 
-                          className="p-2.5 rounded-xl transition-all text-gray-500 hover:text-orange-600 hover:bg-white/50 shadow-sm" 
+                      <button
+                          onClick={() => setIsSortMenuOpen(!isSortMenuOpen)}
+                          className="p-2.5 rounded-xl transition-all text-gray-500 hover:text-orange-600 hover:bg-white/50 shadow-sm"
                           title="排序"
                       >
                           <ArrowUpDown size={20} />
@@ -303,33 +316,43 @@ export const DiscoveryView = React.memo(({
                       )}
                   </div>
 
-                  <button 
-              onClick={() => setLanguage(language === 'zh-tw' ? 'en' : 'zh-tw')} 
+                  <button
+              onClick={() => setLanguage(language === 'zh-tw' ? 'en' : 'zh-tw')}
                       className="p-2.5 rounded-xl transition-all text-gray-500 hover:text-orange-600 hover:bg-white/50 shadow-sm flex items-center gap-1.5"
                   >
                       <Globe size={20} />
                       <span className="text-xs font-bold">{language.toUpperCase()}</span>
                   </button>
 
-                  <button 
-                      onClick={() => setIsSettingsOpen(true)} 
-                      className="p-2.5 rounded-xl transition-all text-gray-500 hover:text-orange-600 hover:bg-white/50 shadow-sm" 
+                  <button
+                      onClick={() => setIsSettingsOpen(true)}
+                      className="p-2.5 rounded-xl transition-all text-gray-500 hover:text-orange-600 hover:bg-white/50 shadow-sm"
                       title={t('settings')}
                   >
                       <Settings size={20} />
                   </button>
 
-                  <button 
-                      onClick={handleRefreshSystemData} 
-                      className="p-2.5 rounded-xl transition-all text-gray-500 hover:text-orange-600 hover:bg-white/50 shadow-sm" 
+                  <button
+                      onClick={handleRefreshSystemData}
+                      className="p-2.5 rounded-xl transition-all text-gray-500 hover:text-orange-600 hover:bg-white/50 shadow-sm"
                       title={t('refresh_desc')}
                   >
                       <RotateCcw size={20} />
                   </button>
               </div>
 
-              {/* Right: Author Info removed */}
-              <div className="flex flex-col items-end gap-1.5 opacity-60 transition-opacity px-4 py-2" />
+              {/* Right: GitHub Link */}
+              <div className="flex flex-col items-end gap-1.5 transition-opacity px-4 py-2">
+                  <a
+                      href="https://github.com/doggy8088/PromptFill"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2.5 rounded-xl transition-all text-gray-500 hover:text-gray-900 hover:bg-white/50 shadow-sm flex items-center gap-2"
+                      title="GitHub Repository"
+                  >
+                      <Github size={20} />
+                  </a>
+              </div>
           </div>
       </div>
     </div>
