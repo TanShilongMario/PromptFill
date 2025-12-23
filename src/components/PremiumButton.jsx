@@ -10,10 +10,12 @@ export const PremiumButton = ({
   disabled = false, 
   title, 
   icon: Icon, 
-  color = "orange" 
+  color = "orange",
+  hoverColor = null 
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const premium = PREMIUM_STYLES[color] || PREMIUM_STYLES.indigo;
+  const currentColor = (isHovered && hoverColor) ? hoverColor : color;
+  const premium = PREMIUM_STYLES[currentColor] || PREMIUM_STYLES.indigo;
 
   // Base classes
   const baseClasses = `

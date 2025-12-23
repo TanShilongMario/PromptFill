@@ -12,6 +12,7 @@ export const VisualEditor = React.forwardRef(({ value, onChange, banks, categori
   };
 
   const renderHighlights = (text) => {
+    if (!text || typeof text !== 'string') return null;
     // Split by {{...}}
     const parts = text.split(/(\{\{[^{}\n]+\}\})/g);
     return parts.map((part, i) => {

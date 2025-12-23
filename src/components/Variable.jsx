@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Check, Plus, X } from 'lucide-react';
 import { CATEGORY_STYLES, PREMIUM_STYLES } from '../constants/styles';
+import { getLocalized } from '../utils/helpers';
 
 export const Variable = ({ 
   id, 
@@ -14,7 +15,8 @@ export const Variable = ({
   onAddCustom, 
   popoverRef, 
   categories, 
-  t 
+  t,
+  language
 }) => {
   const [isAdding, setIsAdding] = useState(false);
   const [customVal, setCustomVal] = useState("");
@@ -54,6 +56,20 @@ export const Variable = ({
     }
   };
 
+  const isSelected = (opt) => {
+    if (!currentVal) return false;
+    if (typeof currentVal === 'string' && typeof opt === 'string') {
+      return currentVal === opt;
+    }
+    if (typeof currentVal === 'object' && typeof opt === 'object') {
+      return currentVal['zh-tw'] === opt['zh-tw'] && currentVal.en === opt.en;
+    }
+    // Fallback for mixed types
+    const valStr = typeof currentVal === 'object' ? currentVal['zh-tw'] : currentVal;
+    const optStr = typeof opt === 'object' ? opt['zh-tw'] : opt;
+    return valStr === optStr;
+  };
+
   return (
     <div className="relative inline-block mx-1.5 align-baseline group text-base">
       <span 
@@ -75,7 +91,7 @@ export const Variable = ({
           textShadow: '0 1px 2px rgba(0,0,0,0.1)'
         }}
       >
-        {currentVal || <span className="opacity-70 italic">{t('please_select')}</span>}
+        {getLocalized(currentVal, language) || <span className="opacity-70 italic">{t('please_select')}</span>}
       </span>
       
       {/* Popover - 詞庫選擇器 */}
@@ -93,13 +109,13 @@ export const Variable = ({
         >
           <div className="px-4 py-3 border-b border-gray-100/50 flex justify-between items-center bg-white/50 backdrop-blur-sm">
             <span className="text-xs font-bold uppercase tracking-wider text-gray-500">
-              {t('select')} {config.label}
+              {t('select')} {getLocalized(config.label, language)}
             </span>
             <span 
               className="text-[10px] px-2 py-0.5 rounded-full font-bold text-white shadow-sm"
               style={{ background: `linear-gradient(135deg, ${premium.from}, ${premium.to})` }}
             >
-              {categories[categoryId]?.label || categoryId}
+              {getLocalized(categories[categoryId]?.label, language) || categoryId}
             </span>
           </div>
           
@@ -109,13 +125,13 @@ export const Variable = ({
                 key={idx}
                 onClick={() => onSelect(opt)}
                 className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all duration-200 group flex items-center justify-between
-                  ${currentVal === opt 
+                  ${isSelected(opt) 
                     ? 'bg-white shadow-md ring-1 ring-black/5 font-bold' 
                     : 'hover:bg-white/60 hover:shadow-sm text-gray-600 hover:text-gray-900'}`}
-                style={currentVal === opt ? { color: premium.to } : {}}
+                style={isSelected(opt) ? { color: premium.to } : {}}
               >
-                <span>{opt}</span>
-                {currentVal === opt && <Check size={14} style={{ color: premium.to }} />}
+                <span>{getLocalized(opt, language)}</span>
+                {isSelected(opt) && <Check size={14} style={{ color: premium.to }} />}
               </button>
             )) : (
               <div className="px-3 py-8 text-center text-gray-400 text-sm italic">

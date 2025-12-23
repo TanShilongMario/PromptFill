@@ -10,3 +10,4 @@ export { TemplatePreview } from './TemplatePreview';
 export { TemplatesSidebar } from './TemplatesSidebar';
 export { BanksSidebar, CategoryManager, InsertVariableModal, AddBankModal } from './BanksSidebar';
 export { DiscoveryView } from './DiscoveryView';
+export { MobileSettingsView } from './MobileSettingsView';

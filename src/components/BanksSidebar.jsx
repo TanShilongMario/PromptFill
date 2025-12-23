@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Settings, List, Check, ChevronRight, ChevronDown, Plus, Trash2, X, ChevronUp, Pencil } from 'lucide-react';
 import { CATEGORY_STYLES, PREMIUM_STYLES } from '../constants/styles';
+import { getLocalized } from '../utils/helpers';
 
 /**
  * 元件：詞庫分類塊
  */
-const CategorySection = ({ catId, categories, banks, onInsert, onDeleteOption, onAddOption, onDeleteBank, onUpdateBankCategory, onStartAddBank, t }) => {
+const CategorySection = ({ catId, categories, banks, onInsert, onDeleteOption, onAddOption, onDeleteBank, onUpdateBankCategory, onStartAddBank, t, language, onTouchDragStart }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const category = categories[catId];
   
@@ -29,7 +30,7 @@ const CategorySection = ({ catId, categories, banks, onInsert, onDeleteOption, o
             </div>
             <h3 className={`text-xs font-bold uppercase tracking-wider ${style.text} flex items-center gap-2 flex-1`}>
                 <span className={`w-2 h-2 rounded-full ${style.dotBg} shadow-sm`}></span>
-                {category.label}
+                {getLocalized(category.label, language)}
                 <span className="text-gray-400 font-medium ml-auto text-[10px] tabular-nums bg-white/80 px-2 py-0.5 rounded-full">
                     {catBanks.length}
                 </span>
@@ -52,6 +53,8 @@ const CategorySection = ({ catId, categories, banks, onInsert, onDeleteOption, o
                         onUpdateBankCategory={onUpdateBankCategory}
                         categories={categories}
                         t={t}
+                        language={language}
+                        onTouchDragStart={onTouchDragStart}
                     />
                 ))}
                 
@@ -73,23 +76,36 @@ const CategorySection = ({ catId, categories, banks, onInsert, onDeleteOption, o
 /**
  * 元件：可折疊的詞庫組
  */
-const BankGroup = ({ bankKey, bank, onInsert, onDeleteOption, onAddOption, onDeleteBank, onUpdateBankCategory, categories, t }) => {
+const BankGroup = ({ bankKey, bank, onInsert, onDeleteOption, onAddOption, onDeleteBank, onUpdateBankCategory, categories, t, language, onTouchDragStart }) => {
     const [isCollapsed, setIsCollapsed] = useState(true);
     const [isEditingCategory, setIsEditingCategory] = useState(false);
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
     const categoryId = bank.category || 'other';
     const colorKey = categories[categoryId]?.color || 'slate';
     const premium = PREMIUM_STYLES[colorKey] || PREMIUM_STYLES.slate;
 
     const handleDragStart = (e) => {
-        e.dataTransfer.setData('text/plain', `{{${bankKey}}}`);
+        e.dataTransfer.setData('text/plain', ` {{${bankKey}}} `);
         e.dataTransfer.effectAllowed = 'copy';
+    };
+
+    const handleTouchStart = (e) => {
+        if (!isMobile) return;
+        // 记录起始位置
+        const touch = e.touches[0];
+        // 这里的逻辑：如果用户触摸并保持一会儿，或者触摸并移动，则触发拖拽
+        // 我们通过传递回调给父组件 App.jsx 来处理全局浮层
+        if (onTouchDragStart) {
+            onTouchDragStart(bankKey, touch.clientX, touch.clientY);
+        }
     };
 
     return (
         <div 
             draggable="true"
             onDragStart={handleDragStart}
+            onTouchStart={handleTouchStart}
             className="relative group/card mb-3 cursor-grab active:cursor-grabbing transition-all duration-300 hover:translate-y-[-2px]"
         >
             {/* Gradient Border Glow with Enhanced Shadow */}
@@ -110,7 +126,7 @@ const BankGroup = ({ bankKey, bank, onInsert, onDeleteOption, onAddOption, onDel
                             {isCollapsed ? <ChevronDown size={16} /> : <ChevronUp size={16} />}
                         </div>
                         <div className="flex flex-col min-w-0">
-                            <span className="text-sm font-bold text-gray-700 truncate leading-tight group-hover/card:text-gray-900 transition-colors">{bank.label}</span>
+                            <span className="text-sm font-bold text-gray-700 truncate leading-tight group-hover/card:text-gray-900 transition-colors">{getLocalized(bank.label, language)}</span>
                             <code className="text-[10px] text-gray-400 truncate font-mono mt-1 bg-gray-50 px-1.5 py-0.5 rounded" style={{ color: premium.to }}>{`{{${bankKey}}}`}</code>
                         </div>
                     </div>
@@ -166,7 +182,7 @@ const BankGroup = ({ bankKey, bank, onInsert, onDeleteOption, onAddOption, onDel
                                     onClick={(e) => e.stopPropagation()}
                                 >
                                     {Object.values(categories).map(cat => (
-                                        <option key={cat.id} value={cat.id}>{cat.label}</option>
+                                        <option key={cat.id} value={cat.id}>{getLocalized(cat.label, language)}</option>
                                     ))}
                                 </select>
                             </div>
@@ -175,7 +191,7 @@ const BankGroup = ({ bankKey, bank, onInsert, onDeleteOption, onAddOption, onDel
                         <div className="flex flex-col gap-2.5 mb-3">
                             {bank.options.map((opt, idx) => (
                                 <div key={idx} className="group/opt flex items-center justify-between gap-2 bg-gradient-to-br from-gray-50 to-gray-50/50 hover:from-white hover:to-gray-50/30 border border-gray-100/50 hover:border-gray-300 px-3 py-2 rounded-lg text-xs text-gray-700 shadow-sm hover:shadow transition-all duration-200">
-                                    <span className="truncate select-text font-medium" title={opt}>{opt}</span>
+                                    <span className="truncate select-text font-medium" title={getLocalized(opt, language)}>{getLocalized(opt, language)}</span>
                                     <button 
                                         onClick={() => onDeleteOption(bankKey, opt)}
                                         className="opacity-0 group-hover/opt:opacity-100 text-gray-300 hover:text-red-500 hover:bg-red-50 p-1 rounded transition-all flex-shrink-0"
@@ -219,7 +235,7 @@ const BankGroup = ({ bankKey, bank, onInsert, onDeleteOption, onAddOption, onDel
 /**
  * 核心元件：分類管理器
  */
-export const CategoryManager = ({ isOpen, onClose, categories, setCategories, banks, setBanks, t }) => {
+export const CategoryManager = ({ isOpen, onClose, categories, setCategories, banks, setBanks, t, language }) => {
   const [newCatName, setNewCatName] = useState("");
   const [newCatColor, setNewCatColor] = useState("slate");
   const [editingCatId, setEditingCatId] = useState(null);
@@ -244,7 +260,7 @@ export const CategoryManager = ({ isOpen, onClose, categories, setCategories, ba
   const handleDeleteCategory = (catId) => {
     if (catId === 'other') return; // Cannot delete default
     
-    const catName = categories[catId].label;
+    const catName = getLocalized(categories[catId].label, language);
     if (window.confirm(t('delete_category_confirm', { name: catName }))) {
        // 1. Update banks to use 'other'
        const updatedBanks = { ...banks };
@@ -264,15 +280,19 @@ export const CategoryManager = ({ isOpen, onClose, categories, setCategories, ba
 
   const startEditing = (cat) => {
       setEditingCatId(cat.id);
-      setTempCatName(cat.label);
+      setTempCatName(getLocalized(cat.label, language));
   };
 
   const saveEditing = () => {
       if (!tempCatName.trim()) return;
-      setCategories(prev => ({
-          ...prev,
-          [editingCatId]: { ...prev[editingCatId], label: tempCatName }
-      }));
+      setCategories(prev => {
+          const cat = prev[editingCatId];
+          const newLabel = typeof cat.label === 'object' ? { ...cat.label, [language]: tempCatName } : tempCatName;
+          return {
+            ...prev,
+            [editingCatId]: { ...cat, label: newLabel }
+          };
+      });
       setEditingCatId(null);
   };
 
@@ -334,7 +354,7 @@ export const CategoryManager = ({ isOpen, onClose, categories, setCategories, ba
                         className="flex-1 text-sm border border-orange-300 rounded px-1 py-0.5 outline-none"
                       />
                   ) : (
-                      <span className="flex-1 text-sm font-medium text-gray-700 truncate">{cat.label}</span>
+                      <span className="flex-1 text-sm font-medium text-gray-700 truncate">{getLocalized(cat.label, language)}</span>
                   )}
 
                   <div className="flex items-center gap-1">
@@ -370,7 +390,7 @@ export const CategoryManager = ({ isOpen, onClose, categories, setCategories, ba
 /**
  * 核心元件：變數插入選擇器
  */
-export const InsertVariableModal = ({ isOpen, onClose, categories, banks, onSelect, t }) => {
+export const InsertVariableModal = ({ isOpen, onClose, categories, banks, onSelect, t, language }) => {
   if (!isOpen) return null;
 
   return (
@@ -395,7 +415,7 @@ export const InsertVariableModal = ({ isOpen, onClose, categories, banks, onSele
                    <div key={catId}>
                        <h4 className={`text-xs font-bold uppercase tracking-wider mb-2 ${style.text} flex items-center gap-1.5 sticky top-0 bg-white py-1 z-10`}>
                            <span className={`w-1.5 h-1.5 rounded-full ${style.dotBg}`}></span>
-                           {category.label}
+                           {getLocalized(category.label, language)}
                        </h4>
                        <div className="grid grid-cols-1 gap-2">
                            {catBanks.map(([key, bank]) => (
@@ -408,7 +428,7 @@ export const InsertVariableModal = ({ isOpen, onClose, categories, banks, onSele
                                    `}
                                >
                                    <div>
-                                       <span className="block text-sm font-medium text-gray-700 group-hover:text-orange-700">{bank.label}</span>
+                                       <span className="block text-sm font-medium text-gray-700 group-hover:text-orange-700">{getLocalized(bank.label, language)}</span>
                                        <code className="text-[10px] text-gray-400 font-mono group-hover:text-orange-400">{`{{${key}}}`}</code>
                                    </div>
                                    <Plus size={16} className="text-gray-300 group-hover:text-orange-500" />
@@ -427,7 +447,7 @@ export const InsertVariableModal = ({ isOpen, onClose, categories, banks, onSele
 /**
  * 核心元件：新增詞庫模態框
  */
-export const AddBankModal = ({ isOpen, onClose, t, categories, newBankLabel, setNewBankLabel, newBankKey, setNewBankKey, newBankCategory, setNewBankCategory, onConfirm }) => {
+export const AddBankModal = ({ isOpen, onClose, t, categories, newBankLabel, setNewBankLabel, newBankKey, setNewBankKey, newBankCategory, setNewBankCategory, onConfirm, language }) => {
     if (!isOpen) return null;
 
     return (
@@ -479,7 +499,7 @@ export const AddBankModal = ({ isOpen, onClose, t, categories, newBankLabel, set
                             className="w-full text-sm border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-orange-200 focus:border-orange-500 outline-none bg-gray-50/50 transition-all appearance-none"
                         >
                             {Object.values(categories).map(cat => (
-                                <option key={cat.id} value={cat.id}>{cat.label}</option>
+                                <option key={cat.id} value={cat.id}>{getLocalized(cat.label, language)}</option>
                             ))}
                         </select>
                     </div>
@@ -510,6 +530,8 @@ export const AddBankModal = ({ isOpen, onClose, t, categories, newBankLabel, set
  */
 export const BanksSidebar = React.memo(({ 
   mobileTab, 
+  isBanksDrawerOpen,
+  setIsBanksDrawerOpen,
   bankSidebarWidth, 
   sidebarRef, 
   startResizing, 
@@ -522,24 +544,42 @@ export const BanksSidebar = React.memo(({
   handleDeleteBank, 
   handleUpdateBankCategory, 
   handleStartAddBank, 
-  t
+  t,
+  language,
+  // 移动端模拟拖拽 props
+  onTouchDragStart
 }) => {
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
   return (
-    <div 
-      ref={sidebarRef}
-      className={`
-          ${mobileTab === 'banks' ? 'flex fixed inset-0 z-50 bg-white md:bg-gradient-to-br md:from-white/60 md:via-white/50 md:to-white/40 md:static' : 'hidden'} 
-          md:flex flex-col h-full flex-shrink-0 relative rounded-3xl overflow-hidden
-          border border-white/50 shadow-xl
-      `}
-      style={{ width: (window.innerWidth >= 768 ? `${bankSidebarWidth}px` : '100%') }}
-    >
+    <>
+      {/* Mobile Overlay */}
+      {isMobile && isBanksDrawerOpen && (
+        <div 
+          className="fixed inset-0 bg-black/10 backdrop-blur-[2px] z-[290] animate-in fade-in duration-300"
+          onClick={() => setIsBanksDrawerOpen(false)}
+        />
+      )}
+
       <div 
-          className="hidden md:flex absolute -left-2 top-0 bottom-0 w-4 cursor-col-resize z-40 group items-center justify-center"
-          onMouseDown={startResizing}
+        ref={sidebarRef}
+        className={`
+            ${isMobile 
+              ? `fixed inset-y-0 right-0 z-[300] w-[85%] max-w-[360px] transform transition-transform duration-500 ease-out shadow-2xl ${isBanksDrawerOpen ? 'translate-x-0' : 'translate-x-full'}`
+              : 'relative md:flex flex-col h-full flex-shrink-0 rounded-3xl overflow-hidden border border-white/50 shadow-xl'
+            } 
+            flex flex-col bg-white overflow-hidden
+            ${!isMobile && mobileTab !== 'editor' && mobileTab !== 'banks' ? 'hidden md:flex' : ''}
+        `}
+        style={{ width: (window.innerWidth >= 768 ? `${bankSidebarWidth}px` : '') }}
       >
-          <div className="h-12 w-1.5 rounded-full bg-gray-300/60 group-hover:bg-gradient-to-b group-hover:from-orange-400 group-hover:to-orange-500 transition-all duration-300 shadow-sm group-hover:shadow-lg group-hover:shadow-orange-400/30"></div>
-      </div>
+        <div className="flex flex-col w-full h-full">
+          <div 
+              className="hidden md:flex absolute -left-2 top-0 bottom-0 w-4 cursor-col-resize z-40 group items-center justify-center"
+              onMouseDown={startResizing}
+          >
+              <div className="h-12 w-1.5 rounded-full bg-gray-300/60 group-hover:bg-gradient-to-b group-hover:from-orange-400 group-hover:to-orange-500 transition-all duration-300 shadow-sm group-hover:shadow-lg group-hover:shadow-orange-400/30"></div>
+          </div>
 
       <div className="p-5 border-b border-white/30 bg-white sticky top-0 z-30 shadow-sm">
         <div className="flex items-center justify-between mb-2">
@@ -578,6 +618,8 @@ export const BanksSidebar = React.memo(({
                         onUpdateBankCategory={handleUpdateBankCategory}
                         onStartAddBank={handleStartAddBank}
                         t={t}
+                        language={language}
+                        onTouchDragStart={onTouchDragStart}
                     />
                 ))}
              </div>
@@ -595,6 +637,8 @@ export const BanksSidebar = React.memo(({
                         onUpdateBankCategory={handleUpdateBankCategory}
                         onStartAddBank={handleStartAddBank}
                         t={t}
+                        language={language}
+                        onTouchDragStart={onTouchDragStart}
                     />
                 ))}
              </div>
@@ -614,12 +658,16 @@ export const BanksSidebar = React.memo(({
                       onUpdateBankCategory={handleUpdateBankCategory}
                       onStartAddBank={handleStartAddBank}
                       t={t}
+                      language={language}
+                      onTouchDragStart={onTouchDragStart}
                   />
               ))}
           </div>
         )}
       </div>
     </div>
+  </div>
+  </>
   );
 });
 

@@ -38,5 +38,9 @@ Backup/
 *.refactored_backup
 *.latest
 *.git_latest
+*.git_latest
 App-clean.jsx
 重构完成-*.md
+
+# Tauri (Desktop App)
+src-tauri/
