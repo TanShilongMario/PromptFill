@@ -121,6 +121,7 @@ export const DiscoveryView = React.memo(
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex flex-col items-center gap-1.5 group"
+                title={t('github_link')}
               >
                 <div className="p-3 bg-white rounded-2xl shadow-sm border border-gray-100 group-hover:bg-orange-50 transition-all">
                   <Github size={20} className="text-gray-600 group-hover:text-gray-900" />
@@ -312,20 +313,21 @@ export const DiscoveryView = React.memo(
               >
                 <RotateCcw size={20} />
               </button>
+
+              <a
+                  href="https://github.com/doggy8088/PromptFill"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2.5 rounded-xl transition-all text-gray-500 hover:text-gray-900 hover:bg-white/50 shadow-sm flex items-center gap-2"
+                  title={t('github_link')}
+                >
+                  <Github size={20} />
+                </a>
             </div>
 
             {/* Right: GitHub Link */}
             <div className="flex flex-col items-end gap-1.5 opacity-60 hover:opacity-100 transition-opacity">
               <div className="flex items-center gap-3 text-[11px] font-medium text-gray-700 px-4 py-2">
-                <a
-                  href="https://github.com/doggy8088/PromptFill"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2.5 rounded-xl transition-all text-gray-500 hover:text-gray-900 hover:bg-white/50 shadow-sm flex items-center gap-2"
-                  title="GitHub Repository"
-                >
-                  <Github size={20} />
-                </a>
               </div>
             </div>
           </div>

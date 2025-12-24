@@ -18,6 +18,8 @@ import {
   ArrowUpDown,
   Home,
   Github,
+  Toolbox,
+  Banana,
 } from 'lucide-react';
 import { PremiumButton } from './PremiumButton';
 import { getLocalized } from '../utils/helpers';
@@ -170,7 +172,7 @@ export const TemplatesSidebar = React.memo(
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-1.5 rounded-lg transition-colors text-gray-400 hover:text-gray-900 hover:bg-gray-50"
-                    title="GitHub Repository"
+                    title={t('github_link')}
                   >
                     <Github size={16} />
                   </a>
@@ -353,15 +355,32 @@ export const TemplatesSidebar = React.memo(
                 style={{ color: '#545454' }}
               >
                 <div className="flex items-center justify-center gap-2">
-                  <p>{t('author_info')}</p>
                    <a
                     href="https://github.com/doggy8088/PromptFill"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-1.5 rounded-lg transition-colors text-gray-400 hover:text-gray-900 hover:bg-gray-50"
-                    title="GitHub Repository"
+                    title={t('github_link')}
                   >
                     <Github size={16} />
+                  </a>
+                   <a
+                    href="https://chromewebstore.google.com/detail/chatgpt-%E8%90%AC%E8%83%BD%E5%B7%A5%E5%85%B7%E7%AE%B1/fmijcafgekkphdijpclfgnjhchmiokgp?authuser=0&hl=zh-TW&pli=1"
+                    target="_blank"
+                    rel="ChatGPT 萬能工具箱"
+                    className="p-1.5 rounded-lg transition-colors text-gray-400 hover:text-gray-900 hover:bg-gray-50"
+                    title={t('toolbox_chatgpt')}
+                  >
+                    <Toolbox size={16} />
+                  </a>
+                   <a
+                    href="https://gwr.gh.miniasp.com/"
+                    target="_blank"
+                    rel="Gemini 🍌 無印良品"
+                    className="p-1.5 rounded-lg transition-colors text-gray-400 hover:text-yellow-500 hover:bg-yellow-50"
+                    title={t('gemini_muji')}
+                  >
+                    <Banana size={16} />
                   </a>
                 </div>
               </div>

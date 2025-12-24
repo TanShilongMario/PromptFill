@@ -118,21 +118,9 @@ export const MobileSettingsView = ({
       {/* 4. 關於與聯絡 */}
       <SettingSection title={t('connect_author')} icon={Info}>
         <SettingItem 
-          icon={Mail} 
-          label={t('contact_author')} 
-          value="tanshilong@gmail.com" 
-          onClick={() => window.location.href = 'mailto:tanshilong@gmail.com'}
-        />
-        <SettingItem 
-          icon={MessageCircle} 
-          label="微信回饋" 
-          value="tanshilongmario" 
-          onClick={() => {}}
-        />
-        <SettingItem 
           icon={Github} 
           label={t('github_link')} 
-          onClick={() => window.open('https://github.com/TanShilongMario/PromptFill', '_blank')}
+          onClick={() => window.open('https://github.com/doggy8088/PromptFill', '_blank')}
         />
       </SettingSection>
 
@@ -143,8 +131,8 @@ export const MobileSettingsView = ({
           href="https://github.com/doggy8088/PromptFill"
           target="_blank"
           rel="noopener noreferrer"
+          title={t('github_link')}
         >
-          GitHub Repository
         </a>
       </div>
     </div>

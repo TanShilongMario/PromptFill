@@ -430,7 +430,11 @@ export const TemplatePreview = React.memo(
                         src={currentImageUrl}
                         referrerPolicy="no-referrer"
                         alt="Template Preview"
-                        className="w-full md:w-auto md:max-w-[400px] md:max-h-[400px] h-auto object-contain block animate-in fade-in duration-300"
+                        className="w-full md:w-auto md:max-w-[400px] md:max-h-[400px] h-auto object-contain block animate-in fade-in duration-300 cursor-zoom-in"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setZoomedImage(currentImageUrl);
+                        }}
                         onError={(e) => {
                           e.target.style.display = 'none';
                           e.target.parentElement.style.backgroundColor = '#f1f5f9';
@@ -462,7 +466,7 @@ export const TemplatePreview = React.memo(
                     )}
 
                     <div
-                      className={`absolute inset-0 bg-black/0 ${currentImageUrl ? 'group-hover/image:bg-black/20' : 'group-hover/image:bg-black/5'} transition-colors duration-300 flex items-center justify-center gap-2 opacity-0 group-hover/image:opacity-100`}
+                      className={`absolute inset-0 bg-black/0 ${currentImageUrl ? 'group-hover/image:bg-black/20' : 'group-hover/image:bg-black/5'} transition-colors duration-300 flex items-center justify-center gap-2 opacity-0 group-hover/image:opacity-100 pointer-events-none`}
                     >
                       {currentImageUrl && (
                         <button
@@ -470,7 +474,7 @@ export const TemplatePreview = React.memo(
                             e.stopPropagation();
                             setZoomedImage(currentImageUrl);
                           }}
-                          className="p-2.5 bg-white/90 text-gray-700 rounded-full hover:bg-white hover:text-orange-600 transition-all shadow-lg"
+                          className="pointer-events-auto p-2.5 bg-white/90 text-gray-700 rounded-full hover:bg-white hover:text-orange-600 transition-all shadow-lg"
                           title="查看大圖"
                         >
                           <ArrowUpRight size={18} />
@@ -482,7 +486,7 @@ export const TemplatePreview = React.memo(
                           setImageUpdateMode('replace');
                           fileInputRef.current?.click();
                         }}
-                        className="p-2.5 bg-white/90 text-gray-700 rounded-full hover:bg-white hover:text-orange-600 transition-all shadow-lg"
+                        className="pointer-events-auto p-2.5 bg-white/90 text-gray-700 rounded-full hover:bg-white hover:text-orange-600 transition-all shadow-lg"
                         title="更換當前圖片（本機）"
                       >
                         <Upload size={18} />
@@ -493,7 +497,7 @@ export const TemplatePreview = React.memo(
                           setImageUpdateMode('replace');
                           setShowImageUrlInput(true);
                         }}
-                        className="p-2.5 bg-white/90 text-gray-700 rounded-full hover:bg-white hover:text-orange-600 transition-all shadow-lg"
+                        className="pointer-events-auto p-2.5 bg-white/90 text-gray-700 rounded-full hover:bg-white hover:text-orange-600 transition-all shadow-lg"
                         title="更換當前圖片（URL）"
                       >
                         <Globe size={18} />
@@ -503,7 +507,7 @@ export const TemplatePreview = React.memo(
                           e.stopPropagation();
                           handleResetImage();
                         }}
-                        className="p-2.5 rounded-full bg-white/90 text-gray-700 hover:bg-white hover:text-orange-600 transition-all shadow-lg"
+                        className="pointer-events-auto p-2.5 rounded-full bg-white/90 text-gray-700 hover:bg-white hover:text-orange-600 transition-all shadow-lg"
                         title="恢復預設圖片"
                       >
                         <RotateCcw size={18} />

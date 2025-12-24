@@ -740,6 +740,18 @@ const App = () => {
   const [editingTemplateTags, setEditingTemplateTags] = useState(null); // {id, tags}
   const [isDiscoveryView, setDiscoveryView] = useState(true); // 首次載入預設顯示發現（海報）視圖
 
+  // Zoom 圖片：按下 ESC 關閉
+  useEffect(() => {
+    if (!zoomedImage) return;
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') {
+        setZoomedImage(null);
+      }
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [zoomedImage]);
+
   // 統一的發現頁切換處理器
   const handleSetDiscoveryView = React.useCallback(
     (val) => {
