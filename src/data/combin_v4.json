@@ -696,7 +696,7 @@
     },
     {
       "id": "tpl_1766541256671",
-      "name": "多奇通用資訊圖表_w_1",
+      "name": "多奇通用資訊圖表_1",
       "author": "",
       "content": "Infographic, {{country}} kawaii style, {{language}} language on text, {{chart_style}}, clean lines, simple shapes, 16:9 aspect ratio, professional, easy to understand, detailed, high resolution, soft lighting, (best quality, masterpiece)\n\nNegative prompt: ugly, deformed, noisy, blurry, low quality, bad anatomy, bad proportions, out of frame, text, watermark, signature\n\nContent:",
       "selections": {
@@ -705,7 +705,7 @@
         "chart_style-0": "Corporate Memphis"
       },
       "tags": [
-        "圖表"
+        "多奇教育訓練"
       ],
       "imageUrls": [
         "https://msformuploads.blob.core.windows.net/nbp/20251224_f8b29b67_clipboard-1766541578033.png",
@@ -716,20 +716,20 @@
     },
     {
       "id": "tpl_1766542543338",
-      "name": "多奇通用資訊圖表_w_2",
+      "name": "多奇通用資訊圖表_2",
       "author": "",
       "content": "Create a  {{chart_style}} technical diagram illustrating [SYSTEM/PROCESS]. Use clean, modern styling with appropriate icons and labeled components. Include [KEY ELEMENTS] and show the relationships between them with directional arrows. Use a color scheme that distinguishes between [DIFFERENT SYSTEM PARTS]. Make the diagram clear enough for technical documentation but visually appealing enough for presentations.",
       "selections": {
         "chart_style-0": "2D Flat vector"
       },
       "tags": [
-        "圖表"
+        "多奇教育訓練"
       ],
       "imageUrl": "https://msformuploads.blob.core.windows.net/nbp/20251223_8c145a04_G7TxlOpb0AAMyQf"
     },
     {
       "id": "tpl_1766544077183",
-      "name": "多奇通用資訊圖表_s_1",
+      "name": "多奇通用資訊圖表_3",
       "author": "",
       "content": "A complex, futuristic medical infographic poster about Cancer Pathology. The central image is a glowing, translucent X-ray visualization of a human torso, highlighting a localized cluster of hyperactive cells in neon red against the cool blue healthy anatomy. The background is a deep cyber-blue with a holographic user interface (HUD). Surrounding the center are detailed data clusters: 1. Magnifying glass circular inserts showing rapid, jagged cell division (mitosis). 2. Floating 3D DNA double-helix strands. 3. Biochemical molecules and T-cells attack the target. 4. Digital text blocks with connecting leader lines.\n\n### Design Specifications:\n- Language context: {{language}}\n- Dashboard Interface Style: {{data_viz___dashboard}}\n- Structural Detail: {{tech___architecture}}\n- Overall Art Style: {{chart_style}} {{hand_drawn___conceptual}}\n- Aesthetic: High-tech oncology research, bioluminescence, neon orange and electric blue lighting, hyper-detailed 8k.",
       "selections": {
@@ -746,7 +746,7 @@
     },
     {
       "id": "tpl_1766544211215",
-      "name": "多奇通用資訊圖表_s_2",
+      "name": "多奇通用資訊圖表_4",
       "author": "",
       "content": "style chest panels with warm glow\nChunky chrome toggles and rotary dials on the cockpit hatch\nRetro starship-style backpack thrusters, with magenta and teal plasma vents\nArm-mounted “Funk Cannons” (Captain HaHaa signature)\nLegs with mirrored chrome panels reflecting cosmic colours\nFoot stabilizers shaped like mini hover-skids\n\n10 labels describing each unique feature in {{language}}:\n\nHaHaa-Crest Antenna (boomerang-shape)\nCRT Chest Display Plates\nCore-Funk Block Unit\nShoulder Groove Armor\nBeam Saber Rack (retro-orange sheath)\nCosmic Funk Cannons\nStar-Thruster Backpack\nHip Skirt – “CAN YOU DIG IT?” Plate\nKnee Glide Assembly\nHover-Skid Foot Stabilizers\n\nStyle: blueprint line work on navy, cyan glow outlines, technical call outs, incorporating {{tech___architecture}} details and {{hand_drawn___conceptual}} sketch elements.\nVisual flair: {{chart_style}} or {{data_viz___dashboard}} aesthetics.\nCamera:  {{lens_type}} ,  {{lighting}} .",
       "selections": {
@@ -771,7 +771,7 @@
     },
     {
       "id": "tpl_1766544666209",
-      "name": "多奇通用資訊圖表_s_3",
+      "name": "多奇通用資訊圖表_5",
       "author": "",
       "content": "創作一張 {{chart_style}} 的資訊圖卡片，比例為 {{ratio}} 。卡片主題鮮明，背景為 {{background_style}} ，整體設計體現 {{hand_drawn___conceptual}} 。\n\n卡片上方以紅黑相間、對比鮮明的大號毛筆草書字體突出標題，吸引視覺焦點。文字內容均採用中文草書，整體佈局分為 2 至 4 個清晰的小節，每節以簡短、精煉的中文短語表達核心要點。字體保持草書流暢的韻律感，既清晰可讀又富有藝術氣息。\n\n卡片中點綴簡單、有趣的手繪插畫或圖標，例如人物或象徵符號，以增強視覺吸引力，引發讀者思考與共鳴。整體佈局注意視覺平衡，預留足夠的留白空間，確保畫面簡潔明瞭，易於閱讀和理解。\n\n主題是：「做 IP 是長期複利，堅持每日出攤，持續做，肯定會有結果，因為 99% 都堅持不住的。」",
       "selections": {
@@ -793,7 +793,7 @@
     },
     {
       "id": "tpl_1766544883888",
-      "name": "多奇通用資訊圖表_s_4",
+      "name": "多奇通用資訊圖表_6",
       "author": "",
       "content": "Make me a detailed diagram showing how mitosis  works.\n\nFormat: {{chart_style}} using {{hand_drawn___conceptual}} elements suitable for a high school audience.\nStructure: Organize the layout like a {{data_viz___dashboard}} for clarity.\nLanguage: Annotations in {{language}}.",
       "selections": {
@@ -809,7 +809,7 @@
     },
     {
       "id": "tpl_1766545065159",
-      "name": "多奇通用資訊圖表_s_5",
+      "name": "多奇通用資訊圖表_7",
       "author": "",
       "content": "Create a fashion product collage on a {{background_style}} . \n\nEach product and the central model image should be presented as individual photos with distinct white borders, arranged in a Scattered style with small descriptive labels in {{language}}.\n\nArtistic Style reference: {{hand_drawn___conceptual}} {{chart_style}}.",
       "selections": {
@@ -825,7 +825,7 @@
     },
     {
       "id": "tpl_1766545248083",
-      "name": "多奇通用資訊圖表_s_6",
+      "name": "多奇通用資訊圖表_8",
       "author": "",
       "content": "# 主要設定\n\n設計一個  流程圖 (Flowchart) 資訊圖表，帶有 icons\n畫風： {{chart_style}} \n視覺引導： {{connectors}} \n背景風格： {{background_style}} \n畫面比例： {{ratio}} \n輸出語言： {{language}} \n\n# 內容:\n\n這是一份專為「資訊圖表（Infographic）」設計的 規格驅動開發 (Spec-Driven Development, SDD) 流程大綱。\n這份內容參考了 GitHub Spec Kit 的核心精神：「在寫程式碼之前，先寫好規格；規格即是真理 (Source of Truth)。」\n為了方便你製作圖表，我將流程簡化為 5 個核心步驟，並附上設計建議與文案。\n\n🎨 資訊圖表設計架構：規格驅動開發 (SDD)\n標題建議：\n主標題： 規格驅動開發流程 (Spec-Driven Development)\n副標題： Build the Right Thing. Build the Thing Right. (做對的事，把事做對)\n\n🔄 流程五大階段 (由左至右或順時針排列)\n為了讓資訊圖表更直觀，每個階段都包含了「圖示建議」、「核心動作」與「簡短說明」。\n\n1. Define (定義問題)\n目標： 釐清「為什麼要做」以及「要做什麼」。\n圖示建議： 💡 燈泡 或 🎯 靶心\n關鍵動作：\nOne-pager： 撰寫一頁式摘要。\nUser Story： 定義使用者是誰、遇到什麼問題。\nOut of Scope： 明確界定「不做什麼」。\n\n2. Draft (撰寫規格)\n目標： 使用 Markdown 撰寫詳細技術規格 (Spec)。\n圖示建議： 📝 文件 或 📐 藍圖\n關鍵動作：\nTechnical Design： 定義 API、資料結構、UI 流程。\nMarkdown First： 使用 Spec Kit 模板，像寫程式一樣寫文件。\nMockups： 附上草圖或流程圖。\n\n3. Review (審閱與討論)\n目標： 在寫任何程式碼之前，先達成共識。\n圖示建議： 👥 多人對話框 或 🔍 放大鏡\n關鍵動作：\nAsync Feedback： 利用 Pull Request 評論功能進行非同步討論。\nIterate： 根據回饋修改規格，直到定案。\nApproval： 團隊確認無誤，規格鎖定 (Sign-off)。\n\n4. Build (開發實作)\n目標： 依照規格書進行編碼，減少猜測。\n圖示建議： 💻 筆電 與 程式碼符號 (</>)\n關鍵動作：\nCode to Spec： 嚴格按照規格書的定義開發。\nTDD： 根據規格撰寫測試案例 (Test Cases)。\nParallel Work： 前後端可依據同一份規格同時開工。\n\n5. Evolve (同步與演進)\n目標： 確保規格與程式碼永遠一致 (Living Document)。\n圖示建議： 🔄 循環箭頭 或 📚 活頁書\n關鍵動作：\nUpdate Sync： 若開發中發現需更改邏輯，先改規格，再改程式。\nSource of Truth： 規格書即是最終的文件，而非過期的廢紙。",
       "selections": {
@@ -839,7 +839,7 @@
     },
     {
       "id": "tpl_1766545354351",
-      "name": "多奇通用資訊圖表_s_7",
+      "name": "多奇通用資訊圖表_9",
       "author": "",
       "content": "# 主要設定\n\n設計一個 甘特圖 (Gantt) 資訊圖表\n畫風： {{chart_style}} \n視覺引導： {{connectors}} \n背景風格： {{background_style}} \n畫面比例： {{ratio}} \n輸出語言： {{language}} \n\n# 內容：\n\n軌道 1 (Track 1): 產品與設計 (Product & Design)\n\n[1月-2月中] 探索期 (Discovery): 需求釐清、競品分析、架構確認。\n\n[2月中-4月中] P1 設計衝刺 (Design Sprints): UX Wireframe 定稿、UI Design System 建立、高保真頁面設計。\n\n[7月中-8月底] P2 迭代規劃: P1 上線後使用者數據分析、第二階段功能優先級排序、新功能設計。\n\n軌道 2 (Track 2): 前端工程 (Frontend Engineering)\n\n[1月中-2月中] 基礎建設: 專案環境搭建、技術選型確認。\n\n[4月中-6月中] P1 組件開發與切版: 根據設計稿進行 React/Vue 組件開發、RWD 實作。\n\n[6月中-7月中] P1 串接整合: 與後端 API 進行資料串接。\n\n[8月中-11月中] P2 功能開發: 第二階段新功能模組實作、效能優化。\n\n軌道 3 (Track 3): 後端與基礎設施 (Backend & Infra)\n\n[2月中-4月中] API 定義與資料庫設計: Swagger 文件撰寫、DB Schema 設計。\n\n[4月中-6月底] P1 核心功能開發: 會員系統、主要業務邏輯 API 開發。\n\n[8月中-11月中] P2 進階功能開發: 報表系統、後台管理功能擴充。\n\n軌道 4 (Track 4): 測試與發布 (QA & Release)\n\n[7月中-8月初] P1 QA & UAT: 密集的 Bug Bash、使用者驗收測試。\n\n[◆ 8月15日 里程碑] Phase 1 Launch (V1.0 上線)\n\n[11月中-12月中] P2 回歸測試: 確保新舊功能穩定。\n\n[12月底] 最終部署與移交: V2.0 上線、維運文件移交。",
       "selections": {
@@ -865,7 +865,7 @@
     },
     {
       "id": "tpl_1766545437622",
-      "name": "多奇通用資訊圖表_s_8",
+      "name": "多奇通用資訊圖表_10",
       "author": "",
       "content": "# 主要設定\n\n設計一個 用戶旅程 (User Journey) 資訊圖表\n畫風： {{chart_style}} \n視覺架構： {{tech___architecture}} \n視覺引導： {{connectors}} \n背景風格： {{background_style}} \n畫面比例： {{ratio}} \n輸出語言： {{language}} \n\n# 內容：\n\n👤 使用者畫像 (Persona)\n角色： 小陳 (30歲，上班族)\n情境： 週五晚上，與一位朋友聚餐，心情放鬆但有點飢餓。\n目標： 享受美食、順暢的服務體驗，不想被過度打擾但需要時能找到人。\n\n🗺️ 顧客用餐完整旅程地圖\n\n第一階段：進店與入座 (Arrival & Seating)\n目標：快速被接待並找到舒適的位置。\n\n抵達店面：\n動作： 小陳推開餐廳大門，聞到食物香氣。門口稍微有人排隊，他走向櫃檯。\n接觸點： 餐廳門面設計、接待櫃檯、空氣中的味道、背景音樂。\n心理活動： 「好香喔，還好我有先訂位，不然看起來要排很久。」\n接待確認：\n動作： 服務生微笑迎接，詢問訂位大名。確認後，服務生拿起菜單引導帶位。\n接觸點： 服務生的儀態、訂位系統平板。\n\n入座與環境感知：\n動作： 小陳被帶到靠窗的雙人桌。服務生拉開椅子，並遞上置物籃讓小陳放包包。\n接觸點： 座椅舒適度、桌面的整潔度、置物籃、燈光氛圍。\n心理活動： 「這裡燈光蠻好的，而且有置物籃很貼心。」\n\n第二階段：瀏覽與點餐 (Consideration & Ordering)\n目標：從菜單中做出選擇，並順利完成下單。\n\n數位引導：\n動作： 服務生倒水，並指著桌上的 QR Code 說：「我們採掃碼點餐，有需要介紹隨時叫我。」\n接觸點： 檸檬水、桌牌 QR Code、手機網路訊號。\n\n瀏覽菜單 (數位體驗)：\n動作： 小陳拿出手機掃描，介面跳出。他滑動查看「人氣推薦」。圖片看起來很誘人，但字體稍微有點小。\n接觸點： 手機點餐介面 (UI/UX)、餐點高清照片、讀取速度。\n心理活動： 「這個松露義大利麵看起來不錯，但不知道會不會太奶？我要不要加套餐？」\n\n決策與客製化：\n動作： 朋友不吃辣，小陳在系統中尋找「去辣」選項。系統設計清楚，他在備註欄勾選了客製化需求。\n接觸點： 客製化選項按鈕、購物車確認頁面。\n送出訂單：\n動作： 確認金額後按下「送出」。手機畫面顯示「訂單已接收，製作中」。\n心理活動： 「點好了，希望上菜不要太慢。」\n\n第三階段：等待與期待 (Waiting & Anticipation)\n目標：在等待食物的空檔不感到無聊或焦慮。\n\n餐前互動：\n動作： 剛點完沒多久，服務生端上了套餐的飲料和沙拉。\n接觸點： 實體餐具、餐前飲品。\n心理感受： (正向)「飲料上得很快，剛好口渴了。」\n觀察與社交：\n動作： 小陳一邊喝飲料一邊和朋友聊天，偶爾看向開放式廚房的忙碌景象。\n接觸點： 開放式廚房的聲音與視覺、餐廳內的交談聲浪。\n\n第四階段：用餐體驗 (Consumption / Dining)\n目標：享受食物的美味與良好的用餐氛圍。\n\n主餐上桌：\n動作： 服務生端上熱騰騰的義大利麵，並提醒：「盤子很燙請小心。」\n接觸點： 餐點的擺盤、溫度、香氣、服務生的貼心提醒。\n心理活動： 「哇，實體跟照片長得一樣！看起來很好吃。」(此時可能會拿出手機拍照)\n品嚐與反饋：\n動作： 開始用餐。麵條硬度適中，味道符合預期。吃到一半，服務生過來巡桌幫忙加水，順便問：「口味還習慣嗎？」\n接觸點： 食物口感、服務生的巡桌頻率、水杯的水量。\n心理感受： 「服務蠻勤快的，不會讓水杯空著。」\n用餐結尾：\n動作： 吃完了，盤子空了。服務生看到後，適時上前詢問是否可以收盤，並詢問是否要上甜點。\n接觸點： 桌面清潔速度。\n\n第五階段：結帳與離店 (Payment & Checkout)\n目標：快速、無痛的付款流程。\n\n查看帳單：\n動作： 小陳再次打開手機查看剛剛的訂單金額，確認是否有服務費。他向服務生示意買單。\n接觸點： 手機帳單頁面、服務鈴或眼神交流。\n支付流程：\n動作： 小陳走向櫃檯（或直接在桌邊支付）。櫃檯人員確認桌號，詢問：「有會員嗎？要刷卡還是載具？」\n接觸點： POS 機客顯螢幕、信用卡刷卡機/行動支付掃描槍。\n心理活動： 「希望能用 Apple Pay，不想掏錢包。」(成功使用感應支付)\n\n離開與道別：\n動作： 拿著發票（或存入載具），走出店門。全體員工喊：「謝謝光臨！」\n接觸點： 離店時的送客聲、門把的觸感。\n心理感受： 「吃得好飽，下次可以帶家人來。」\n\n第六階段：售後與回訪 (Post-Experience)\n目標：留下深刻印象，促成下一次消費。\n\n數位回饋：\n動作： 離開後約一小時，小陳的手機收到 LINE 通知（如果有點餐綁定），邀請填寫滿意度問卷送優惠券。\n接觸點： LINE 推播訊息、Google Maps 評論提示。\n忠誠度建立：\n動作： 小陳覺得體驗不錯，給了 5 星好評，並領取了下次使用的「薯條兌換券」。",
       "selections": {
@@ -888,7 +888,7 @@
     },
     {
       "id": "tpl_1766545765394",
-      "name": "多奇通用資訊圖表_s_9",
+      "name": "多奇通用資訊圖表_11",
       "author": "",
       "content": "A 16-bit pixel art poster showcasing all the black and white animals of nature. The composition uses a neat grid layout, reminiscent of a retro video game character selection screen or an encyclopedia page. Each animal is labeled with its  {{language}}  name in clear retro pixel font. The background is  {{background_style}} , with vivid pixel details, exuding a retro aesthetic and high-quality production. --ar  {{ratio}} ",
       "selections": {
@@ -903,7 +903,7 @@
     },
     {
       "id": "tpl_1766554434177",
-      "name": "多奇通用資訊圖表_s_10",
+      "name": "多奇通用資訊圖表_12",
       "author": "",
       "content": "Look up the 5 best vacuum cleaners under $300 and create an infographic with pros and cons for each. \n\nPlease visualize it using {{chart_style}} and {{data_viz___dashboard}} styles, incorporating {{hand_drawn___conceptual}} elements or {{tech___architecture}} structures where appropriate. \n\nOutput language: {{language}}.",
       "selections": {
@@ -920,7 +920,7 @@
     },
     {
       "id": "tpl_1766554574254",
-      "name": "多奇通用資訊圖表_s_11",
+      "name": "多奇通用資訊圖表_13",
       "author": "",
       "content": "Show me a very detailed situation  of the Battle of Stalingrad at the end of December 1943, with annotations indicating the positions of army corps, divisions, main strategies.\n\nRender style: {{chart_style}} {{hand_drawn___conceptual}} Topographic Map.\nStructure reference: {{tech___architecture}}.\n\nUsing colors to clearly explain everything.\nLanguage: {{language}}.",
       "selections": {
@@ -936,7 +936,7 @@
     },
     {
       "id": "tpl_1766546528200",
-      "name": "多奇通用資訊圖表_d_3",
+      "name": "多奇通用資訊圖表_14",
       "author": "",
       "content": "請幫我生成一張 {{language}} 維京時代的詳細歷史資訊圖，詳細資料中請包括重要戰役及重要里程碑，以及重要人士的出生與死亡，用 {{data_viz___dashboard}} 的方式呈現，圖片背景用 {{background_style}} ，風格要為 {{hand_drawn___conceptual}} ，視覺元素包含： {{art_style}} 的維京長船、戰斧、圓盾以及海岸線地圖。色調為懷舊的 {{color}}  {{color}}  {{color}} ，精緻的 {{background_style}} 。",
       "selections": {
@@ -961,7 +961,7 @@
     },
     {
       "id": "tpl_1766548065110",
-      "name": "多奇通用資訊圖表_d_4",
+      "name": "多奇通用資訊圖表_15",
       "author": "",
       "content": "請幫我用  {{data_viz___dashboard}} 的方式介紹近代英國皇室家族（從喬治六世到查爾斯三世家族），風格強調歷史感、尊貴感，人物請用 {{art_style}} 的肖像，重要人物請加上皇冠，畫面角落包含皇家徽章和獅子圖騰元素。色調為 {{color}}  {{color}}  {{color}} ，請具有歷史感與奢華感。",
       "selections": {
@@ -982,7 +982,7 @@
     },
     {
       "id": "tpl_1766549303397",
-      "name": "多奇通用資訊圖表_d_5",
+      "name": "多奇通用資訊圖表_16",
       "author": "",
       "content": "https://165dashboard.tw/ 請幫我依據 165 dashboard 生成一份台灣人最常被詐騙的原因及比例 {{data_viz___dashboard}} ，且用 {{language}} 方式呈現，內容包含一點可愛插圖",
       "selections": {
@@ -997,7 +997,7 @@
     },
     {
       "id": "tpl_1766554853309",
-      "name": "多奇通用資訊圖表_d_6",
+      "name": "多奇通用資訊圖表_17",
       "author": "",
       "content": "Make a {{ratio}} starting with the 1880s. In each section, I should appear styled according to that decade (clothing, hairstyle, facial hair, accessories). Use colors, background, & film style accordingly.",
       "selections": {
@@ -1010,7 +1010,7 @@
     },
     {
       "id": "tpl_1766555374395",
-      "name": "多奇通用資訊圖表_d_7",
+      "name": "多奇通用資訊圖表_18",
       "author": "",
       "content": "浮世絵師・葛飾北斎が描いたような和風インフォグラフィックにして。 {{sticker_decor}}、文字は江戸文字（勘亭流）で。カラーパレットは {{color}}  {{color}}  {{color}}  {{color}} のみ。現代のデータを侍や町娘が解説している構図で。\n",
       "selections": {
@@ -1027,7 +1027,7 @@
     },
     {
       "id": "tpl_1766555814606",
-      "name": "多奇通用資訊圖表_d_8",
+      "name": "多奇通用資訊圖表_19",
       "author": "",
       "content": "Generate an ultra-detailed, hyperrealistic exploded technical view of Kaneda’s iconic red motorcycle from Akira. The image should show every component separated in {{render_style}} , floating in a clean engineering layout, with perfect alignment and labeled layers. Keep the perspective dynamic but readable, like a premium industrial design schematic.\n",
       "selections": {
@@ -1043,7 +1043,7 @@
     },
     {
       "id": "tpl_1766556327619",
-      "name": "多奇通用資訊圖表_d_9",
+      "name": "多奇通用資訊圖表_20",
       "author": "",
       "content": "Role & Subject: A massive, encyclopedic {{ratio}}  {{render_style}}  poster titled \"THE EVOLUTION OF STARK INDUSTRIES IRON MAN SUITS\". The visual style is a high-end fusion of museum-grade product photography and  {{art_style}} \nThe Hero Lineup (Chronological Core): A complete, linear chronological lineup of 10 historical versions of Iron Man Armors, ranging from the crude, bulky Mark I prototype forged in a cave to the sleek, bleeding-edge Mark LXXXV nanotechnology model. They are arranged with precision on a glowing holographic measurement scale/ruler base running horizontally across the center. Rendering: Hyper-realistic 3D, 8k resolution. Emphasis on the evolution of textures: showing the aging of early crude welded scrap metal, heavy iron, and exposed wiring of the Mk I vs. the pristine, highly-polished hot-rod red and gold plating, and fluid nanotech finish of modern versions like the Mk 50 and Mk 85.\n\nBrand Atmosphere (The Canvas): Background: A deep, rich Hot Rod Red and metallic Gold textured background, resembling an armored plating surface. It is heavily layered with low-opacity watermarks of vintage Stark Industries patent drawings, handwritten engineering notes by Tony Stark (with coffee stains), and newspaper clippings related to the Avengers' history. Header: A prominent, high-contrast STARK INDUSTRIES logo displayed at the top center, with a bold typography title.\n\nThe \"Hyper-Dense\" Information Layer (The PUNCH Style): The layout is overwhelmed with organized information (creating a \"Data aesthetics\" look):\n\nDense Annotation Network: Hundreds of fine white and cyan hairlines connecting specific components (e.g., Arc Reactors, Repulsor Transmitters in palms, Articulated Helmet Faceplates, Micro-missile Compartments, Flight Stabilizers) to compact text blocks, energy output charts, and data tables floating in the volumetric space.\n\nContextual Zones: \"Era Modules\" floating above the suits, representing different phases (e.g., \"AFGHANISTAN ESCAPE,\" \"THE AVENGERS INITIATIVE,\" \"ULTRON OFFENSIVE,\" \"INFINITY WAR NANO-TECH\") with iconographic markers.\n\nMagnifying Inserts: Circular \"Zoom-in\" lenses scattered in empty spaces, showing extreme macro close-ups of texture details like the crude welding on Mark I, the mechanical joint articulation of Mark III, and the fluid nano-particle assembly of Mark LXXXV.\n\nTech Specs Strip: A structured data bar at the very bottom listing precise specifications (Model Number, Weight in tons/kg, Power Source Type, Year of Creation, Primary Material Code).\n\nTechnical Specs: Octane render, Unreal Engine 5 aesthetic, editorial layout, information design masterpiece, cinematic volumetric lighting, sharp focus, professional color grading, blockbuster movie poster vibe. --ar 16:9 --v 6.0 --stylize 350",
       "selections": {
@@ -1061,7 +1061,7 @@
     },
     {
       "id": "tpl_1766557518058",
-      "name": "多奇通用資訊圖表_d_10",
+      "name": "多奇通用資訊圖表_21",
       "author": "",
       "content": "### Role\nYou are an elite {{role}} , specializing in creating exhaustive  {{background_style}} . You possess the ability to perform pixel-level deconstruction, visually analyzing clothing hierarchies, capturing subtle micro-expressions, and realistically rendering character-specific items. You excel at environmental storytelling,fleshing out {{subject}}  personalities and backstories through their  {{fashion_deconstruct}} \n\n### Task\nBased on the subject image uploaded or described by the user, generate a Panoramic Character Depth Deconstruction Sheet. This image must feature a  {{layout_focus}}  surrounded by a detailed breakdown of the character, including clothing layers, varying expressions, core props, material close-ups, and a highly immersive display of private and daily carry items.\n\n### Visual Guidelines\n\n1. Layout & Composition\nCenter Anchor: Place the character's  {{layout_focus}} Portrait in the center to serve as the visual anchor.\nSurrounding Elements: In the negative space surrounding the central figure, arrange the deconstructed elements in an organized, schematic fashion.\nVisual Connectors: Use hand-drawn arrows or guide lines to connect the surrounding items to their corresponding location or body part on the central figure.\n\n2. Deconstruction Detail\nClothing Layering:Deconstruct the outfit into individual pieces (e.g., outerwear, main dress, accessories).\nIntimate Apparel Breakdown:Independently showcase the character's inner layers, highlighting design and fabric. (Example: {{underwear_style}} , focusing on cut and transparency).\nExpression Sheet: In the corners, draw 3-4 distinct headshotsshowcasing intense or specific emotions (Example {{expressions}} ).\nTexture & Zoom:detailed close-ups of critical areas. (Example: Disheveled fabric textures, sweat stains on skin, or material wear-and-tear).\nDynamic Actions:Sketch specific poses or actions that add depth. (Example: {{action_detail}} , or  {{action_pose}} ).\nCinematic Perspectives:Include a sketch from a unique camera angle. (Example:  {{special_view}} ).\n\n3. Inventory & Belongings\nBag Contents: {{bag_content}}  \"exploded\" or open, showing the items scattered around it.\nBeauty & Care:Display the specific  {{cosmetics}}  the character uses.\nPrivate Life Objects:Visualize items representing the character's hidden private life. Depending on the personality, this may include specific tools or toys  {{private_items}} , presented with an  {{art_type}} \n\n### Style & Aesthetic\nArt Style: {{art_style}} , with clean, sharp line work.\nBackground: {{background_style}} /Graph Paper texture to evoke the feeling of a designer's sketchbook or technical draft.\nAnnotations:Simulate handwritten notes next to each element, briefly explaining materials, brands, or model numbers.\n\n### Workflow\n1.  Analyze the subject's core visual features, fashion style, and implied personality.\n2. Extract primary elements for deconstruction (Outerwear, Shoes, Key Expressions).\n3.  Ideate secondary depth elements (Underwear style, bag contents, private habits).\n4.  Generate a composite image containing all elements with accurate perspective, unified lighting, and clear annotations.\n5.  Output: High Definition. Text annotations should be in English.",
       "selections": {
@@ -1113,7 +1113,7 @@
     },
     {
       "id": "tpl_1766543814560",
-      "name": "多奇通用資訊圖表_l_1",
+      "name": "多奇通用資訊圖表_22",
       "author": "",
       "content": "{{language}} version. Generate an infographic comparing and contrasting the mycobacterial cell envelope with E. Coli, Staphylococcus aureus, and Methanobacteriati. Also include as many details about cell envelope biogenesis across the types of organisms.\n\nVisual Styles & Requirements:\n\nChart Style: {{chart_style}}\n\nTechnical & Architectural Focus: {{tech___architecture}}\n\nData Visualization & Dashboard Style: {{data_viz___dashboard}}\n\nCreative Concept: {{hand_drawn___conceptual}}",
       "selections": {
@@ -1130,7 +1130,7 @@
     },
     {
       "id": "tpl_1766544642760",
-      "name": "多奇通用資訊圖表_l_2",
+      "name": "多奇通用資訊圖表_23",
       "author": "",
       "content": "Language: {{language}}\n\nTask: Generate an infographic diagram on how the X “For You” algorithm works, how it selects which posts to show, and what goes into a post reaching a large audience. Be extremely detailed and accurate.\n\nDesign Specifications:\n\nOverall Layout: {{chart_style}}\n\nTechnical Detail Level: {{tech___architecture}}\n\nData Representation: {{data_viz___dashboard}}\n\nVisual Concept: {{hand_drawn___conceptual}}",
       "selections": {
@@ -1147,7 +1147,7 @@
     },
     {
       "id": "tpl_1766544838654",
-      "name": "多奇通用資訊圖表_l_3",
+      "name": "多奇通用資訊圖表_23",
       "author": "",
       "content": "針對這份高度專業且具備特定美學（LCARS 介面）的提示詞，我們需要確保填空變數不會破壞原本精確的指令描述，而是作為「增強效果」或「微調細節」使用。\n\n以下是建議的嵌入方式，我將變數放置在能發揮最大影響力的地方：\n\n建議的 Prompt 嵌入方案\n{{language}} version. Generate an image of a {{chart_style}} LCARS-style starship status display.\n\nOn the left side, show a horizontal bar chart titled 'DECK POWER ALLOCATION' with 8 decks (Deck 1 through Deck 8) on the y-axis, each bar showing unique power percentage values ranging from 45% to 98% (labeled at the end of each bar), using the signature orange and purple LCARS color scheme. This section should reflect a {{data_viz___dashboard}} aesthetic.\n\nIn the upper right, display a pie chart labeled 'CREW COMPLEMENT BY DEPARTMENT' with: Command 12% (red), Engineering 28% (gold), Science 22% (blue), Medical 15% (teal), Security 18% (yellow), and Operations 5% (orange).\n\nIn the lower right corner, include a {{tech___architecture}} mini technical schematic of the USS Enterprise-D with labeled callouts pointing to: Main Bridge, Saucer Section, Engineering Hull, Warp Nacelles, Main Deflector, and Shuttle Bay.\n\nOverall Artistic Touch: > The entire display should have the curved rectangular frames and black background characteristic of 24th-century Starfleet computer interfaces, incorporating a {{hand_drawn___conceptual}} feel where appropriate.",
       "selections": {
@@ -1164,7 +1164,7 @@
     },
     {
       "id": "tpl_1766544898037",
-      "name": "多奇通用資訊圖表_l_4",
+      "name": "多奇通用資訊圖表_24",
       "author": "",
       "content": "{{language}} version.\n\nTask Description: Generate an image of a bar chart with 10 items (labeled with the last 10 letters of the alphabet) on the x axis, each with unique values ranging from 1 to 100 (also labeled on top of the bars). On the right side should be a pie chart with 60 for A (red), 25 for B (blue), and 15 for C (green). On the bottom right, show me a mini infographic with labeled major components of a car.\n\nVisual & Style Constraints:\n\nOverall Style: {{chart_style}}\n\nTechnical Detail & Structure: {{tech___architecture}}\n\nData Layout & Dashboard Feel: {{data_viz___dashboard}}\n\nArtistic Direction: {{hand_drawn___conceptual}}",
       "selections": {
@@ -1181,7 +1181,7 @@
     },
     {
       "id": "tpl_1766545024792",
-      "name": "多奇通用資訊圖表_l_5",
+      "name": "多奇通用資訊圖表_25",
       "author": "",
       "content": "{\n  \"promptDetails\": {\n    \"description\": \"Ultra-detailed exploded technical infographic of {OBJECT_NAME}, shown in a 3/4 front isometric view. The object is partially transparent and opened, with its key internal and external components separated and floating around the main body in a clean exploded-view layout. Show all major parts typical for {OBJECT_NAME}: outer shell/panels, structural frame, primary electronics/boards, power system/battery or PSU, ports/connectors, display or interface elements if present, input controls/buttons, mechanical modules (motors/gears/fans/hinges) if applicable, speakers/microphones if applicable, cables/flex ribbons, screws/brackets, and EMI/thermal shielding. Use thin white callout leader lines and numbered labels in a minimalist sans-serif font. Background: smooth dark gray studio backdrop. Lighting: soft, even, high-end product render lighting with subtle reflections. Style: photoreal 3D CAD render, industrial design presentation, high contrast, razor-sharp, 8K, clean composition, no clutter. [Language]: {{language}}. [Chart Style]: {{chart_style}}. [Architecture Style]: {{tech___architecture}}. [Data Visualization Style]: {{data_viz___dashboard}}. [Hand-drawn/Conceptual Influence]: {{hand_drawn___conceptual}}.\",\n    \"styleTags\": [\n      \"Exploded View\",\n      \"Technical Infographic\",\n      \"{{chart_style}}\",\n      \"{{tech___architecture}}\",\n      \"{{hand_drawn___conceptual}}\"\n    ]\n  },\n  \"negativePrompt\": \"no people, no messy layout, no extra components, no brand logos, no text blur, no cartoon, no low-poly, no watermark, no distorted perspective, no heavy noise\",\n  \"generationHints\": {\n    \"aspectRatio\": \"2:3\",\n    \"detailLevel\": \"ultra\",\n    \"stylization\": \"low-medium\",\n    \"language_setting\": \"{{language}}\",\n    \"viz_logic\": \"{{data_viz___dashboard}}\",\n    \"camera\": {\n      \"angle\": \"3/4 front isometric\",\n      \"lens\": \"product render perspective\"\n    },\n    \"lighting\": \"soft even studio lighting, subtle reflections\",\n    \"background\": \"smooth dark gray seamless backdrop\"\n  }\n}",
       "selections": {
@@ -1203,7 +1203,7 @@
     },
     {
       "id": "tpl_1766545114483",
-      "name": "多奇通用資訊圖表_l_7",
+      "name": "多奇通用資訊圖表_26",
       "author": "",
       "content": "{{language}} version.\n\nCore Content: Generate a detailed infographic diagram on how the S.O.L.I.D. coding principles help create good quality, modular code. Include the philosophy behind the principles as well.\n\nApplication Context & Styles:\n\nTechnical Architecture: {{tech___architecture}}\n\nVisual Style: {{chart_style}}\n\nData & Structure Layout: {{data_viz___dashboard}}\n\nConceptual Touch: {{hand_drawn___conceptual}}",
       "selections": {
@@ -1220,7 +1220,7 @@
     },
     {
       "id": "tpl_1766545218314",
-      "name": "多奇通用資訊圖表_l_8",
+      "name": "多奇通用資訊圖表_27",
       "author": "",
       "content": "{{language}} version.\n\nCore Instruction: Make an infographic of the top 5 longevity research programs, their main approaches, and their most interesting findings.\n\nVisual & Design Parameters:\n\nChart Style: {{chart_style}}\n\nTechnical & Logical Framework: {{tech___architecture}}\n\nData Visualization Layout: {{data_viz___dashboard}}\n\nCreative Conceptual Touch: {{hand_drawn___conceptual}}",
       "selections": {
@@ -1236,7 +1236,7 @@
     },
     {
       "id": "tpl_1766545309684",
-      "name": "多奇通用資訊圖表_l_10",
+      "name": "多奇通用資訊圖表_28",
       "author": "",
       "content": "{{language}} version.\n\nCore Technical Instruction: Generate a detailed infographic diagram on how distributed LLM training works across many networked GPUs. Be extremely detailed and correct.\n\nVisual & Technical Constraints:\n\nArchitectural Framework: {{tech___architecture}}\n\nDesign Aesthetic: {{chart_style}}\n\nLayout & Interface Style: {{data_viz___dashboard}}\n\nConceptual Abstraction: {{hand_drawn___conceptual}}",
       "selections": {
@@ -1253,7 +1253,7 @@
     },
     {
       "id": "tpl_1766545490064",
-      "name": "多奇通用資訊圖表_l_15",
+      "name": "多奇通用資訊圖表_29",
       "author": "",
       "content": "{{language}} version.\n\nCore Instruction: Create a clean, modern vertical infographic titled 'How AI Changed Tech in 2025'. Use four equal rectangular sections. Each section has: an icon, bold title, and 2-3 bullet points.\n\nVisual & Style Settings:\n\nOverall Style: {{chart_style}} (Primary: Pastel color palette with muted blues, greens, and soft corals).\n\nTechnical Influence: {{tech___architecture}}\n\nDashboard Logic: {{data_viz___dashboard}}\n\nCreative Elements: {{hand_drawn___conceptual}}\n\nLayout Requirements: Minimize sans-serif typography. Ensure even spacing and a centered layout with a gradient header.",
       "selections": {
@@ -1270,7 +1270,7 @@
     },
     {
       "id": "tpl_1766545706461",
-      "name": "多奇通用資訊圖表_l_21",
+      "name": "多奇通用資訊圖表_30",
       "author": "",
       "content": "{{language}} version.\n\nCore Instruction: Transform this data chart into a modern infographic showing global AI adoption rates 2020-2025. Use vibrant gradients and include labels in English, Hindi, Spanish, Chinese, Arabic, and Japanese.\n\nDesign Specifications:\n\nOverall Style: {{chart_style}}\n\nVisual Perspective & Elements: {{tech___architecture}}\n\nDashboard Configuration: {{data_viz___dashboard}}\n\nArtistic Direction: {{hand_drawn___conceptual}}\n\nTechnical Requirements: 4K resolution, professional presentation quality.",
       "selections": {
@@ -1287,7 +1287,7 @@
     },
     {
       "id": "tpl_1766545768828",
-      "name": "多奇通用資訊圖表_l_23",
+      "name": "多奇通用資訊圖表_31",
       "author": "",
       "content": "{{language}} version.\n\nCore Instruction: Design an infographic timeline of major space exploration milestones from 1957 to 2025 with icons and dates.\n\nVisual & Style Parameters:\n\nChart Framework: {{chart_style}}\n\nTechnical Detail Level: {{tech___architecture}}\n\nTimeline Visualization: {{data_viz___dashboard}}\n\nArtistic Direction: {{hand_drawn___conceptual}}",
       "selections": {
@@ -1304,7 +1304,7 @@
     },
     {
       "id": "tpl_1766545824886",
-      "name": "多奇通用資訊圖表_l_25",
+      "name": "多奇通用資訊圖表_32",
       "author": "",
       "content": "{{language}} version.\n\nCore Instruction: Create a fun, but deep and informative infographic about \"{YOUR_SEARCH_KEYWORDS}\", based on his digital footprint.\n\nStylistic Integration:\n\nOverall Tone & Style: {{chart_style}}\n\nInformation Architecture: {{tech___architecture}}\n\nData Visualization Layout: {{data_viz___dashboard}}\n\nCreative Concept & Flair: {{hand_drawn___conceptual}}",
       "selections": {
@@ -1321,7 +1321,7 @@
     },
     {
       "id": "tpl_1766546465241",
-      "name": "多奇通用資訊圖表_l_33",
+      "name": "多奇通用資訊圖表_33",
       "author": "",
       "content": "{{language}} version. Generate a detailed infographic on how photosynthesis works.\n\nStyle & Concept Requirements:\n\nOverall Concept: {{hand_drawn___conceptual}}\n\nVisual Style: {{chart_style}}\n\nTechnical Structure: {{tech___architecture}}\n\nData Layout: {{data_viz___dashboard}}",
       "selections": {
@@ -1338,7 +1338,7 @@
     },
     {
       "id": "tpl_1766546493619",
-      "name": "多奇通用資訊圖表_l_34",
+      "name": "多奇通用資訊圖表_34",
       "author": "",
       "content": "{{language}} version.\n\nCore Subject: An infographic describing the [ALGORITHM] and how it works.\n\nVisual & Technical Framework:\n\nCreative Concept & Media: {{hand_drawn___conceptual}}\n\nVisual Style & Aesthetic: {{chart_style}}\n\nTechnical Architecture: {{tech___architecture}}\n\nInformation Layout: {{data_viz___dashboard}}",
       "selections": {
@@ -1355,7 +1355,7 @@
     },
     {
       "id": "tpl_1766546567857",
-      "name": "多奇通用資訊圖表_l_35",
+      "name": "多奇通用資訊圖表_35",
       "author": "",
       "content": "{{language}} version.\n\nCore Instruction: Create a visual explanation of how this [ALGORITHM/CODE BLOCK] works. Use a step-by-step flowchart with clear annotations explaining each operation. Include small code snippets where relevant, but focus on making the logic visually intuitive.\n\nVisual & Technical Implementation:\n\nDesign Language: {{chart_style}}\n\nArchitectural Framework: {{tech___architecture}}\n\nLayout & UI Style: {{data_viz___dashboard}}\n\nConceptual Theme: {{hand_drawn___conceptual}}\n\nFinal Requirement: Use color coding to distinguish between [DIFFERENT OPERATIONS/PHASES]. Make the visualization detailed enough for engineers but clear enough for non-technical stakeholders.",
       "selections": {
@@ -1372,7 +1372,7 @@
     },
     {
       "id": "tpl_1766546607292",
-      "name": "多奇通用資訊圖表_l_36",
+      "name": "多奇通用資訊圖表_36",
       "author": "",
       "content": "{{language}} version.\n\nCore Objective: Create an advanced data visualization highlighting the patterns and anomalies in this [DATASET/METRICS]. Use visualization techniques that reveal [SPECIFIC RELATIONSHIP] while making [KEY ANOMALY TYPE] immediately apparent. Incorporate small multiples or comparative elements to show changes over [TIME PERIOD].\n\nRefined Specification:\n\nData Visualization & Dashboard Style: {{data_viz___dashboard}}\n\nTechnical & Architecture Logic: {{tech___architecture}}\n\nChart Aesthetic: {{chart_style}}\n\nConceptual Overlay: {{hand_drawn___conceptual}}\n\nFinal Requirements: Use a color scheme that emphasizes statistical significance, with attention to accessibility. Include annotations pointing out the three most important insights.",
       "selections": {
@@ -1389,7 +1389,7 @@
     },
     {
       "id": "tpl_1766547085139",
-      "name": "多奇通用資訊圖表_l_38",
+      "name": "多奇通用資訊圖表_37",
       "author": "",
       "content": "{{language}} version.\n\nCore Objective: Create a professional technical diagram illustrating [SYSTEM/PROCESS]. Include [KEY ELEMENTS] and show the relationships between them with directional arrows.\n\nRefined Specifications:\n\nTechnical & Architectural Logic: {{tech___architecture}}\n\nOverall Visual Style: {{chart_style}}\n\nData Visualization & Layout: {{data_viz___dashboard}}\n\nCreative Concept & Details: {{hand_drawn___conceptual}}\n\nRequirements: Use appropriate icons and labeled components. Use a color scheme that distinguishes between different system parts. Make the diagram clear enough for technical documentation but visually appealing enough for presentations.",
       "selections": {
@@ -1406,7 +1406,7 @@
     },
     {
       "id": "tpl_1766547145131",
-      "name": "多奇通用資訊圖表_l_40",
+      "name": "多奇通用資訊圖表_38",
       "author": "",
       "content": "{{language}} version.\n\nCore Content: Generate a detailed SWOT analysis infographic for: [ANYTHING_GOES_HERE]. The layout must be divided into four clear quadrants: Strengths, Weaknesses, Opportunities, and Threats.\n\nAnalysis Requirements: For each quadrant, provide 1-2 lines of specific, insightful analysis including causes, consequences, stakeholders, and future scenarios. Use arrows to link related points to suggest deep, organized thinking.\n\nVisual Styles (Applied via App Categories):\n\nTechnical & Architecture: {{tech___architecture}}\n\nChart Style: {{chart_style}}\n\nData Visualization & Dashboard Style: {{data_viz___dashboard}}\n\nHand-Drawn & Creative Concept: {{hand_drawn___conceptual}}",
       "selections": {

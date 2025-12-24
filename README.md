@@ -68,6 +68,13 @@ Prompt Fill 已更新至 **v0.5.1**。專案初衷是解決 AI 繪圖時提示�
 
 * 內建 Prompt Gallery（模板/詞庫）維護與更新：`docs/prompt-gallery.md`
 
+### 📦 資料更新（以 `src/data/data.json` 為單一來源）
+* 放檔：將匯出的 JSON（含 `categories`、`banks`、`templates`）存成 `src/data/data.json`。
+* 同步：在專案根目錄執行 `node scripts/sync-data.mjs`，會覆寫：
+  * `src/data/banks.js` 的 `INITIAL_CATEGORIES`、`INITIAL_BANKS`
+  * `src/data/templates.js` 的 `INITIAL_TEMPLATES_CONFIG`
+* 驗證：`git diff` 查看變更，啟動前端確認載入正常。
+
 ## 🚀 快速開始
 
 ### 前置要求
