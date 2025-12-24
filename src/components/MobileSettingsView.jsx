@@ -131,6 +131,7 @@ export const MobileSettingsView = ({
           href="https://github.com/doggy8088/PromptFill"
           target="_blank"
           rel="noopener noreferrer"
+          title={t('github_link')}
         >
         </a>
       </div>

@@ -172,7 +172,7 @@ export const TemplatesSidebar = React.memo(
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-1.5 rounded-lg transition-colors text-gray-400 hover:text-gray-900 hover:bg-gray-50"
-                    title=""
+                    title={t('github_link')}
                   >
                     <Github size={16} />
                   </a>
@@ -360,7 +360,7 @@ export const TemplatesSidebar = React.memo(
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-1.5 rounded-lg transition-colors text-gray-400 hover:text-gray-900 hover:bg-gray-50"
-                    title=""
+                    title={t('github_link')}
                   >
                     <Github size={16} />
                   </a>
@@ -369,7 +369,7 @@ export const TemplatesSidebar = React.memo(
                     target="_blank"
                     rel="ChatGPT 萬能工具箱"
                     className="p-1.5 rounded-lg transition-colors text-gray-400 hover:text-gray-900 hover:bg-gray-50"
-                    title=""
+                    title={t('toolbox_chatgpt')}
                   >
                     <Toolbox size={16} />
                   </a>
@@ -378,7 +378,7 @@ export const TemplatesSidebar = React.memo(
                     target="_blank"
                     rel="Gemini 🍌 無印良品"
                     className="p-1.5 rounded-lg transition-colors text-gray-400 hover:text-yellow-500 hover:bg-yellow-50"
-                    title=""
+                    title={t('gemini_muji')}
                   >
                     <Banana size={16} />
                   </a>

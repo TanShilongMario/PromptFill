@@ -121,6 +121,7 @@ export const DiscoveryView = React.memo(
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex flex-col items-center gap-1.5 group"
+                title={t('github_link')}
               >
                 <div className="p-3 bg-white rounded-2xl shadow-sm border border-gray-100 group-hover:bg-orange-50 transition-all">
                   <Github size={20} className="text-gray-600 group-hover:text-gray-900" />
@@ -318,7 +319,7 @@ export const DiscoveryView = React.memo(
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2.5 rounded-xl transition-all text-gray-500 hover:text-gray-900 hover:bg-white/50 shadow-sm flex items-center gap-2"
-                  title=""
+                  title={t('github_link')}
                 >
                   <Github size={20} />
                 </a>
