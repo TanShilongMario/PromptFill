@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: './',
   // 防止 Vite 預設清除控制台，方便調試
   clearScreen: false,
   // 讓 Tauri 能夠監聽特定的連接埠
