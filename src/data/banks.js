@@ -17,7 +17,7 @@ export const INITIAL_BANKS = {
     options: [
       { "zh-tw": "遊戲與動漫概念美術設計大師", en: "Master of Game and Anime Concept Art" },
       { "zh-tw": "資深影視角色原畫師", en: "Senior Film Character Concept Artist" },
-      { "zh-tw": "賽博朋克風格設計師", en: "Cyberpunk Style Designer" },
+      { "zh-tw": "賽博龐克風格設計師", en: "Cyberpunk Style Designer" },
       { "zh-tw": "暗黑幻想風格插畫師", en: "Dark Fantasy Style Illustrator" }
     ]
   },
@@ -40,7 +40,7 @@ export const INITIAL_BANKS = {
       { "zh-tw": "超人 (Superman)", en: "Superman" },
       { "zh-tw": "愛因斯坦 (Einstein)", en: "Einstein" },
       { "zh-tw": "神奇女俠 (Wonder Woman)", en: "Wonder Woman" },
-      { "zh-tw": "鋼鐵俠 (Iron Man)", en: "Iron Man" },
+      { "zh-tw": "鋼鐵人 (Iron Man)", en: "Iron Man" },
       { "zh-tw": "皮卡丘 (Pikachu)", en: "Pikachu" },
       { "zh-tw": "哥斯拉 (Godzilla)", en: "Godzilla" },
       { "zh-tw": "初音未來 (Hatsune Miku)", en: "Hatsune Miku" }
@@ -118,7 +118,7 @@ export const INITIAL_BANKS = {
       { "zh-tw": "成套的蕾絲內衣褲", en: "Matching lace lingerie set" },
       { "zh-tw": "運動風格純棉內衣", en: "Athletic style cotton underwear" },
       { "zh-tw": "極簡主義絲綢內衣", en: "Minimalist silk lingerie" },
-      { "zh-tw": "哥特風格綁帶內衣", en: "Gothic style strappy lingerie" }
+      { "zh-tw": "哥德風格綁帶內衣", en: "Gothic style strappy lingerie" }
     ]
   },
   clothing: {
@@ -136,10 +136,10 @@ export const INITIAL_BANKS = {
     label: { "zh-tw": "男性服飾", en: "Male Clothing" },
     category: "item",
     options: [
-      { "zh-tw": "剪裁合體的深藍西裝", en: "Tailored deep blue suit" },
+      { "zh-tw": "剪裁合身的深藍西裝", en: "Tailored deep blue suit" },
       { "zh-tw": "復古棕色皮夾克", en: "Vintage brown leather jacket" },
       { "zh-tw": "戰術背心與工裝褲", en: "Tactical vest and cargo pants" },
-      { "zh-tw": "寬鬆的灰色衛衣", en: "Loose grey hoodie" },
+      { "zh-tw": "寬鬆的灰色連帽衫", en: "Loose grey hoodie" },
       { "zh-tw": "白色亞麻襯衫", en: "White linen shirt" },
       { "zh-tw": "黑色高領毛衣", en: "Black turtleneck sweater" }
     ]
@@ -161,7 +161,7 @@ export const INITIAL_BANKS = {
     category: "character",
     options: [
       { "zh-tw": "瘋狂、病嬌、狂喜", en: "Crazy, Yandere, Ecstatic" },
-      { "zh-tw": "羞澀、躲閃、紅暈", en: "Shy, Evasive, Blushing" },
+      { "zh-tw": "羞澀、躲閃、臉紅", en: "Shy, Evasive, Blushing" },
       { "zh-tw": "冷漠、鄙視、高傲", en: "Indifferent, Contemptuous, Proud" },
       { "zh-tw": "痛苦、忍耐、咬唇", en: "Painful, Enduring, Biting lip" }
     ]
@@ -232,7 +232,7 @@ export const INITIAL_BANKS = {
       { "zh-tw": "被踩在腳下的仰視視角", en: "Low-angle view from being stepped on" },
       { "zh-tw": "從門縫中偷窺的視角", en: "Perspective of peeking through a door crack" },
       { "zh-tw": "鏡子反射的背影", en: "Back view reflected in a mirror" },
-      { "zh-tw": "監控攝像頭的俯視視角", en: "Top-down view from a security camera" }
+      { "zh-tw": "監視攝影機的俯視視角", en: "Top-down view from a security camera" }
     ]
   },
   bag_content: {
@@ -241,7 +241,7 @@ export const INITIAL_BANKS = {
     options: [
       { "zh-tw": "日常通勤包或手拿包", en: "Daily commuter bag or clutch" },
       { "zh-tw": "戰術腿包", en: "Tactical leg bag" },
-      { "zh-tw": "可愛的毛絨揹包", en: "Cute plush backpack" },
+      { "zh-tw": "可愛的絨毛背包", en: "Cute plush backpack" },
       { "zh-tw": "透明材質的痛包", en: "Ita-bag made of transparent material" }
     ]
   },
@@ -262,16 +262,16 @@ export const INITIAL_BANKS = {
       { "zh-tw": "震動棒與項圈", en: "Vibrator and collar" },
       { "zh-tw": "手銬與眼罩", en: "Handcuffs and eye mask" },
       { "zh-tw": "鞭子與蠟燭", en: "Whip and candle" },
-      { "zh-tw": "潤滑液與安全套", en: "Lubricant and condom" }
+      { "zh-tw": "潤滑液與保險套", en: "Lubricant and condom" }
     ]
   },
   art_style: {
     label: { "zh-tw": "畫風", en: "Art Style" },
     category: "visual",
     options: [
-      { "zh-tw": "高質量的 2D 插畫風格", en: "High-quality 2D illustration style" },
+      { "zh-tw": "高品質的 2D 插畫風格", en: "High-quality 2D illustration style" },
       { "zh-tw": "寫實厚塗風格", en: "Realistic impasto style" },
-      { "zh-tw": "賽博朋克霓虹風格", en: "Cyberpunk neon style" },
+      { "zh-tw": "賽博龐克霓虹風格", en: "Cyberpunk neon style" },
       { "zh-tw": "水彩手繪風格", en: "Watercolor hand-drawn style" }
     ]
   },
@@ -289,17 +289,17 @@ export const INITIAL_BANKS = {
     label: { "zh-tw": "經典場景", en: "Classic Scene" },
     category: "location",
     options: [
-      { "zh-tw": "黑客帝國", en: "The Matrix" },
+      { "zh-tw": "駭客任務", en: "The Matrix" },
       { "zh-tw": "千與千尋", en: "Spirited Away" },
       { "zh-tw": "瘋狂動物城（Zootopia）", en: "Zootopia" },
       { "zh-tw": "生活大爆炸", en: "The Big Bang Theory" },
-      { "zh-tw": "霍格沃茨魔法學院", en: "Hogwarts School of Witchcraft and Wizardry" },
+      { "zh-tw": "霍格華茲魔法學院", en: "Hogwarts School of Witchcraft and Wizardry" },
       { "zh-tw": "侏羅紀公園叢林入口", en: "Jurassic Park Jungle Entrance" },
-      { "zh-tw": "星球大戰塔圖因集市", en: "Star Wars Tatooine Market" },
-      { "zh-tw": "指環王夏爾", en: "The Lord of the Rings - The Shire" },
-      { "zh-tw": "權力的遊戲君臨城城牆", en: "Game of Thrones - King's Landing Walls" },
-      { "zh-tw": "盜夢空間摺疊城市", en: "Inception - Folding City" },
-      { "zh-tw": "賽博朋克霓虹夜市", en: "Cyberpunk Neon Night Market" },
+      { "zh-tw": "星際大戰塔圖因市集", en: "Star Wars Tatooine Market" },
+      { "zh-tw": "魔戒夏爾", en: "The Lord of the Rings - The Shire" },
+      { "zh-tw": "冰與火之歌君臨城城牆", en: "Game of Thrones - King's Landing Walls" },
+      { "zh-tw": "全面啟動折疊城市", en: "Inception - Folding City" },
+      { "zh-tw": "賽博龐克霓虹夜市", en: "Cyberpunk Neon Night Market" },
       { "zh-tw": "未來城市空港樞紐", en: "Future City Spaceport Hub" }
     ]
   },
@@ -327,7 +327,7 @@ export const INITIAL_BANKS = {
       { "zh-tw": "3D像素風格", en: "3D Pixel Art Style" },
       { "zh-tw": "手工毛線針織風格", en: "Hand-knitted Yarn Style" },
       { "zh-tw": "毛線針織", en: "Knitted Yarn" },
-      { "zh-tw": "毛氈與粘土", en: "Felt and Clay" },
+      { "zh-tw": "毛氈與黏土", en: "Felt and Clay" },
       { "zh-tw": "紙殼紙板", en: "Cardboard" }
     ]
   },
@@ -335,10 +335,10 @@ export const INITIAL_BANKS = {
     label: { "zh-tw": "劇名", en: "Show Name" },
     category: "other",
     options: [
-      { "zh-tw": "泰坦尼克號", en: "Titanic" },
+      { "zh-tw": "鐵達尼號", en: "Titanic" },
       { "zh-tw": "龍貓", en: "My Neighbor Totoro" },
       { "zh-tw": "哈利·波特", en: "Harry Potter" },
-      { "zh-tw": "星際穿越", en: "Interstellar" },
+      { "zh-tw": "星際效應", en: "Interstellar" },
       { "zh-tw": "千與千尋", en: "Spirited Away" },
       { "zh-tw": "復仇者聯盟", en: "The Avengers" }
     ]
@@ -354,7 +354,7 @@ export const INITIAL_BANKS = {
       { "zh-tw": "千尋", en: "Chihiro" },
       { "zh-tw": "綠巨人", en: "Hulk" },
       { "zh-tw": "薩諾斯", en: "Thanos" },
-      { "zh-tw": "鋼鐵俠", en: "Iron Man" }
+      { "zh-tw": "鋼鐵人", en: "Iron Man" }
     ]
   },
   art_type: {
@@ -383,11 +383,11 @@ export const INITIAL_BANKS = {
     label: { "zh-tw": "畫幅比例", en: "Aspect Ratio" },
     category: "visual",
     options: [
-      { "zh-tw": "3:4豎構圖", en: "3:4 Vertical" },
-      { "zh-tw": "9:16豎構圖", en: "9:16 Vertical" },
+      { "zh-tw": "3:4直式構圖", en: "3:4 Vertical" },
+      { "zh-tw": "9:16直式構圖", en: "9:16 Vertical" },
       { "zh-tw": "1:1", en: "1:1 Square" },
-      { "zh-tw": "4:3橫構圖", en: "4:3 Horizontal" },
-      { "zh-tw": "16:9橫構圖", en: "16:9 Horizontal" },
+      { "zh-tw": "4:3橫式構圖", en: "4:3 Horizontal" },
+      { "zh-tw": "16:9橫式構圖", en: "16:9 Horizontal" },
       { "zh-tw": "圓形畫幅", en: "Circular Aspect Ratio" }
     ]
   },
@@ -396,7 +396,7 @@ export const INITIAL_BANKS = {
     label: { "zh-tw": "穿搭解構", en: "Fashion Deconstruct" },
     category: "item",
     options: [
-      { "zh-tw": "整齊摺疊的外套和精緻的高跟鞋", en: "Neatly folded coat and exquisite high heels" },
+      { "zh-tw": "整齊折疊的外套和精緻的高跟鞋", en: "Neatly folded coat and exquisite high heels" },
       { "zh-tw": "散落的配飾與包包", en: "Scattered accessories and bags" },
       { "zh-tw": "懸掛的襯衫與百褶裙", en: "Hanging shirt and pleated skirt" },
       { "zh-tw": "堆疊的金屬配飾與皮帶", en: "Stacked metal accessories and belts" }
@@ -410,7 +410,7 @@ export const INITIAL_BANKS = {
       { "zh-tw": "暴力熊積木熊", en: "Bearbrick" },
       { "zh-tw": "泡泡瑪特Molly", en: "Pop Mart Molly" },
       { "zh-tw": "復古泰迪熊", en: "Vintage Teddy Bear" },
-      { "zh-tw": "賽博朋克機械狗", en: "Cyberpunk Robo-Dog" }
+      { "zh-tw": "賽博龐克機械狗", en: "Cyberpunk Robo-Dog" }
     ]
   },
   
@@ -438,7 +438,7 @@ export const INITIAL_BANKS = {
       { "zh-tw": "大型頂置柔光箱，輕微側向反射光", en: "Large overhead softbox, slight side reflection" },
       { "zh-tw": "自然窗光", en: "Natural window light" },
       { "zh-tw": "倫勃朗光", en: "Rembrandt lighting" },
-      { "zh-tw": "賽博朋克霓虹光", en: "Cyberpunk neon lighting" },
+      { "zh-tw": "賽博龐克霓虹光", en: "Cyberpunk neon lighting" },
       { "zh-tw": "影棚硬光", en: "Studio hard light" }
     ]
   },
@@ -501,7 +501,7 @@ export const INITIAL_BANKS = {
     category: "item",
     options: [
       { "zh-tw": "傳統水手服校服", en: "Traditional Sailor Uniform" },
-      { "zh-tw": "灰色開衫和格子裙校服", en: "Grey cardigan and plaid skirt uniform" },
+      { "zh-tw": "灰色開襟和格子裙校服", en: "Grey cardigan and plaid skirt uniform" },
       { "zh-tw": "英倫風百褶裙校服", en: "British style pleated skirt uniform" },
       { "zh-tw": "日系JK制服", en: "Japanese JK Uniform" },
       { "zh-tw": "運動校服", en: "Tracksuit School Uniform" },
@@ -515,7 +515,7 @@ export const INITIAL_BANKS = {
       { "zh-tw": "澀谷十字路口", en: "Shibuya Crossing" },
       { "zh-tw": "東京塔下", en: "Under Tokyo Tower" },
       { "zh-tw": "時代廣場", en: "Times Square" },
-      { "zh-tw": "埃菲爾鐵塔旁", en: "By the Eiffel Tower" },
+      { "zh-tw": "艾菲爾鐵塔旁", en: "By the Eiffel Tower" },
       { "zh-tw": "中央公園", en: "Central Park" },
       { "zh-tw": "北京王府井", en: "Beijing Wangfujing" },
       { "zh-tw": "上海外灘", en: "Shanghai Bund" },
@@ -604,7 +604,7 @@ export const INITIAL_BANKS = {
       { "zh-tw": "月光皎潔", en: "Bright moonlight" },
       { "zh-tw": "霓虹燈閃爍", en: "Flickering neon lights" },
       { "zh-tw": "燭光搖曳", en: "Flickering candlelight" },
-      { "zh-tw": "舞臺聚光燈", en: "Stage spotlights" },
+      { "zh-tw": "舞台聚光燈", en: "Stage spotlights" },
       { "zh-tw": "自然晨光", en: "Natural morning light" },
       { "zh-tw": "夕陽餘暉", en: "Sunset afterglow" },
       { "zh-tw": "室內暖光", en: "Indoor warm light" }
@@ -633,11 +633,11 @@ export const INITIAL_BANKS = {
       { "zh-tw": "雲南大理洱海", en: "Erhai Lake, Dali, Yunnan" },
       { "zh-tw": "新疆喀納斯湖", en: "Kanas Lake, Xinjiang" },
       { "zh-tw": "四川九寨溝", en: "Jiuzhaigou, Sichuan" },
-      { "zh-tw": "桂林灕江", en: "Li River, Guilin" },
+      { "zh-tw": "桂林漓江", en: "Li River, Guilin" },
       { "zh-tw": "張家界天門山", en: "Tianmen Mountain, Zhangjiajie" },
       { "zh-tw": "敦煌莫高窟", en: "Mogao Grottoes, Dunhuang" },
       { "zh-tw": "內蒙古呼倫貝爾草原", en: "Hulunbuir Grassland, Inner Mongolia" },
-      { "zh-tw": "臺灣日月潭", en: "Sun Moon Lake, Taiwan" }
+      { "zh-tw": "台灣日月潭", en: "Sun Moon Lake, Taiwan" }
     ]
   },
   comic_scene: {
@@ -664,10 +664,10 @@ export const INITIAL_BANKS = {
       { "zh-tw": "Jonathan Ive (Jony Ive)", en: "Jonathan Ive" },
       { "zh-tw": "Gio Ponti", en: "Gio Ponti" },
       { "zh-tw": "迪特·拉姆斯 (Dieter Rams)", en: "Dieter Rams" },
-      { "zh-tw": "菲利普·斯塔克 (Philippe Starck)", en: "Philippe Starck" },
+      { "zh-tw": "菲利普·史塔克 (Philippe Starck)", en: "Philippe Starck" },
       { "zh-tw": "原研哉 (Kenya Hara)", en: "Kenya Hara" },
       { "zh-tw": "深澤直人 (Naoto Fukasawa)", en: "Naoto Fukasawa" },
-      { "zh-tw": "扎哈·哈迪德 (Zaha Hadid)", en: "Zaha Hadid" },
+      { "zh-tw": "薩哈·哈蒂 (Zaha Hadid)", en: "Zaha Hadid" },
       { "zh-tw": "馬克·紐森 (Marc Newson)", en: "Marc Newson" },
       { "zh-tw": "湯姆·迪克森 (Tom Dixon)", en: "Tom Dixon" },
       { "zh-tw": "賈斯珀·莫里森 (Jasper Morrison)", en: "Jasper Morrison" },
@@ -679,11 +679,11 @@ export const INITIAL_BANKS = {
     category: "item",
     options: [
       { "zh-tw": "無人機", en: "Drone" },
-      { "zh-tw": "檯球桌", en: "Pool table" },
+      { "zh-tw": "撞球桌", en: "Pool table" },
       { "zh-tw": "拖拉機", en: "Tractor" },
       { "zh-tw": "機械鍵盤", en: "Mechanical keyboard" },
       { "zh-tw": "復古打字機", en: "Vintage typewriter" },
-      { "zh-tw": "單反相機", en: "DSLR camera" },
+      { "zh-tw": "單眼相機", en: "DSLR camera" },
       { "zh-tw": "掃地機器人", en: "Robot vacuum" },
       { "zh-tw": "咖啡機", en: "Coffee machine" },
       { "zh-tw": "檯燈", en: "Desk lamp" },
@@ -694,7 +694,7 @@ export const INITIAL_BANKS = {
       { "zh-tw": "電動滑板車", en: "Electric scooter" },
       { "zh-tw": "藍牙耳機", en: "Bluetooth headphones" },
       { "zh-tw": "智慧音箱", en: "Smart speaker" },
-      { "zh-tw": "剃鬚刀", en: "Razor" },
+      { "zh-tw": "刮鬍刀", en: "Razor" },
       { "zh-tw": "電風扇", en: "Electric fan" },
       { "zh-tw": "水壺", en: "Kettle" }
     ]
@@ -725,6 +725,17 @@ export const INITIAL_BANKS = {
       { "zh-tw": "椰子", en: "Coconut" }
     ]
   },
+  xmas_theme: {
+    label: { "zh-tw": "聖誕主題", en: "Christmas Theme" },
+    category: "other",
+    options: [
+      { "zh-tw": "抽象聖誕樹", en: "an abstract Christmas Tree" },
+      { "zh-tw": "聖誕雪花", en: "Christmas snowflake" },
+      { "zh-tw": "馴鹿與森林", en: "Reindeer and forest" },
+      { "zh-tw": "聖誕裝飾球", en: "Christmas ornaments" },
+      { "zh-tw": "聖誕薑餅屋", en: "Christmas gingerbread house" }
+    ]
+  },
   jewelry_style: {
     label: { "zh-tw": "珠寶樣式", en: "Jewelry Style" },
     category: "item",
@@ -747,6 +758,77 @@ export const INITIAL_BANKS = {
       { "zh-tw": "乾枯的桉樹葉", en: "Dried eucalyptus leaves" },
       { "zh-tw": "鮮豔的向日葵", en: "Vibrant sunflowers" }
     ]
+  },
+  character_type_pixar: {
+    label: { "zh-tw": "角色模式", en: "Character Mode" },
+    category: "character",
+    options: [
+      { "zh-tw": "單人角色：聚焦於個人生活方式", en: "Single: Focus on personal lifestyle" },
+      { "zh-tw": "情侶角色：每人18件物品，用愛心符號連線，冷暖對比", en: "Couple: 18 items each, heart connectors, contrast" },
+      { "zh-tw": "孕婦角色：包含孕期用品、嬰兒圖標及B超照片", en: "Pregnant: Includes pregnancy items, baby icons, ultrasound" },
+      { "zh-tw": "親子角色：包含成人與兒童用品，體現家庭溫馨", en: "Family: Includes adult and child items, family warmth" }
+    ]
+  },
+  theme_pixar: {
+    label: { "zh-tw": "配色主題", en: "Theme & Color" },
+    category: "visual",
+    options: [
+      { "zh-tw": "女性/時尚主題：香檳金、玫瑰金、奶油色、櫻花粉", en: "Female/Fashion: Champagne Gold, Rose Gold, Cream, Cherry Pink" },
+      { "zh-tw": "男性/科技主題：鋼藍色、深灰色、電光藍、銀色", en: "Male/Tech: Steel Blue, Dark Grey, Electric Blue, Silver" },
+      { "zh-tw": "正式/奢華主題：純黑、24K金、深紅色、象牙白", en: "Formal/Luxury: Pure Black, 24K Gold, Deep Red, Ivory White" },
+      { "zh-tw": "情侶/對比主題：冷暖色調對比", en: "Couple/Contrast: Contrast of warm and cool tones" }
+    ]
+  },
+  item_layout_pixar: {
+    label: { "zh-tw": "物品佈局", en: "Item Layout" },
+    category: "visual",
+    options: [
+      { "zh-tw": "90度直角整齊排列 (Knolling)", en: "90-degree Knolling layout" },
+      { "zh-tw": "放射式構圖 (Radial)", en: "Radial composition" },
+      { "zh-tw": "階梯式錯落佈局 (Step)", en: "Step-like staggered layout" },
+      { "zh-tw": "網格對稱佈局 (Grid)", en: "Grid symmetrical layout" }
+    ]
+  },
+  fashion_parts: {
+    label: { "zh-tw": "時尚穿搭拆解", en: "Fashion Deconstruction" },
+    category: "item",
+    options: [
+      { "zh-tw": "風衣拆解：翻領、肩章、腰帶、袖口束帶、主衣身", en: "Trench coat: Lapel, epaulets, belt, cuffs, main body" },
+      { "zh-tw": "西裝拆解：駁領、口袋、內襯、袖釦、墊肩", en: "Suit: Lapel, pockets, lining, cufflinks, shoulder pads" },
+      { "zh-tw": "運動鞋拆解：鞋底、鞋面、鞋帶、氣墊、鞋墊", en: "Sneakers: Sole, upper, laces, air cushion, insole" },
+      { "zh-tw": "連衣裙拆解：蕾絲邊、拉鍊、腰部剪裁、裙襬、領口", en: "Dress: Lace trim, zipper, waist cut, hem, neckline" },
+      { "zh-tw": "包袋拆解：五金鎖釦、肩帶、內袋、縫線細節、手柄", en: "Bag: Metal lock, strap, inner pocket, stitching, handle" }
+    ]
+  },
+  beauty_items: {
+    label: { "zh-tw": "美妝個護拆解", en: "Beauty Deconstruction" },
+    category: "item",
+    options: [
+      { "zh-tw": "彩妝：口紅（帶切面）、眼影盤、粉餅、腮紅刷", en: "Makeup: Lipstick (cut), eyeshadow palette, compact, blush brush" },
+      { "zh-tw": "護膚：精華液瓶、面霜罐、美容儀、面膜", en: "Skincare: Serum bottle, cream jar, beauty device, mask" },
+      { "zh-tw": "香氛：香水瓶（帶液體折射）、香薰蠟燭、擴香器", en: "Fragrance: Perfume bottle (refraction), scented candle, diffuser" },
+      { "zh-tw": "洗護：洗面奶、爽膚水、卸妝油、潔面儀", en: "Cleansing: Cleanser, toner, cleansing oil, facial device" }
+    ]
+  },
+  digital_items: {
+    label: { "zh-tw": "數碼生活拆解", en: "Digital Deconstruction" },
+    category: "item",
+    options: [
+      { "zh-tw": "手機拆解：手機殼、螢幕內容、攝像頭模組、主板元件", en: "Phone: Case, screen content, camera module, motherboard" },
+      { "zh-tw": "相機拆解：鏡頭組、機身、閃光燈、儲存卡、肩帶", en: "Camera: Lens set, body, flash, memory card, strap" },
+      { "zh-tw": "影音：無線耳機、智慧手錶、平板電腦、藍牙音箱", en: "Audio: Wireless headphones, smartwatch, tablet, speaker" },
+      { "zh-tw": "辦公：筆記本電腦、鍵盤軸體、滑鼠、手繪板", en: "Office: Laptop, keyboard switches, mouse, drawing tablet" }
+    ]
+  },
+  luxury_hobby_items: {
+    label: { "zh-tw": "個人愛好/奢華", en: "Hobby & Luxury" },
+    category: "item",
+    options: [
+      { "zh-tw": "珠寶：項鍊、耳環、戒指（寶石帶色散效果）", en: "Jewelry: Necklace, earrings, ring (gemstone dispersion)" },
+      { "zh-tw": "藝術：畫筆、調色盤、素描本、顏料軟管", en: "Art: Brushes, palette, sketchbook, paint tubes" },
+      { "zh-tw": "生活：咖啡機、磨豆機、高檔手辦元件、限量書籍", en: "Life: Coffee machine, grinder, high-end figure parts, limited books" },
+      { "zh-tw": "運動：網球拍、滑板、滑雪鏡、運動相機、水壺", en: "Sports: Tennis racket, skateboard, ski goggles, action cam, bottle" }
+    ]
   }
 };
 
@@ -759,7 +841,7 @@ export const INITIAL_DEFAULTS = {
   connectors: { "zh-tw": "手繪箭頭或引導線", en: "Hand-drawn arrows or guide lines" },
   underwear_style: { "zh-tw": "成套的蕾絲內衣褲", en: "Matching lace lingerie set" },
   clothing: { "zh-tw": "炭灰色無袖連衣裙", en: "Charcoal grey sleeveless dress" },
-  clothing_male: { "zh-tw": "剪裁合體的深藍西裝", en: "Tailored deep blue suit" },
+  clothing_male: { "zh-tw": "剪裁合身的深藍西裝", en: "Tailored deep blue suit" },
   clothing_female: { "zh-tw": "炭灰色無袖連衣裙", en: "Charcoal grey sleeveless dress" },
   expressions: { "zh-tw": "瘋狂、病嬌、狂喜", en: "Crazy, Yandere, Ecstatic" },
   character_originality: { "zh-tw": "創作一個原創人物", en: "Create an original character" },
@@ -771,15 +853,15 @@ export const INITIAL_DEFAULTS = {
   bag_content: { "zh-tw": "日常通勤包或手拿包", en: "Daily commuter bag or clutch" },
   cosmetics: { "zh-tw": "常用的化妝品組合", en: "Commonly used cosmetics combo" },
   private_items: { "zh-tw": "震動棒與項圈", en: "Vibrator and collar" },
-  art_style: { "zh-tw": "高質量的 2D 插畫風格", en: "High-quality 2D illustration style" },
+  art_style: { "zh-tw": "高品質的 2D 插畫風格", en: "High-quality 2D illustration style" },
   background_style: { "zh-tw": "漫畫網格筆記本", en: "Manga grid notebook" },
-  fashion_deconstruct: { "zh-tw": "整齊摺疊的外套和精緻的高跟鞋", en: "Neatly folded coat and exquisite high heels" },
+  fashion_deconstruct: { "zh-tw": "整齊折疊的外套和精緻的高跟鞋", en: "Neatly folded coat and exquisite high heels" },
   toy_companion: { "zh-tw": "Labubu藝術公仔", en: "Labubu Art Toy" },
-  classic_scene: { "zh-tw": "黑客帝國", en: "The Matrix" },
+  classic_scene: { "zh-tw": "駭客任務", en: "The Matrix" },
   render_style: { "zh-tw": "Octane Render 和 Cinema 4D", en: "Octane Render and Cinema 4D" },
   position: { "zh-tw": "頂部中央", en: "Top Center" },
   company: { "zh-tw": "任天堂（Nintendo）", en: "Nintendo" },
-  ratio: { "zh-tw": "3:4豎構圖", en: "3:4 Vertical" },
+  ratio: { "zh-tw": "3:4直式構圖", en: "3:4 Vertical" },
   
   // Grid defaults
   grid_pose: { "zh-tw": "前景手指虛化", en: "Out-of-focus fingers in foreground" },
@@ -794,7 +876,7 @@ export const INITIAL_DEFAULTS = {
   
   // Fish Eye Urban defaults
   lens_type: { "zh-tw": "極端魚眼鏡頭", en: "Extreme Fisheye Lens" },
-  school_uniform: { "zh-tw": "灰色開衫和格子裙校服", en: "Grey cardigan and plaid skirt uniform" },
+  school_uniform: { "zh-tw": "灰色開襟和格子裙校服", en: "Grey cardigan and plaid skirt uniform" },
   urban_location: { "zh-tw": "澀谷十字路口", en: "Shibuya Crossing" },
   dynamic_action: { "zh-tw": "一隻手誇張地伸向鏡頭前景", en: "One hand exaggeratedly reaching towards the foreground" },
   fingernail_detail: { "zh-tw": "手指甲清晰可見", en: "Fingernails clearly visible" },
@@ -814,6 +896,14 @@ export const INITIAL_DEFAULTS = {
   show_name: { "zh-tw": "龍貓", en: "My Neighbor Totoro" },
   character_name: { "zh-tw": "龍貓", en: "Totoro" },
   fruit: { "zh-tw": "檸檬", en: "Lemon" },
+  xmas_theme: { "zh-tw": "抽象聖誕樹", en: "an abstract Christmas Tree" },
   jewelry_style: { "zh-tw": "精美的金色背鏈", en: "Fine gold back necklace" },
-  flower_type: { "zh-tw": "一束深紅色玫瑰", en: "A bouquet of deep red roses" }
+  flower_type: { "zh-tw": "一束深紅色玫瑰", en: "A bouquet of deep red roses" },
+  character_type_pixar: { "zh-tw": "單人角色：聚焦於個人生活方式", en: "Single: Focus on personal lifestyle" },
+  theme_pixar: { "zh-tw": "女性/時尚主題：香檳金、玫瑰金、奶油色、櫻花粉", en: "Female/Fashion: Champagne Gold, Rose Gold, Cream, Cherry Pink" },
+  item_layout_pixar: { "zh-tw": "90度直角整齊排列 (Knolling)", en: "90-degree Knolling layout" },
+  fashion_parts: { "zh-tw": "風衣拆解：翻領、肩章、腰帶、袖口束帶、主衣身", en: "Trench coat: Lapel, epaulets, belt, cuffs, main body" },
+  beauty_items: { "zh-tw": "彩妝：口紅（帶切面）、眼影盤、粉餅、腮紅刷", en: "Makeup: Lipstick (cut), eyeshadow palette, compact, blush brush" },
+  digital_items: { "zh-tw": "手機拆解：手機殼、螢幕內容、攝像頭模組、主板元件", en: "Phone: Case, screen content, camera module, motherboard" },
+  luxury_hobby_items: { "zh-tw": "珠寶：項鍊、耳環、戒指（寶石帶色散效果）", en: "Jewelry: Necklace, earrings, ring (gemstone dispersion)" }
 };

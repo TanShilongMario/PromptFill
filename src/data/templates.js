@@ -32,7 +32,38 @@
 /**
  * 樣板系統版本號，每次更新 templates.js 或 banks.js 時請更新此版本號
  */
-export const SYSTEM_DATA_VERSION = "0.7.2";
+export const SYSTEM_DATA_VERSION = "0.7.4";
+
+export const TEMPLATE_WOODEN_ART_XMAS = {
+  "zh-tw": `### 雷射切割木質層疊藝術 (Wood Art & Xmas)
+一件通過雷射切割工藝製作的、細節豐富的多層木質藝術品插畫。
+
+**視覺風格:**
+- **工藝:** 雷射切割木質面板藝術，包含大量精細的層疊結構。
+- **藝術風格:** 抽象藝術，每一層都擁有不同的互補色彩。
+- **主題:** 藝術品主題為 {{xmas_theme}}，融合了幾何圖形與豐富的材質紋理，展現大師級水準。
+
+**攝影與呈現:**
+- **風格:** 頂級產品促銷攝影風格，強調深度感與木質纖維的真實觸感。
+- **美學:** 專業的商業攝影構圖，利用光影勾勒出每一層木板的邊緣，畫面乾淨且極具格調。
+
+**規格:**
+- **畫幅:** {{ratio}}`,
+  en: `### Wood Art & Xmas (Laser-Cut Layered Art)
+A beautiful, detailed illustration of multi-layered wooden art created by laser cutting techniques.
+
+**Visual Style:**
+- **Technique:** Laser-cut wooden panel art with numerous intricate layers and precise craftsmanship.
+- **Art Style:** Abstract art where each layer features a distinct, complementary color.
+- **Theme:** The artwork theme is {{xmas_theme}}, integrating geometric shapes and rich textures, showcasing maestro-level artistry.
+
+**Photography & Presentation:**
+- **Style:** Top-tier product promotion photography, emphasizing depth and the authentic tactile quality of wood.
+- **Aesthetics:** Professional commercial photography composition, using light and shadow to define the edges of each wooden layer, resulting in a clean and highly stylish image.
+
+**Specifications:**
+- **Ratio:** {{ratio}}`
+};
 
 export const DEFAULT_TEMPLATE_CONTENT = {
   "zh-tw": `### Role (角色設定)
@@ -201,7 +232,7 @@ export const TEMPLATE_FASHION_MOODBOARD = {
 **貼紙內容:**
 - **中央:** {{sticker_core}}，光線明亮。
 - **左側:** {{fashion_deconstruct}}。
-- **右下角:** 關鍵的隱藏層貼紙：一套摺疊整齊的內衣，展現細膩紋理。
+- **右下角:** 關鍵的隱藏層貼紙：一套折疊整齊的內衣，展現細膩紋理。
 - **互動元素:** 一隻穿著粉色系、與使用者服裝呼應的 {{toy_companion}} 正趴在一個手繪對話框上。
 
 **裝飾細節:** 周圍裝飾著蠟筆質感的 {{sticker_decor}} 和潦草的中文書法標註OOTD。
@@ -244,7 +275,7 @@ export const TEMPLATE_CLASSIC_SCENE = {
 
 **核心構圖：** 將主體最經典的形象突出地置於中心。自動搭配比例適宜的關鍵元素圖標、象徵性物品、迷人的小角色以及能詮釋主體故事的道具。整體佈局應當充滿趣味且緊湊聚集，宛如一套高端的玩具盲盒套裝。
 
-**渲染與材質：** 採用{{render_style}}風格進行渲染。建模必須精細、圓潤流暢且質感豐富。使用逼真的 PBR 材質：混合用於有機形態的柔和啞光粘土、用於水體/玻璃元素的光澤樹脂，以及用於結構元件的光滑 PVC 材質。著重表現具有觸感、“看起來手感很好”的紋理細節。
+**渲染與材質：** 採用{{render_style}}風格進行渲染。建模必須精細、圓潤流暢且質感豐富。使用逼真的 PBR 材質：混合用於有機形態的柔和啞光黏土、用於水體/玻璃元素的光澤樹脂，以及用於結構元件的光滑 PVC 材質。著重表現具有觸感、“看起來手感很好”的紋理細節。
 
 **燈光與氛圍：** 採用柔和、逼真的攝影棚布光配合全域光照（Global Illumination）。利用柔和的陰影營造出溫暖、舒適且充滿魔力的氛圍。
 
@@ -574,9 +605,9 @@ Outside the window, a real {{character_name}} is curiously looking inside at the
 };
 
 export const TEMPLATE_JAPANESE_PRODUCT_POSTER = {
-  "zh-tw": `### 日式產品海報（16:9橫構圖）
+  "zh-tw": `### 日式產品海報（16:9橫式構圖）
 
-進階日式產品海報，16:9橫構圖格式，編輯級設計展示{{fruit_1}}汁皮膚包裝概念，具有精緻的視覺敘事：
+進階日式產品海報，16:9橫式構圖格式，編輯級設計展示{{fruit_1}}汁皮膚包裝概念，具有精緻的視覺敘事：
 
 **左側（畫布40%）：**
 - **主角產品：** 一個大型{{fruit_1}}汁皮膚包裝垂直展示，採用戲劇性柔和燈光，展現超寫實的{{fruit_1}}果皮紋理包裹矩形容器，符合{{fruit_1}}特徵質感的皮膚紋理，覆蓋整個表面，具有該水果特有的自然質感、顏色和細節變化，看起來完全像真正的{{fruit_1}}果皮拉伸覆蓋在包裝上
@@ -588,7 +619,7 @@ export const TEMPLATE_JAPANESE_PRODUCT_POSTER = {
 **中央（畫布30%）：**
 - **大量白色負空間（間 - Ma）**
 - **極簡幾何元素：** 精緻的細線
-- **浮動文字：** "自然な素材"（天然材料）
+- **浮動文字：** "天然な素材"（天然材料）
 - **極簡品牌標識**
 - **背景中非常微妙的{{fruit_1}}特徵紋理圖案（低不透明度）**
 
@@ -693,6 +724,53 @@ Eye-level to slightly above shoulder height. 85mm portrait lens look. Shallow de
 
 **STYLE:**
 Luxury fashion magazine aesthetic. Elegant, restrained, timeless. Natural refined skin texture, not over-smoothed.`
+};
+
+export const TEMPLATE_PIXAR_DECONSTRUCTION = {
+  "zh-tw": `### 角色本質·藝術拆解升級版
+
+**核心任務：** 創作一張電影級 3D {{render_style}} 風格的角色拆解海報。將 {{subject}} 轉換為風格化寫實的動畫角色。
+
+**📷 角色與模式：**
+- **角色模式：** {{character_type_pixar}}。根據參考圖高度一致還原身份、面部結構與氣質。
+
+**📷 物品佈局 (Item Layout)：**
+採用 {{item_layout_pixar}}，總物品數 30-36 件，圍繞角色有序排列。
+- **分類1：時尚穿搭 (Fashion Atelier)** - {{fashion_parts}}。要求全部分離懸浮，展現精細材質。
+- **分類2：美妝個護 (Beauty Collection)** - {{beauty_items}}。展現玻璃通透感與液體折射。
+- **分類3：數碼生活 (Modern Essentials)** - {{digital_items}}。展現金屬與玻璃的 PBR 材質。
+- **分類4：個人愛好 (Luxury & Hobbies)** - {{luxury_hobby_items}}。寶石需有色散效果。
+
+**📷 技術規格 (Technical Specs)：**
+- **爆炸檢視：** 使用優雅的虛線/實線連線懸浮部件，帶有 01-36 的圓形編號標記。
+- **設計元素：** 包含材質樣本微距特寫、測量標尺、屬性雷達圖。
+- **標題設計：** 主標題 "📷 角色拆解藝術 · THE ART OF DECONSTRUCTION 📷"，副標題 "角色本質·藝術拆解 / Character Essence Unveiled"。
+- **色調方案：** {{theme_pixar}}。
+- **畫質渲染：** 4K 分辨率，路徑追蹤渲染，PBR 材質流程，極致的毛髮與皮膚細節。
+
+{{ratio}}`,
+  en: `### Character Essence Unveiled Upgrade Version
+
+**CORE TASK:** Create a cinematic 3D {{render_style}} style character deconstruction poster. Transform {{subject}} into a stylized realistic animated character.
+
+**📷 CHARACTER & MODE:**
+- **Character Mode:** {{character_type_pixar}}. Strictly maintain identity, facial structure, and aura based on the reference image.
+
+**📷 ITEM LAYOUT:**
+Using {{item_layout_pixar}}, a total of 30-36 items arranged orderly around the character.
+- **Category 1: Fashion Atelier** - {{fashion_parts}}. All parts suspended and separated, showing fine material textures.
+- **Category 2: Beauty Collection** - {{beauty_items}}. Showing glass transparency and liquid refraction.
+- **Category 3: Modern Essentials** - {{digital_items}}. Showing PBR materials of metal and glass.
+- **Category 4: Luxury & Hobbies** - {{luxury_hobby_items}}. Gemstones must have dispersion effects.
+
+**📷 TECHNICAL SPECIFICATIONS:**
+- **Exploded View:** Use elegant dashed/solid lines to connect floating parts, with circular numbered tags 01-36.
+- **Design Elements:** Includes macro material samples, measurement rulers, and attribute radar charts.
+- **Typography:** Main title "📷 THE ART OF DECONSTRUCTION 📷", subtitle "Character Essence Unveiled".
+- **Color Scheme:** {{theme_pixar}}.
+- **Rendering:** 4K resolution, path-traced rendering, PBR material workflow, extreme hair and skin details.
+
+{{ratio}}`
 };
 
 export const TEMPLATE_STREET_DIALOGUE = {
@@ -825,7 +903,7 @@ export const INITIAL_TEMPLATES_CONFIG = [
     selections: {
       "company": { "zh-tw": "任天堂（Nintendo）", en: "Nintendo" },
       "render_style": { "zh-tw": "3D像素風格", en: "3D Pixel Art Style" },
-      "ratio": { "zh-tw": "3:4豎構圖", en: "3:4 Vertical" }
+      "ratio": { "zh-tw": "3:4直式構圖", en: "3:4 Vertical" }
     },
     tags: ["建築", "創意", "圖表"],
     language: ["zh-tw", "en"]
@@ -840,7 +918,7 @@ export const INITIAL_TEMPLATES_CONFIG = [
       "lens_type": { "zh-tw": "極端魚眼鏡頭", en: "Extreme Fisheye Lens" },
       "role": { "zh-tw": "年輕女性", en: "Young woman" },
       "character_originality": { "zh-tw": "使用附圖中的人物，確保結果與人物一致性", en: "Use character in attachment, ensure consistency" },
-      "school_uniform": { "zh-tw": "灰色開衫和格子裙校服", en: "Grey cardigan and plaid skirt uniform" },
+      "school_uniform": { "zh-tw": "灰色開襟和格子裙校服", en: "Grey cardigan and plaid skirt uniform" },
       "urban_location": { "zh-tw": "澀谷十字路口", en: "Shibuya Crossing" },
       "dynamic_action": { "zh-tw": "一隻手誇張地伸向鏡頭前景", en: "One hand exaggeratedly reaching towards the foreground" },
       "fingernail_detail": { "zh-tw": "手指甲清晰可見", en: "Fingernails clearly visible" },
@@ -852,7 +930,7 @@ export const INITIAL_TEMPLATES_CONFIG = [
       "lighting_atmosphere": { "zh-tw": "陽光明媚", en: "Sunny" },
       "shadow_contrast": { "zh-tw": "光影對比強烈", en: "Strong light-shadow contrast" },
       "ratio": { "zh-tw": "圓形畫幅", en: "Circular Aspect Ratio" },
-      "render_style": { "zh-tw": "高質量的 2D 插畫風格", en: "High-quality 2D illustration style" }
+      "render_style": { "zh-tw": "高品質的 2D 插畫風格", en: "High-quality 2D illustration style" }
     },
     tags: ["攝影", "創意", "人物"],
     language: ["zh-tw", "en"]
@@ -866,7 +944,7 @@ export const INITIAL_TEMPLATES_CONFIG = [
     selections: {
       "character_groups": { "zh-tw": "中國古代開國皇帝", en: "Ancient Chinese Founding Emperors" },
       "social_media": { "zh-tw": "微信朋友圈", en: "WeChat Moments" },
-      "ratio": { "zh-tw": "9:16豎構圖", en: "9:16 Vertical" }
+      "ratio": { "zh-tw": "9:16直式構圖", en: "9:16 Vertical" }
     },
     tags: ["創意", "人物", "攝影"],
     language: ["zh-tw", "en"]
@@ -883,7 +961,7 @@ export const INITIAL_TEMPLATES_CONFIG = [
     author: "官方",
     selections: {
       "travel_location": { "zh-tw": "東北雪鄉", en: "Snow Village in Northeast China" },
-      "ratio": { "zh-tw": "9:16豎構圖", en: "9:16 Vertical" }
+      "ratio": { "zh-tw": "9:16直式構圖", en: "9:16 Vertical" }
     },
     tags: ["人物", "攝影", "創意"],
     language: ["zh-tw", "en"]
@@ -897,7 +975,7 @@ export const INITIAL_TEMPLATES_CONFIG = [
     selections: {
       "character_originality": { "zh-tw": "使用附圖中的人物，確保結果與人物一致性", en: "Use character in attachment, ensure consistency" },
       "comic_scene": { "zh-tw": "唯美的臥室", en: "Beautiful bedroom" },
-      "ratio": { "zh-tw": "9:16豎構圖", en: "9:16 Vertical" }
+      "ratio": { "zh-tw": "9:16直式構圖", en: "9:16 Vertical" }
     },
     tags: ["人物", "創意", "卡通"],
     language: ["zh-tw", "en"]
@@ -911,7 +989,7 @@ export const INITIAL_TEMPLATES_CONFIG = [
     selections: {
       "designer": { "zh-tw": "Jonathan Ive (Jony Ive)", en: "Jonathan Ive" },
       "design_item": { "zh-tw": "無人機", en: "Drone" },
-      "ratio": { "zh-tw": "3:4豎構圖", en: "3:4 Vertical" }
+      "ratio": { "zh-tw": "3:4直式構圖", en: "3:4 Vertical" }
     },
     tags: ["產品", "創意", "圖表"],
     language: ["zh-tw", "en"]
@@ -951,10 +1029,10 @@ export const INITIAL_TEMPLATES_CONFIG = [
     name: { "zh-tw": "雨滴定格藝術", en: "Raindrop Art" },
     content: TEMPLATE_RAINDROP_ART,
     imageUrl: "https://s3.bmp.ovh/imgs/2025/12/19/6b6e14845635b168.jpg",
-    author: "@tanshilong",
+    author: "@tanshilong（MarioTan）",
     selections: {
       "rain_shape": { "zh-tw": "芭蕾舞者", en: "Ballerina" },
-      "ratio": { "zh-tw": "3:4豎構圖", en: "3:4 Vertical" }
+      "ratio": { "zh-tw": "3:4直式構圖", en: "3:4 Vertical" }
     },
     tags: ["攝影", "創意"],
     language: ["zh-tw", "en"]
@@ -968,7 +1046,7 @@ export const INITIAL_TEMPLATES_CONFIG = [
     selections: {
       "art_type": { "zh-tw": "美術學", en: "Fine Arts" },
       "render_style": { "zh-tw": "3D像素風格", en: "3D Pixel Art Style" },
-      "ratio": { "zh-tw": "3:4豎構圖", en: "3:4 Vertical" }
+      "ratio": { "zh-tw": "3:4直式構圖", en: "3:4 Vertical" }
     },
     tags: ["建築", "創意", "圖表"],
     language: ["zh-tw", "en"]
@@ -978,12 +1056,12 @@ export const INITIAL_TEMPLATES_CONFIG = [
     name: { "zh-tw": "窗邊書桌微縮場景", en: "Window Desk Miniature" },
     content: TEMPLATE_MINIATURE_DESK,
     imageUrl: "https://s3.bmp.ovh/imgs/2025/12/20/8e9c9c28b3d2cf1b.jpg",
-    author: "@tanshilong",
+    author: "@tanshilong（MarioTan）",
     selections: {
       "show_name": { "zh-tw": "龍貓", en: "My Neighbor Totoro" },
       "character_name": { "zh-tw": "龍貓", en: "Totoro" },
-      "render_style": { "zh-tw": "毛氈與粘土", en: "Felt and Clay" },
-      "ratio": { "zh-tw": "4:3橫構圖", en: "4:3 Horizontal" }
+      "render_style": { "zh-tw": "毛氈與黏土", en: "Felt and Clay" },
+      "ratio": { "zh-tw": "4:3橫式構圖", en: "4:3 Horizontal" }
     },
     tags: ["攝影", "創意", "卡通"],
     language: ["zh-tw", "en"]
@@ -996,7 +1074,7 @@ export const INITIAL_TEMPLATES_CONFIG = [
     author: "@berryxia（Berryxia.AI）",
     selections: {
       "fruit_1-0": { "zh-tw": "檸檬", en: "Lemon" },
-      "ratio": { "zh-tw": "16:9橫構圖", en: "16:9 Horizontal" }
+      "ratio": { "zh-tw": "16:9橫式構圖", en: "16:9 Horizontal" }
     },
     tags: ["產品", "創意", "攝影"],
     language: ["zh-tw", "en"]
@@ -1012,9 +1090,24 @@ export const INITIAL_TEMPLATES_CONFIG = [
       "clothing": { "zh-tw": "極簡黑色進階客製化禮服", en: "Minimalist black couture gown" },
       "background_style": { "zh-tw": "乾淨的純白影棚背景", en: "Clean pure white studio background" },
       "lighting": { "zh-tw": "柔和的編輯級影棚布光", en: "Soft editorial studio lighting" },
-      "ratio": { "zh-tw": "3:4豎構圖", en: "3:4 Vertical" }
+      "ratio": { "zh-tw": "3:4直式構圖", en: "3:4 Vertical" }
     },
     tags: ["人物", "攝影", "創意"],
+    language: ["zh-tw", "en"]
+  },
+  {
+    id: "tpl_pixar_deconstruction",
+    name: { "zh-tw": "角色藝術拆解升級版", en: "Role Deconstruction" },
+    content: TEMPLATE_PIXAR_DECONSTRUCTION,
+    imageUrl: "https://s3.bmp.ovh/imgs/2025/12/26/1931582fcfb9d1e5.png",
+    author: "berryxia（Berryxia.AI）",
+    selections: {
+      "render_style": { "zh-tw": "Pixar 卡通渲染", en: "Pixar Cartoon Rendering" },
+      "subject": { "zh-tw": "時尚女性角色", en: "Fashionable Female Character" },
+      "character_type_pixar": { "zh-tw": "單人角色：聚焦於個人生活方式", en: "Single: Focus on personal lifestyle" },
+      "ratio": { "zh-tw": "16:9橫式構圖", en: "16:9 Horizontal" }
+    },
+    tags: ["人物", "創意", "卡通", "圖表"],
     language: ["zh-tw", "en"]
   },
   {
@@ -1022,15 +1115,28 @@ export const INITIAL_TEMPLATES_CONFIG = [
     name: { "zh-tw": "街頭的自我對話", en: "Street Self-Dialogue" },
     content: TEMPLATE_STREET_DIALOGUE,
     imageUrl: "https://s3.bmp.ovh/imgs/2025/12/25/fd3cbc98f5afa970.png",
-    author: "@MarioTan",
+    author: "@tanshilong（MarioTan）",
     selections: {
       "building_cluster": { "zh-tw": "紐約摩天大樓群", en: "New York skyscraper cluster" },
       "lighting_atmosphere": { "zh-tw": "夕陽餘暉", en: "Sunset afterglow" },
       "clothing": { "zh-tw": "黑色修身西裝", en: "Black slim-fit suit" },
       "lens_param": { "zh-tw": "85mm, f/1.8", en: "85mm, f/1.8" },
-      "ratio": { "zh-tw": "3:4豎構圖", en: "3:4 Vertical" }
+      "ratio": { "zh-tw": "3:4直式構圖", en: "3:4 Vertical" }
     },
     tags: ["人物", "攝影", "創意"],
+    language: ["zh-tw", "en"]
+  },
+  {
+    id: "tpl_wooden_art_xmas",
+    name: { "zh-tw": "木質層疊藝術", en: "Layered Wood Art" },
+    content: TEMPLATE_WOODEN_ART_XMAS,
+    imageUrl: "https://s3.bmp.ovh/imgs/2025/12/26/3170b82b79a7801e.jpeg",
+    author: "@tanshilong(MarioTan)",
+    selections: {
+      "xmas_theme": { "zh-tw": "抽象聖誕樹", en: "an abstract Christmas Tree" },
+      "ratio": { "zh-tw": "3:4直式構圖", en: "3:4 Vertical" }
+    },
+    tags: ["產品", "創意", "攝影"],
     language: ["zh-tw", "en"]
   }
 ];
