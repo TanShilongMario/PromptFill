@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   ImageIcon, ArrowUpRight
 } from 'lucide-react';
 import { getLocalized } from '../utils/helpers';
 import { Sidebar } from './Sidebar';
+import { FireworkEffect } from './FireworkEffect';
+import { FEATURE_FLAGS } from '../constants/featureFlags';
 
 /**
  * DiscoveryView 组件 - 瀑布流展示所有模板
@@ -33,26 +35,29 @@ export const DiscoveryView = React.memo(({
   setSortOrder,
     setRandomSeed,
     globalContainerStyle,
-    masonryStyleKey
+    masonryStyleKey,
+    themeMode,
+    setThemeMode
   }) => {
     const [columnCount, setColumnCount] = useState(1);
     const [columnGap, setColumnGap] = useState(20); // Default to gap-5 (20px)
+    const fireworkRef = useRef(null);
   
     useEffect(() => {
       const getColumnInfo = () => {
         const width = window.innerWidth;
         if (masonryStyleKey === 'poster') {
-          return { count: width >= 1280 ? 3 : (width >= 640 ? 2 : 1), gap: 20 };
+          return { count: width >= 1280 ? 3 : (width >= 640 ? 2 : 1), gap: 12 };
         } else if (masonryStyleKey === 'classic' || masonryStyleKey === 'minimal') {
           const count = width >= 1280 ? 4 : (width >= 1024 ? 3 : (width >= 640 ? 2 : 1));
-          return { count, gap: 24 }; // gap-6
+          return { count, gap: 16 };
         } else if (masonryStyleKey === 'compact') {
           const count = width >= 1280 ? 5 : (width >= 1024 ? 4 : (width >= 640 ? 3 : 2));
-          return { count, gap: 12 }; // gap-3
+          return { count, gap: 8 };
         } else if (masonryStyleKey === 'list') {
-          return { count: 1, gap: 16 }; // gap-4
+          return { count: 1, gap: 12 };
         }
-        return { count: 1, gap: 20 };
+        return { count: 1, gap: 12 };
       };
   
       const handleResize = () => {
@@ -81,24 +86,24 @@ export const DiscoveryView = React.memo(({
             <img 
               src={isDarkMode ? "/Title_Dark.svg" : "/Title.svg"} 
               alt="Prompt Fill Logo" 
-              className="w-full max-w-[280px] h-auto"
+              className="w-full max-w-[220px] h-auto"
             />
           </div>
 
           {/* 2. 动态文字区 */}
-          <div className="w-full">
+          <div className="w-full scale-90 origin-center">
             <AnimatedSlogan isActive={isSloganActive} language={language} isDarkMode={isDarkMode} />
           </div>
 
-          {/* 3. 图像展示（单列） */}
-          <div className="flex flex-col gap-6 mt-2">
+          {/* 3. 图像展示（两列瀑布流） */}
+          <div className="columns-2 gap-1 mt-2">
             {filteredTemplates.map(t_item => (
               <div 
                 key={t_item.id}
                 onClick={() => {
                   setZoomedImage(t_item.imageUrl);
                 }}
-                className={`w-full rounded-3xl overflow-hidden shadow-sm border active:scale-[0.98] transition-all ${isDarkMode ? 'bg-[#2A2726] border-white/5' : 'bg-white border-gray-100'}`}
+                className={`break-inside-avoid mb-1 w-full rounded-lg overflow-hidden shadow-sm border active:scale-[0.98] transition-all ${isDarkMode ? 'bg-[#2A2726] border-white/5' : 'bg-white border-gray-100'}`}
               >
                 <div className="relative w-full bg-gray-50/5">
                   {t_item.imageUrl ? (
@@ -115,8 +120,8 @@ export const DiscoveryView = React.memo(({
                     </div>
                   )}
                   {/* Title Overlay */}
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-5 pt-10 rounded-b-3xl">
-                    <h3 className="text-white font-bold text-lg">{getLocalized(t_item.name, language)}</h3>
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-2 pt-6 rounded-b-lg">
+                    <h3 className="text-white font-bold text-[10px] truncate">{getLocalized(t_item.name, language)}</h3>
                   </div>
                 </div>
               </div>
@@ -134,29 +139,31 @@ export const DiscoveryView = React.memo(({
       {/* Poster Content Container */}
       <div 
         style={globalContainerStyle}
-        className="flex flex-col w-full h-full overflow-hidden relative z-10 p-4 md:p-6 lg:p-9"
+        className="flex flex-col w-full h-full overflow-hidden relative z-10 p-4 md:p-5 lg:p-7"
       >
-          <div className="flex-1 flex flex-col lg:flex-row gap-8 lg:gap-20 overflow-hidden py-6 lg:py-10 px-4 lg:px-8">
+          <div className="flex-1 flex flex-col lg:flex-row gap-6 lg:gap-12 xl:gap-16 overflow-hidden py-4 lg:py-8 px-2 lg:px-6">
               {/* Left Side: Logo & Slogan */}
-              <div className="flex flex-col justify-center items-center lg:items-start lg:w-[380px] xl:w-[460px] flex-shrink-0 px-4 lg:pl-8 lg:pr-6 gap-8">
-                  <div className="w-full max-w-[400px] scale-75 sm:scale-90 lg:scale-100 origin-center lg:origin-left">
+              <div className="flex flex-col justify-center items-center lg:items-start lg:w-[280px] xl:w-[320px] flex-shrink-0 px-4 lg:pl-6 lg:pr-2 gap-6">
+                  <div className="w-full max-w-[320px] scale-75 sm:scale-85 lg:scale-90 xl:scale-100 origin-center lg:origin-left">
                       <img 
                           src={isDarkMode ? "/Title_Dark.svg" : "/Title.svg"} 
                           alt="Prompt Fill Logo" 
                           className="w-full h-auto"
                       />
                   </div>
-                  <AnimatedSlogan isActive={isSloganActive} language={language} isDarkMode={isDarkMode} />
+                  <div className="w-full scale-90 lg:scale-95 xl:scale-100 origin-center lg:origin-left">
+                    <AnimatedSlogan isActive={isSloganActive} language={language} isDarkMode={isDarkMode} />
+                  </div>
               </div>
 
               {/* Right Side: Waterfall Grid */}
               <div 
                   ref={posterScrollRef}
-                  className="flex-1 overflow-y-auto overflow-x-visible pr-4 lg:pr-8 scroll-smooth poster-scrollbar will-change-scroll"
+                  className="flex-1 overflow-y-auto overflow-x-visible pr-2 lg:pr-4 scroll-smooth poster-scrollbar will-change-scroll"
                   onMouseEnter={() => setIsPosterAutoScrollPaused(true)}
                   onMouseLeave={() => setIsPosterAutoScrollPaused(false)}
               >
-                  <div className="h-full w-full py-8 lg:py-12 px-6 lg:px-12">
+                  <div className="h-full w-full py-4 lg:py-6 px-2 lg:px-4">
                       <div className={`flex w-full ${masonryStyleKey === 'list' ? 'flex-col' : ''}`} style={{ gap: `${columnGap}px` }}>
                           {Array.from({ length: columnCount }).map((_, colIndex) => (
                               <div key={colIndex} className="flex-1 flex flex-col" style={{ gap: `${columnGap}px` }}>
@@ -168,9 +175,9 @@ export const DiscoveryView = React.memo(({
                                               onClick={() => {
                                                   setZoomedImage(t_item.imageUrl);
                                               }}
-                                              className={`cursor-pointer group transition-shadow duration-300 relative overflow-hidden rounded-2xl isolate border-2 hover:shadow-[0_0_25px_rgba(251,146,60,0.6)] will-change-transform ${isDarkMode ? 'border-white/10' : 'border-white'}`}
+                                              className={`cursor-pointer group transition-shadow duration-300 relative overflow-hidden rounded-xl isolate border-2 hover:shadow-[0_0_25px_rgba(251,146,60,0.6)] will-change-transform ${isDarkMode ? 'border-white/10' : 'border-white'}`}
                                           >
-                                              <div className={`relative w-full overflow-hidden rounded-xl ${isDarkMode ? 'bg-[#2A2726]' : 'bg-gray-100'}`} style={{ transform: 'translateZ(0)' }}>
+                                              <div className={`relative w-full overflow-hidden rounded-lg ${isDarkMode ? 'bg-[#2A2726]' : 'bg-gray-100'}`} style={{ transform: 'translateZ(0)' }}>
                                                   {t_item.imageUrl ? (
                                                       <img 
                                                           src={t_item.imageUrl} 
@@ -203,8 +210,22 @@ export const DiscoveryView = React.memo(({
               </div>
           </div>
 
-          {/* Bottom Bar: Author Info Only */}
-          <div className="mt-auto flex items-center justify-end px-8 py-6 relative z-20">
+          {/* Bottom Bar: Trigger on Left, Author Info on Right */}
+          <div className="mt-auto flex items-center justify-between px-8 py-6 relative z-20">
+              {/* New Year Firework Trigger (Desktop/Mobile unified position) */}
+              {FEATURE_FLAGS.ENABLE_NEW_YEAR_FIREWORKS ? (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    fireworkRef.current?.start();
+                  }}
+                  className="transition-all duration-300 transform hover:scale-110 active:scale-95 outline-none"
+                  title="新年烟花秀"
+                >
+                  <img src="/2026.png" alt="2026" className="h-10 md:h-12 w-auto" />
+                </button>
+              ) : <div />}
+
               <div className="flex flex-col items-end gap-1.5 opacity-60 hover:opacity-100 transition-opacity">
                   <div className={`flex items-center gap-3 text-[11px] font-medium px-4 py-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-700'}`}>
                       <p>Made by CornerStudio</p>
@@ -226,6 +247,13 @@ export const DiscoveryView = React.memo(({
               </div>
           </div>
       </div>
+      <FireworkEffect 
+        ref={fireworkRef} 
+        onStart={() => {
+          // 播放烟花时自动切换到暗夜模式
+          if (setThemeMode) setThemeMode('dark');
+        }}
+      />
     </div>
   );
 });

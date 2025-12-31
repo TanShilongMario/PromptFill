@@ -40,6 +40,7 @@ export const TemplatesSidebar = React.memo(({
   handleExportTemplate,
   handleDeleteTemplate,
   handleAddTemplate,
+  handleManualTokenImport,
   INITIAL_TEMPLATES_CONFIG,
   editingTemplateNameId,
   tempTemplateName,
@@ -68,53 +69,50 @@ export const TemplatesSidebar = React.memo(({
         className={`
         ${isMobile 
           ? `fixed inset-y-0 left-0 z-[300] w-[75%] max-w-[320px] transform transition-transform duration-500 ease-out shadow-2xl ${isTemplatesDrawerOpen ? 'translate-x-0' : '-translate-x-full'}`
-          : 'relative md:flex flex-col flex-shrink-0 h-full w-[340px] overflow-hidden'
+          : 'relative md:flex flex-col shrink-[5] h-full w-[300px] overflow-hidden min-w-[200px]'
         } 
         flex overflow-hidden
-        ${!isMobile ? 'bg-transparent' : (isDarkMode ? 'bg-[#242120]' : 'bg-white')}
+        ${!isMobile ? 'bg-transparent' : (isDarkMode ? 'bg-[#242120]/95' : 'bg-white/95')}
         ${!isMobile && mobileTab !== 'editor' && mobileTab !== 'banks' ? 'hidden md:flex' : ''}
       `}
       >
-        <div className={`flex flex-col w-full h-full ${isMobile ? (isDarkMode ? 'bg-[#242120]' : 'bg-white') : 'bg-transparent'} backdrop-blur-sm rounded-2xl`}>
+        <div className={`flex flex-col w-full h-full ${isMobile ? (isDarkMode ? 'bg-[#242120]/95' : 'bg-white/95') : 'bg-transparent'} backdrop-blur-sm rounded-2xl`}>
           {/* --- Sidebar Header with Tools --- */}
-      <div className="flex-shrink-0 p-6">
+      <div className="flex-shrink-0 px-6 pt-4 pb-4">
          <div className="flex items-center justify-between mb-6">
              <div className="flex flex-col items-start gap-1">
                   <h1 className={`${isMobile ? 'text-[18px]' : 'text-[22px]'} font-black tracking-tight text-orange-500 flex items-baseline gap-2`}>
                       提示词填空器
-                      <span className={`${isDarkMode ? 'text-gray-600' : 'text-gray-400'} text-xs font-bold tracking-widest`}>V0.6.1</span>
                   </h1>
              </div>
              
-             {/* 仅在移动端显示顶部操作按钮，桌面端已迁移至全局 Sidebar */}
-             <div className="hidden md:hidden items-center gap-1.5">
-                  {/* 移动端按钮暂时隐藏，因为用户要求不需要了 */}
+             <div className="flex items-center">
+                  <PremiumButton
+                      onClick={() => {
+                        const val = prompt(language === 'cn' ? '请输入分享口令或链接' : 'Please enter share token or link');
+                        if (val && typeof handleManualTokenImport === 'function') {
+                          handleManualTokenImport(val);
+                        }
+                      }}
+                      icon={Download}
+                      isDarkMode={isDarkMode}
+                      className="scale-90 origin-right"
+                  >
+                      <span>{t('import')}</span>
+                  </PremiumButton>
              </div>
          </div>
 
          <div className="flex flex-col gap-4">
             {/* 极简搜索框 */}
-            <div className="relative group">
-                <Search className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors pointer-events-none ${isDarkMode ? 'text-gray-600 group-focus-within:text-orange-500' : 'text-gray-400 group-focus-within:text-orange-500'}`} size={16} />
+            <div className={`premium-search-container group ${isDarkMode ? 'dark' : 'light'}`}>
+                <Search className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors pointer-events-none z-10 ${isDarkMode ? 'text-gray-600 group-focus-within:text-orange-500' : 'text-gray-400 group-focus-within:text-orange-500'}`} size={16} />
                 <input 
                   type="text" 
                   placeholder={t('search_templates')} 
                   value={searchQuery} 
                   onChange={(e) => setSearchQuery(e.target.value)} 
-                  style={isDarkMode ? {
-                    background: '#2A2726',
-                    border: '1px solid transparent',
-                    backgroundImage: 'linear-gradient(#2A2726, #2A2726), linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%)',
-                    backgroundOrigin: 'border-box',
-                    backgroundClip: 'padding-box, border-box',
-                  } : {
-                    background: '#E8E3DD',
-                    border: '1px solid transparent',
-                    backgroundImage: 'linear-gradient(#E8E3DD, #E8E3DD), linear-gradient(0deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%)',
-                    backgroundOrigin: 'border-box',
-                    backgroundClip: 'padding-box, border-box',
-                  }}
-                  className={`w-full pl-11 pr-4 py-3 rounded-2xl text-[14px] font-medium transition-all outline-none focus:ring-4 focus:ring-orange-500/5 ${isDarkMode ? 'text-gray-200 placeholder-gray-600' : 'text-gray-700 placeholder-gray-400'}`} 
+                  className={`premium-search-input ${isDarkMode ? 'dark' : 'light'}`} 
                 />
             </div>
             
@@ -244,14 +242,13 @@ export const TemplatesSidebar = React.memo(({
 
       {/* --- Footer & Create Button --- */}
       <div className="flex-shrink-0">
-          <div className="p-6 pb-10 md:pb-8">
+          <div className="px-6 pt-4 pb-4">
             <PremiumButton
                 onClick={handleAddTemplate}
                 icon={Plus}
-                color="orange"
                 active={true}
                 isDarkMode={isDarkMode}
-                className="w-full !py-3 text-[15px] font-black transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl hover:shadow-orange-500/20"
+                className="w-full size-lg"
             >
                 {t('new_template')}
             </PremiumButton>

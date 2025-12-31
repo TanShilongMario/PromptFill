@@ -22,7 +22,8 @@ export const Sidebar = ({
   setLanguage,
   // Theme
   isDarkMode,
-  setIsDarkMode,
+  themeMode,
+  setThemeMode,
   t
 }) => {
   // 定义三种状态的颜色
@@ -188,13 +189,25 @@ export const Sidebar = ({
         </button>
 
         <button 
-          onClick={() => setIsDarkMode(!isDarkMode)}
-          className="p-2 group"
-          title={isDarkMode ? 'Light Mode' : 'Dark Mode'}
+          onClick={() => {
+            if (themeMode === 'light') setThemeMode('dark');
+            else if (themeMode === 'dark') setThemeMode('system');
+            else setThemeMode('light');
+          }}
+          className="p-2 group relative"
+          title={themeMode === 'system' ? 'Follow System' : (themeMode === 'dark' ? 'Dark Mode' : 'Light Mode')}
         >
           <div className={`${isDarkMode ? 'text-gray-400' : 'text-gray-400'} group-hover:text-[#F97316] transition-colors`}>
-            {isDarkMode ? <Sun size={24} /> : <Moon size={24} />}
+            {themeMode === 'system' ? (
+              <div className="relative">
+                <Sun size={24} className="opacity-50" />
+                <Moon size={14} className="absolute -bottom-1 -right-1" />
+              </div>
+            ) : (themeMode === 'dark' ? <Moon size={24} /> : <Sun size={24} />)}
           </div>
+          {themeMode === 'system' && (
+            <span className="absolute top-1 right-1 w-1.5 h-1.5 bg-orange-500 rounded-full"></span>
+          )}
         </button>
         
         <button 

@@ -32,7 +32,13 @@
 /**
  * 模板系统版本号，每次更新 templates.js 或 banks.js 时请更新此版本号
  */
-export const SYSTEM_DATA_VERSION = "0.7.5";
+export const SYSTEM_DATA_VERSION = "0.7.6";
+
+/**
+ * 分享功能正式环境域名（扫码导入需使用公网可访问地址）
+ * 留空则自动使用当前访问地址
+ */
+export const PUBLIC_SHARE_URL = ""; 
 
 export const TEMPLATE_BRAND_CONCEPT_OBJECT = {
   cn: `### 品牌概念单品 (Brand Concept Object)
@@ -839,6 +845,145 @@ export const TEMPLATE_STREET_DIALOGUE = {
 7. **EMOTION & STORY:** Conveys feelings of loneliness, introspection, identity multiplicity, and the complexity of inner dialogue. The image freezes a quiet philosophical moment within dynamics.`
 };
 
+export const TEMPLATE_FASHION_FOCUS = {
+  cn: `### 高端时尚杂志封面 (Fashion Magazine Cover)
+一张高端时尚杂志封面。人物为{{character_originality}}，气质自信前卫，身体张力强，动态姿态，直视镜头。
+
+**视觉核心:**
+- **服饰:** {{clothing}}，现代编辑感穿搭。
+- **动作:** 模特双手比起“取景框”手势，仿佛与一个矩形选中框有互动，选中框覆盖脸部和肩部。
+- **规则:** 只有选中框内部清晰且为自然彩色；选中框外完全灰度且强像素化（Pixelated），无任何颜色或清晰区域。
+
+**摄影与光影:**
+- **视角:** 略低机位仰拍（Low-angle shot）。
+- **灯光:** 柔和漫射棚拍光。
+
+**版式设计 (Typography):**
+- **顶部:** 居中粗体大写扁宽型无衬线标题“FOCUS”，上方小字“DECEMBER 2025”；标题左下“VOL + 随机两位数”。
+- **左下角:** 文字块（简短时尚自信标题、短段落、条形码）。
+- **右侧:** “FASHION INTERVIEW”；右下角衬线体小号“THE EDIT”及大号“01-09的随机数字”。
+- **层级:** 模特对标题有遮挡叠加，前后景关系分明，干净现代。
+- **颜色:** 字体均为白色，蒙太奇风格，文字与图像形成强烈对比。
+
+**规格:**
+- **画幅:** {{ratio}}`,
+  en: `### High-end Fashion Magazine Cover - FOCUS
+A high-end fashion magazine cover. The character is {{character_originality}}, with a confident and avant-garde aura, strong body tension, dynamic pose, staring straight at the camera.
+
+**Visual Core:**
+- **Wardrobe:** {{clothing}}, modern editorial styling.
+- **Action:** The model's hands form a "viewfinder" gesture, as if interacting with a rectangular selection box that covers the face and shoulders.
+- **Rule:** Only the area inside the selection box is sharp and in natural color; the area outside the box is entirely grayscale and heavily pixelated, with no color or clear regions.
+
+**Photography & Lighting:**
+- **Angle:** Low-angle shot looking up.
+- **Lighting:** Soft diffused studio lighting.
+
+**Layout & Typography:**
+- **Top:** Centered bold uppercase wide sans-serif title "FOCUS", with "DECEMBER 2025" in small text above it; "VOL + random 2 digits" at the bottom left of the title.
+- **Bottom Left:** Text block (short confident fashion title, short paragraph, barcode).
+- **Right:** "FASHION INTERVIEW"; "THE EDIT" in small serif font and a "random 01-09 digit" in large font at the bottom right.
+- **Layering:** The model overlaps/occludes the title, creating clear depth and a clean, modern look.
+- **Color:** All fonts are white, in a montage style, creating a strong contrast between text and image.
+
+**Specifications:**
+- **Aspect Ratio:** {{ratio}}`
+};
+
+export const TEMPLATE_CITY_GLIMPSE = {
+  cn: `### 都市一瞥 (City Glimpse)
+一种合适的艺术工具（例如：{{art_tool}}），仿佛正处于创作之中，从左下角向右上角勾勒出一条精致、优雅的曲线。
+
+**视觉核心:**
+- **笔触景观:** 笔触之中包含著名的 {{city_name_1}} 地标的微缩景观：精选的一组标志性地点，融合当地特有的历史与现代建筑、自然元素以及城市生活气息。
+- **艺术风格:** 整体风格结合了 {{art_style_1}} 与学院派海报设计：多样化的笔触与痕迹营造出三维空间感，呈现出立体的微缩景观与浅浮雕质感。
+- **色彩:** {{dominant_colors}} 为主色调，其间点缀传统的 {{city_name_1}} 美学元素，并与现代城市天际线相互交织。
+
+**构图与背景:**
+- **视角:** 画面为极简的俯视视角，主体笔触之外保留大面积留白。
+- **背景:** 具有纹理的纸张（高质量纤维质感），色调明亮、干净、清新（例如：{{background_color_clean}}），与画面主体形成清晰对比，营造纯净感。
+- **构图要求:** 绘画工具的笔尖应在笔触末端（右上角）停住，笔触之外保留干净的留白；微缩景观仅存在于笔触内部，细节密集但不显杂乱。
+
+**大师级排版 (Typography):**
+- **主标题:** “{{city_name_1}}”（与绘画风格美学相匹配的艺术字体，极具吸引力，高对比度，作为核心视觉层级）。
+- **副标题:** “{{city_glimpse_subtitle}}”（在风格上与主标题及绘画肌理相互呼应的高级排版）。
+- **装饰文案:** 全部采用与 {{art_style_1}} 融合的字体风格，通过分段形成节奏与层级，与主标题呼应。
+
+**规格:**
+- **画质:** 高细节度、超写实效果、HDR，以及 8K 分辨率。
+- **画幅比例:** {{ratio}}`,
+  en: `### City Glimpse - Urban Miniature
+A suitable artistic tool (e.g., {{art_tool}}), as if in the middle of creation, sketching a delicate, elegant curve from the bottom left to the top right.
+
+**Visual Core:**
+- **Stroke Landscape:** Within the brushstroke lies a miniature landscape of famous {{city_name}} landmarks: a curated set of iconic locations, blending local history, modern architecture, natural elements, and urban life.
+- **Art Style:** The overall style combines {{art_style}} with academic poster design: diverse brushstrokes and marks create a 3D sense of space, presenting a three-dimensional miniature landscape and low-relief texture.
+- **Color:** {{dominant_colors}} as the dominant tones, interspersed with traditional {{city_name}} aesthetic elements and intertwined with the modern city skyline.
+
+**Composition & Background:**
+- **Perspective:** Minimalist top-down view, with large areas of negative space outside the main stroke.
+- **Background:** Textured high-quality fiber paper, bright and clean tones (e.g., {{background_color_clean}}), creating a clear contrast with the main subject and fostering a sense of purity.
+- **Details:** The tip of the art tool pauses at the end of the stroke (top right), with clean negative space beyond the stroke; the miniature landscape exists only inside the stroke, densely detailed but not cluttered.
+
+**Master-level Typography:**
+- **Main Title:** "{{city_name}}" in an artistic font matching the painting style aesthetics, highly attractive with high contrast as the core visual hierarchy.
+- **Subtitle:** "{{city_glimpse_subtitle}}" in sophisticated typography that echoes the main title and painting texture.
+- **Decorative Text:** All using font styles integrated with {{art_style}}, creating rhythm and hierarchy through segmentation, echoing the main title.
+
+**Specifications:**
+- **Quality:** High detail, hyper-realistic effect, HDR, 8K resolution.
+- **Aspect Ratio:** {{ratio}}`
+};
+
+export const TEMPLATE_MULTIPLE_SELVES_INDOOR = {
+  cn: `### 多个自我“对话” (室内聚会版)
+
+**1. 核心主题与风格:** 一张具有深刻故事性和极佳摄影质感的摄影人像作品，捕捉“自我对话”的哲学瞬间。呈现电影级叙事感。
+
+**2. 场景与背景地点:** 现代风格的住宅室内。呈现一群样貌完全一样的人在室内的不同行为，如同在一场奇幻的节日聚会。
+
+**3. 核心人物 (视觉中心):** 位于客厅画面正中央，静止站立，神态若有所思，眼神平静地凝视镜头。这种绝对的静止与周围环境的匆忙形成鲜明对比。着装：{{clothing}}，面部特征与上传图片高度一致。
+
+**4. 周边人群 (不同维度的自我):** 房间内还有 5 个面貌与核心人物完全一致的“自我”，他们身着不同的服装（与其当前动作匹配），正在进行以下活动：
+- 人物 A 正在 {{action_status}}；
+- 人物 B 正在 {{action_status}}；
+- 人物 C 正在 {{action_status}}；
+- 人物 D 正在 {{action_status}}；
+- 人物 E 正在 {{action_status}}。
+所有的人都在客厅中各司其职又互不干扰，氛围呈现出一种节日聚会般的荒诞与欢愉。
+
+**5. 细节与构图:**
+- **摄影规格:** 使用 {{lens_param}} 拍摄。核心人物面部和上身清晰锐利，前景和背景人物及物体适度虚化，营造出极佳的景深感。
+- **环境细节:** 客厅墙上挂着一个精美的装饰性木雕艺术品，雕刻着“2025”字样，其中数字“5”呈现出摇摇欲坠、即将掉落的状态。
+
+**6. 画质与色调:** 高分辨率，细腻的胶片质感，带有轻微的颗粒感。色调以温暖的橙色调（暖色光）和深蓝色阴影（对比色）为主，色彩鲜明且富有层次。
+
+**7. 情绪与故事:** 传递出一种孤独中带着丰盈、内省中伴随身份多元性的复杂情感。画面在动态的忙碌中凝结了一个安静的哲学思考瞬间。`,
+  en: `### Multiple Self-Dialogue (Indoor Party Edition)
+
+**1. Core Theme & Style:** A storytelling photography portrait with exceptional quality, capturing a philosophical moment of "self-dialogue." It presents a cinematic narrative feel.
+
+**2. Scene & Location:** A modern residential interior. It features a group of identical-looking people engaging in various activities within the room, resembling a fantastical holiday party.
+
+**3. Central Character (Visual Anchor):** Located in the exact center of the living room, standing perfectly still with a pensive expression, eyes calmly staring at the camera. This absolute stillness forms a sharp contrast with the surrounding hustle. Wardrobe: {{clothing}}, facial features strictly consistent with the uploaded image.
+
+**4. Surrounding Figures (Multiple Selves):** There are 5 other "selves" in the room, identical in appearance to the central character, wearing different outfits (matching their actions) and engaging in the following:
+- Person A is {{action_status}};
+- Person B is {{action_status}};
+- Person C is {{action_status}};
+- Person D is {{action_status}};
+- Person E is {{action_status}}.
+Everyone is busy with their own task in the living room without interfering with each other, creating an atmosphere of absurd holiday-like joy.
+
+**5. Details & Composition:**
+- **Photography Specs:** Shot with {{lens_param}}. The central character's face and upper body are sharp and clear, while foreground/background figures and objects are moderately blurred to create excellent depth of field.
+- **Environmental Detail:** A decorative wooden carving hangs on the wall, reading "2025," where the digit "5" appears wobbly and on the verge of falling off.
+
+**6. Quality & Tone:** High resolution, fine film texture with slight grain. The color palette is dominated by warm oranges (warm lighting) and deep blue shadows (complementary colors), providing vivid and layered colors.
+
+**7. Emotion & Story:** Conveys a complex sense of identity multiplicity and introspection within solitude. The image freezes a quiet philosophical moment amidst dynamic activity.`
+};
+
 /**
  * 可用的模板标签
  */
@@ -870,7 +1015,7 @@ export const INITIAL_TEMPLATES_CONFIG = [
     name: { cn: "角色概念分解图", en: "Character Concept Sheet" },
     content: DEFAULT_TEMPLATE_CONTENT,
     imageUrl: "https://s3.bmp.ovh/imgs/2025/12/08/ec433cf214faf102.jpg",
-    author: "官方",
+    author: "@berryxia（Berryxia.AI）",
     selections: {},
     tags: ["人物", "创意", "图表"],
     language: ["cn", "en"]
@@ -880,7 +1025,7 @@ export const INITIAL_TEMPLATES_CONFIG = [
     name: { cn: "3x3 摄影网格", en: "3x3 Photo Grid" },
     content: TEMPLATE_PHOTO_GRID,
     imageUrl: "https://s3.bmp.ovh/imgs/2025/12/08/5302794e63fa130b.jpg",
-    author: "官方",
+    author: "@tanshilong（MarioTan）",
     selections: {
       "clothing": { cn: "炭灰色无袖连衣裙", en: "Charcoal grey sleeveless dress" },
       "grid_pose-0": { cn: "前景手指虚化", en: "Out-of-focus fingers in foreground" },
@@ -910,7 +1055,7 @@ export const INITIAL_TEMPLATES_CONFIG = [
     name: { cn: "时尚情绪板插画", en: "Fashion Moodboard" },
     content: TEMPLATE_FASHION_MOODBOARD,
     imageUrl: "https://s3.bmp.ovh/imgs/2025/12/08/4d9f92ccb4113fdd.jpg",
-    author: "官方",
+    author: "@tanshilong（MarioTan）",
     selections: {},
     tags: ["人物", "创意", "卡通"],
     language: ["cn", "en"]
@@ -920,7 +1065,7 @@ export const INITIAL_TEMPLATES_CONFIG = [
     name: { cn: "人物趣味合影", en: "Character Selfie" },
     content: TEMPLATE_CHARACTER_SELFIE,
     imageUrl: "https://s3.bmp.ovh/imgs/2025/12/08/c2312d24d0f2c38e.jpeg",
-    author: "官方",
+    author: "@tanshilong（MarioTan）",
     selections: {},
     tags: ["人物", "创意"],
     language: ["cn", "en"]
@@ -930,7 +1075,7 @@ export const INITIAL_TEMPLATES_CONFIG = [
     name: { cn: "经典场景微缩复刻", en: "Classic Scene Miniature" },
     content: TEMPLATE_CLASSIC_SCENE,
     imageUrl: "https://s3.bmp.ovh/imgs/2025/12/10/1eac697f5a438542.jpg",
-    author: "官方",
+    author: "@tanshilong（MarioTan）",
     selections: {
       "classic_scene": { cn: "千与千寻", en: "Spirited Away" },
       "render_style": { cn: "Octane Render 和 Cinema 4D", en: "Octane Render and Cinema 4D" },
@@ -944,7 +1089,7 @@ export const INITIAL_TEMPLATES_CONFIG = [
     name: { cn: "可视化企业成长之路", en: "Corporate Evolution Path" },
     content: TEMPLATE_CORPORATE_GROWTH,
     imageUrl: "https://s3.bmp.ovh/imgs/2025/12/10/a7e87e49c6144fdc.jpg",
-    author: "官方",
+    author: "@langzihan（Keng哥）",
     selections: {
       "company": { cn: "任天堂（Nintendo）", en: "Nintendo" },
       "render_style": { cn: "3D像素风格", en: "3D Pixel Art Style" },
@@ -958,7 +1103,7 @@ export const INITIAL_TEMPLATES_CONFIG = [
     name: { cn: "极端鱼眼都市奇观", en: "Fisheye Urban Wonder" },
     content: TEMPLATE_FISHEYE_URBAN,
     imageUrl: "https://s3.bmp.ovh/imgs/2025/12/14/b21165a2afefaf4d.jpg",
-    author: "官方",
+    author: "@tanshilong（MarioTan）",
     selections: {
       "lens_type": { cn: "极端鱼眼镜头", en: "Extreme Fisheye Lens" },
       "role": { cn: "年轻女性", en: "Young woman" },
@@ -1003,7 +1148,7 @@ export const INITIAL_TEMPLATES_CONFIG = [
       "https://s3.bmp.ovh/imgs/2025/12/16/a6106f5cc6e92a74.jpg",
       "https://s3.bmp.ovh/imgs/2025/12/16/cf8edb6f54db15bf.jpg"
     ],
-    author: "官方",
+    author: "@hx831126（虎小象）",
     selections: {
       "travel_location": { cn: "东北雪乡", en: "Snow Village in Northeast China" },
       "ratio": { cn: "9:16竖构图", en: "9:16 Vertical" }
@@ -1016,7 +1161,7 @@ export const INITIAL_TEMPLATES_CONFIG = [
     name: { cn: "漫画人物成真", en: "Manga to Reality" },
     content: TEMPLATE_MANGA_TO_REALITY,
     imageUrl: "https://s3.bmp.ovh/imgs/2025/12/16/f5291c56ece88cd9.jpg",
-    author: "官方",
+    author: "@tanshilong（MarioTan）",
     selections: {
       "character_originality": { cn: "使用附图中的人物，确保结果与人物一致性", en: "Use character in attachment, ensure consistency" },
       "comic_scene": { cn: "唯美的卧室", en: "Beautiful bedroom" },
@@ -1030,7 +1175,12 @@ export const INITIAL_TEMPLATES_CONFIG = [
     name: { cn: "设计大师的产品设计", en: "Industrial Design Masterpiece" },
     content: TEMPLATE_INDUSTRIAL_DESIGN,
     imageUrl: "https://s3.bmp.ovh/imgs/2025/12/17/7dbe43ae66b1a78c.jpg",
-    author: "官方",
+    imageUrls: [
+      "https://s3.bmp.ovh/imgs/2025/12/17/7dbe43ae66b1a78c.jpg",
+      "https://s3.bmp.ovh/imgs/2025/12/29/e6b0964f5a9a55bd.jpg",
+      "https://s3.bmp.ovh/imgs/2025/12/29/fa5b709a4df577fd.jpg"
+    ],
+    author: "@tanshilong（MarioTan）",
     selections: {
       "designer": { cn: "Jonathan Ive (Jony Ive)", en: "Jonathan Ive" },
       "design_item": { cn: "无人机", en: "Drone" },
@@ -1044,7 +1194,7 @@ export const INITIAL_TEMPLATES_CONFIG = [
     name: { cn: "3x3 摄影网格出格版", en: "3x3 Photo Grid (Out of Box)" },
     content: TEMPLATE_PHOTO_GRID_V2,
     imageUrl: "https://s3.bmp.ovh/imgs/2025/12/17/77bfd2bf7abc3eac.png",
-    author: "官方",
+    author: "@tanshilong（MarioTan）",
     selections: {
       "clothing": { cn: "炭灰色无袖连衣裙", en: "Charcoal grey sleeveless dress" },
       "grid_pose-0": { cn: "前景手指虚化", en: "Out-of-focus fingers in foreground" },
@@ -1145,7 +1295,7 @@ export const INITIAL_TEMPLATES_CONFIG = [
     name: { cn: "角色艺术拆解升级版", en: "Role Deconstruction" },
     content: TEMPLATE_PIXAR_DECONSTRUCTION,
     imageUrl: "https://s3.bmp.ovh/imgs/2025/12/26/1931582fcfb9d1e5.png",
-    author: "berryxia（Berryxia.AI）",
+    author: "@berryxia（Berryxia.AI）",
     selections: {
       "render_style": { cn: "Pixar 卡通渲染", en: "Pixar Cartoon Rendering" },
       "subject": { cn: "时尚女性角色", en: "Fashionable Female Character" },
@@ -1188,14 +1338,65 @@ export const INITIAL_TEMPLATES_CONFIG = [
     id: "tpl_brand_concept_object",
     name: { cn: "品牌概念单品", en: "Brand Concept Object" },
     content: TEMPLATE_BRAND_CONCEPT_OBJECT,
-    imageUrl: "https://s3.bmp.ovh/imgs/2025/12/26/5d4f93892d119335.png",
-    author: "官方",
+    imageUrl: "https://s3.bmp.ovh/imgs/2025/12/27/e893bd88e9ea324b.png",
+    author: "@AmirMushich",
     selections: {
       "company": { cn: "Apple", en: "Apple" },
       "design_item": { cn: "无人机", en: "Drone" },
       "ratio": { cn: "1:1", en: "1:1 Square" }
     },
     tags: ["产品", "创意", "摄影"],
+    language: ["cn", "en"]
+  },
+  {
+    id: "tpl_fashion_focus",
+    name: { cn: "高端时尚杂志封面 - FOCUS", en: "Fashion Magazine - FOCUS" },
+    content: TEMPLATE_FASHION_FOCUS,
+    imageUrl: "https://s3.bmp.ovh/imgs/2025/12/29/ebe3e34755c3ef2e.png",
+    author: "Latte(@0xbisc)",
+    selections: {
+      "character_originality": { cn: "使用附图中的人物，确保结果与人物一致性", en: "Use character in attachment, ensure consistency" },
+      "clothing": { cn: "秋冬季顶级时尚服饰", en: "High-end autumn/winter fashion apparel" },
+      "ratio": { cn: "3:4竖构图", en: "3:4 Vertical" }
+    },
+    tags: ["人物", "摄影", "创意"],
+    language: ["cn", "en"]
+  },
+  {
+    id: "tpl_city_glimpse",
+    name: { cn: "都市一瞥", en: "City Glimpse" },
+    content: TEMPLATE_CITY_GLIMPSE,
+    imageUrl: "https://s3.bmp.ovh/imgs/2025/12/29/d02fe64ad317ad60.jpg", // 暂无预览图，使用占位或稍后由用户补充
+    author: "阿兹特克小羊驼(@AztecaAlpaca)",
+    selections: {
+      "city_name": { cn: "京都", en: "Kyoto" },
+      "art_style": { cn: "浮世绘 (Ukiyo-e)", en: "Ukiyo-e" },
+      "art_tool": { cn: "毛笔", en: "Ink Brush" },
+      "dominant_colors": { cn: "传统的京都红与古朴的墨黑色", en: "Traditional Kyoto red and antique ink black" },
+      "background_color_clean": { cn: "纯白", en: "Pure White" },
+      "city_glimpse_subtitle": { cn: "古韵悠长的千年古都", en: "The thousand-year-old ancient capital" },
+      "ratio": { cn: "4:3横构图", en: "4:3 Horizontal" }
+    },
+    tags: ["建筑", "创意", "摄影"],
+    language: ["cn", "en"]
+  },
+  {
+    id: "tpl_multiple_selves_indoor",
+    name: { cn: "多个自我“对话” (室内聚会版)", en: "Multiple Self-Dialogue (Indoor Party)" },
+    content: TEMPLATE_MULTIPLE_SELVES_INDOOR,
+    imageUrl: "https://s3.bmp.ovh/imgs/2025/12/30/fe7893150e65cc54.jpg", 
+    author: "@tanshilong(MarioTan)",
+    selections: {
+      "clothing": { cn: "秋冬季休闲服饰", en: "autumn/winter casual wear" },
+      "action_status-0": { cn: "玩PS5", en: "playing PS5" },
+      "action_status-1": { cn: "弹吉他", en: "playing the guitar" },
+      "action_status-2": { cn: "在电脑前写代码", en: "coding in front of a computer" },
+      "action_status-3": { cn: "拿着香蕉在画画", en: "painting with a banana" },
+      "action_status-4": { cn: "穿潜水脚蹼", en: "putting on diving fins" },
+      "lens_param": { cn: "85mm, f/1.8", en: "85mm, f/1.8" },
+      "ratio": { cn: "3:4竖构图", en: "3:4 Vertical" }
+    },
+    tags: ["人物", "摄影", "创意"],
     language: ["cn", "en"]
   }
 ];

@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
-import { Copy, Plus, X, Settings, Check, Edit3, Eye, Trash2, FileText, Pencil, Copy as CopyIcon, Globe, ChevronDown, ChevronUp, ChevronRight, ChevronLeft, GripVertical, Download, Upload, Image as ImageIcon, List, Undo, Redo, Maximize2, RotateCcw, LayoutGrid, Search, ArrowRight, ArrowUpRight, ArrowUpDown, RefreshCw, Sparkles, Sun, Moon } from 'lucide-react';
+import { Copy, Plus, X, Settings, Check, Edit3, Eye, Trash2, FileText, Pencil, Copy as CopyIcon, Globe, ChevronDown, ChevronUp, ChevronRight, ChevronLeft, GripVertical, Download, Upload, Image as ImageIcon, List, Undo, Redo, Maximize2, RotateCcw, LayoutGrid, Search, ArrowRight, ArrowUpRight, ArrowUpDown, RefreshCw, Sparkles, Sun, Moon, Share2, ExternalLink } from 'lucide-react';
 import html2canvas from 'html2canvas';
 
 // ====== 导入数据配置 ======
-import { INITIAL_TEMPLATES_CONFIG, TEMPLATE_TAGS, SYSTEM_DATA_VERSION } from './data/templates';
+import { INITIAL_TEMPLATES_CONFIG, TEMPLATE_TAGS, SYSTEM_DATA_VERSION, PUBLIC_SHARE_URL } from './data/templates';
 import { INITIAL_BANKS, INITIAL_DEFAULTS, INITIAL_CATEGORIES } from './data/banks';
 
 // ====== 导入常量配置 ======
@@ -12,7 +12,7 @@ import { PREMIUM_STYLES, CATEGORY_STYLES, TAG_STYLES, TAG_LABELS } from './const
 import { MASONRY_STYLES } from './constants/masonryStyles';
 
 // ====== 导入工具函数 ======
-import { deepClone, makeUniqueKey, waitForImageLoad, getLocalized, getSystemLanguage } from './utils/helpers';
+import { deepClone, makeUniqueKey, waitForImageLoad, getLocalized, getSystemLanguage, compressTemplate, decompressTemplate, copyToClipboard } from './utils/helpers';
 import { mergeTemplatesWithSystem, mergeBanksWithSystem } from './utils/merge';
 import { SCENE_WORDS, STYLE_WORDS } from './constants/slogan';
 
@@ -244,7 +244,7 @@ const ImagePreviewModal = React.memo(({
                         )}
                         <div className="flex flex-wrap gap-1.5">
                           {(template?.tags || []).slice(0, 2).map(tag => (
-                            <span key={tag} className="px-2 py-0.5 rounded bg-gray-100 border border-gray-200 text-[9px] font-bold text-gray-500 uppercase">
+                            <span key={tag} className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase ${TAG_STYLES[tag] || TAG_STYLES["default"]}`}>
                               {displayTag(tag)}
                             </span>
                           ))}
@@ -394,7 +394,7 @@ const ImagePreviewModal = React.memo(({
                             )}
                             <div className="flex flex-wrap gap-2 opacity-80">
                                 {(template.tags || []).map(tag => (
-                                    <span key={tag} className={`px-2 py-0.5 md:px-3 md:py-1 rounded-lg text-[10px] md:text-[11px] font-bold tracking-wider uppercase border border-white/20 bg-white/5 text-white`}>
+                                    <span key={tag} className={`px-2 py-0.5 md:px-3 md:py-1 rounded-lg text-[10px] md:text-[11px] font-bold tracking-wider uppercase ${TAG_STYLES[tag] || TAG_STYLES["default"]}`}>
                                         {displayTag(tag)}
                                     </span>
                                 ))}
@@ -419,13 +419,11 @@ const ImagePreviewModal = React.memo(({
                                     setZoomedImage(null);
                                 }}
                                 icon={Sparkles}
-                                color="slate"
-                                hoverColor="orange"
                                 active={true}
                                 isDarkMode={true}
-                                className={`w-full font-black shadow-2xl transition-all duration-300 transform active:scale-95 flex items-center justify-center gap-3 !py-5 !rounded-2xl !text-lg hover:-translate-y-1`}
+                                className="w-full !min-h-[56px] !rounded-2xl"
                             >
-                                {t('use_template') || '使用此模板'}
+                                <span className="text-lg">{t('use_template') || '使用此模板'}</span>
                             </PremiumButton>
                             
                             <div className="flex items-center justify-between px-2">
@@ -476,12 +474,12 @@ const AnimatedSlogan = React.memo(({ isActive, language, isDarkMode }) => {
   }, [isActive, currentScenes.length, currentStyles.length]);
 
   return (
-    <div className={`flex flex-wrap items-center justify-center lg:justify-start gap-x-2 gap-y-3 text-base md:text-lg lg:text-xl font-medium font-['MiSans',system-ui,sans-serif] px-2 leading-relaxed min-h-[60px] ${isDarkMode ? 'text-gray-400' : 'text-gray-700'}`}>
+    <div className={`flex flex-wrap items-center justify-center lg:justify-start gap-x-2 gap-y-3 text-sm md:text-base lg:text-lg font-medium font-['MiSans',system-ui,sans-serif] px-2 leading-relaxed min-h-[50px] ${isDarkMode ? 'text-gray-400' : 'text-gray-700'}`}>
       <span className="whitespace-nowrap">"{language === 'en' ? 'Show a detailed, miniature' : '展示一个精致的、微缩'}</span>
-      <div className="inline-flex items-center justify-center min-w-[120px]">
+      <div className="inline-flex items-center justify-center min-w-[100px]">
         <span 
           key={`style-${styleIndex}-${language}`}
-          className="inline-block px-4 py-1.5 md:px-5 md:py-2 rounded-full transition-all duration-500 select-none font-bold text-white whitespace-nowrap pill-animate"
+          className="inline-block px-3 py-1 md:px-4 md:py-1.5 rounded-full transition-all duration-500 select-none font-bold text-white whitespace-nowrap pill-animate"
           style={{
             background: 'linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%)',
             boxShadow: isDarkMode 
@@ -495,10 +493,10 @@ const AnimatedSlogan = React.memo(({ isActive, language, isDarkMode }) => {
                 </span>
         </div>
       <span className="whitespace-nowrap">{language === 'en' ? 'of' : '的'}</span>
-      <div className="inline-flex items-center justify-center min-w-[120px]">
+      <div className="inline-flex items-center justify-center min-w-[100px]">
         <span 
           key={`scene-${sceneIndex}-${language}`}
-          className="inline-block px-4 py-1.5 md:px-5 md:py-2 rounded-full transition-all duration-500 select-none font-bold text-white whitespace-nowrap pill-animate"
+          className="inline-block px-3 py-1 md:px-4 md:py-1.5 rounded-full transition-all duration-500 select-none font-bold text-white whitespace-nowrap pill-animate"
           style={{
             background: 'linear-gradient(135deg, #f97316 0%, #fb923c 100%)',
             boxShadow: isDarkMode 
@@ -540,12 +538,12 @@ const MobileAnimatedSlogan = React.memo(({ isActive, language, isDarkMode }) => 
   }, [isActive, currentScenes.length, currentStyles.length]);
 
     return (
-    <div className={`flex flex-wrap items-center justify-center gap-1.5 text-sm font-medium mb-3 min-h-[32px] ${isDarkMode ? 'text-gray-400' : 'text-gray-700'}`}>
+    <div className={`flex flex-wrap items-center justify-center gap-1 text-[11px] md:text-xs font-medium mb-3 min-h-[28px] ${isDarkMode ? 'text-gray-400' : 'text-gray-700'}`}>
       <span className="whitespace-nowrap">"{language === 'en' ? 'Show' : '展示'}</span>
-      <div className="inline-flex items-center justify-center min-w-[80px]">
+      <div className="inline-flex items-center justify-center min-w-[70px]">
         <span 
           key={`style-m-${styleIndex}-${language}`}
-          className="inline-block px-2.5 py-0.5 rounded-full font-bold text-white text-xs whitespace-nowrap pill-animate"
+          className="inline-block px-2 py-0.5 rounded-full font-bold text-white text-[10px] whitespace-nowrap pill-animate"
           style={{
             background: 'linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%)',
             boxShadow: isDarkMode 
@@ -557,10 +555,10 @@ const MobileAnimatedSlogan = React.memo(({ isActive, language, isDarkMode }) => 
         </span>
                     </div>
       <span className="whitespace-nowrap">{language === 'en' ? 'of' : '的'}</span>
-      <div className="inline-flex items-center justify-center min-w-[80px]">
+      <div className="inline-flex items-center justify-center min-w-[70px]">
         <span 
           key={`scene-m-${sceneIndex}-${language}`}
-          className="inline-block px-2.5 py-0.5 rounded-full font-bold text-white text-xs whitespace-nowrap pill-animate"
+          className="inline-block px-2 py-0.5 rounded-full font-bold text-white text-[10px] whitespace-nowrap pill-animate"
           style={{
             background: 'linear-gradient(135deg, #f97316 0%, #fb923c 100%)',
             boxShadow: isDarkMode 
@@ -605,7 +603,21 @@ const App = () => {
   const [activeTemplateId, setActiveTemplateId] = useStickyState("tpl_default", "app_active_template_id_v4");
   
   const [lastAppliedDataVersion, setLastAppliedDataVersion] = useStickyState("", "app_data_version_v1");
-  const [isDarkMode, setIsDarkMode] = useStickyState(false, "app_dark_mode_v1");
+  const [themeMode, setThemeMode] = useStickyState("system", "app_theme_mode_v1");
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    if (themeMode === 'system') {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      const handleChange = (e) => setIsDarkMode(e.matches);
+      setIsDarkMode(mediaQuery.matches);
+      mediaQuery.addEventListener('change', handleChange);
+      return () => mediaQuery.removeEventListener('change', handleChange);
+    } else {
+      setIsDarkMode(themeMode === 'dark');
+    }
+  }, [themeMode]);
+
   const [showDataUpdateNotice, setShowDataUpdateNotice] = useState(false);
   const [showAppUpdateNotice, setShowAppUpdateNotice] = useState(false);
   
@@ -756,6 +768,15 @@ const App = () => {
     
     return () => clearInterval(timer);
   }, [lastAppliedDataVersion]); // 移除 lastAppliedAppVersion 依赖
+
+  // 当在编辑模式下切换模板或语言时，同步更新标题和作者的临时状态
+  useEffect(() => {
+    if (isEditing && activeTemplate) {
+      setTempTemplateName(getLocalized(activeTemplate.name, language));
+      setTempTemplateAuthor(activeTemplate.author || "");
+      setEditingTemplateNameId(activeTemplate.id);
+    }
+  }, [activeTemplateId, isEditing, language]);
 
   // History State for Undo/Redo
   const [historyPast, setHistoryPast] = useState([]);
@@ -926,6 +947,157 @@ const App = () => {
   // Derived State: Current Active Template
   const activeTemplate = templates.find(t => t.id === activeTemplateId) || templates[0];
 
+  // 分享功能相关状态
+  const [sharedTemplateData, setSharedTemplateData] = useState(null);
+  const [showShareImportModal, setShowShareImportModal] = useState(false);
+  const [showShareOptionsModal, setShowShareOptionsModal] = useState(false);
+
+  // 计算分享 URL（带长度检查）
+  const shareUrlMemo = useMemo(() => {
+    if (!activeTemplate) return "";
+    
+    const compressed = compressTemplate(activeTemplate);
+    const base = PUBLIC_SHARE_URL || (window.location.origin + window.location.pathname);
+    
+    if (!compressed) return base;
+
+    const fullUrl = `${base}${base.endsWith('/') ? '' : '/'}#/share?share=${compressed}`;
+    return fullUrl;
+  }, [activeTemplate]);
+
+  // 检查分享参数
+  useEffect(() => {
+    const handleCheckShare = () => {
+      // 兼容查询参数和哈希参数
+      const hashStr = window.location.hash.split('?')[1] || "";
+      const urlParams = new URLSearchParams(window.location.search || hashStr);
+      let shareData = urlParams.get('share');
+      
+      // 如果没有直接获取到 share 参数，尝试从整个 hash 字符串中解析（防止某些粘贴格式错误）
+      if (!shareData && window.location.hash.includes('share=')) {
+        const match = window.location.hash.match(/share=([^&?]+)/);
+        if (match) shareData = match[1];
+      }
+
+      if (shareData) {
+        // 如果输入的是完整的 URL，提取 share 参数部分
+        if (shareData.includes('share=')) {
+          try {
+            const innerUrl = new URL(shareData.startsWith('http') ? shareData : 'http://x.com/' + shareData);
+            const innerParams = new URLSearchParams(innerUrl.search || innerUrl.hash.split('?')[1]);
+            shareData = innerParams.get('share') || shareData;
+          } catch (e) {
+            // 如果解析失败，保持原样
+          }
+        }
+
+        const decoded = decompressTemplate(shareData);
+        if (decoded && decoded.name && decoded.content) {
+          setSharedTemplateData(decoded);
+          setShowShareImportModal(true);
+          
+          // 清理 URL，避免刷新时重复触发
+          const newUrl = window.location.origin + window.location.pathname + window.location.hash.split('?')[0];
+          window.history.replaceState({}, document.title, newUrl);
+        }
+      }
+    };
+
+    handleCheckShare();
+    window.addEventListener('hashchange', handleCheckShare);
+    return () => window.removeEventListener('hashchange', handleCheckShare);
+  }, []);
+
+  // 手动口令导入处理函数
+  const handleManualTokenImport = (token) => {
+    if (!token) return;
+    
+    let shareData = token.trim();
+    
+    // 识别是否是特殊的口令格式 #pf$token$
+    if (shareData.includes('#pf$') && shareData.includes('$')) {
+      const match = shareData.match(/#pf\$([^$]+)\$/);
+      if (match) shareData = match[1];
+    }
+    
+    // 识别是否是完整的 URL 链接
+    if (shareData.includes('http://') || shareData.includes('https://') || shareData.includes('share=')) {
+      try {
+        // 尝试解析 URL
+        const urlObj = new URL(shareData.startsWith('http') ? shareData : 'http://temp.com/' + shareData);
+        const params = new URLSearchParams(urlObj.search || urlObj.hash.split('?')[1]);
+        const extracted = params.get('share');
+        if (extracted) shareData = extracted;
+      } catch (e) {
+        // 解析失败则按原样尝试
+      }
+    }
+
+    const decoded = decompressTemplate(shareData);
+    if (decoded && decoded.name && decoded.content) {
+      setSharedTemplateData(decoded);
+      setShowShareImportModal(true);
+    } else {
+      alert(language === 'cn' ? '无效的分享口令或链接' : 'Invalid share token or link');
+    }
+  };
+
+  const handleImportSharedTemplate = () => {
+    if (!sharedTemplateData) return;
+    
+    const newTpl = {
+      ...sharedTemplateData,
+      id: `tpl_shared_${Date.now()}`,
+      selections: sharedTemplateData.selections || {},
+      author: sharedTemplateData.author || t('official')
+    };
+
+    setTemplates(prev => [...prev, newTpl]);
+    setActiveTemplateId(newTpl.id);
+    setShowShareImportModal(false);
+    setSharedTemplateData(null);
+    setDiscoveryView(false);
+    
+    if (isMobileDevice) {
+      setMobileTab('editor');
+    }
+  };
+
+    const handleShareLink = () => {
+      setShowShareOptionsModal(true);
+    };
+
+    // 实际执行复制分享链接
+    const doCopyShareLink = async () => {
+      if (shareUrlMemo) {
+        const success = await copyToClipboard(shareUrlMemo);
+        if (success) {
+          alert(t('share_success'));
+          setShowShareOptionsModal(false);
+        } else {
+          alert(language === 'cn' ? '复制失败，请手动长按复制' : 'Copy failed, please copy manually');
+        }
+      }
+    };
+
+    // 复制分享口令 (WeChat 友好)
+    const handleShareToken = async () => {
+      if (!activeTemplate) return;
+      const compressed = compressTemplate(activeTemplate);
+      if (!compressed) return;
+
+      const templateName = getLocalized(activeTemplate.name, language);
+      const tokenText = `「Prompt分享」我的新模版：${templateName}\n复制整段文字，打开【提示词填空器】即可导入：\n#pf$${compressed}$`;
+      
+      const success = await copyToClipboard(tokenText);
+      if (success) {
+        alert(language === 'cn' ? '分享口令已复制，快去发给好友吧！' : 'Share token copied!');
+        setShowShareOptionsModal(false);
+      } else {
+        alert(language === 'cn' ? '复制失败，请尝试链接分享' : 'Copy failed, please try Link Share');
+      }
+    };
+
   // --- Effects ---
   // Reset history when template changes
   useEffect(() => {
@@ -1025,17 +1197,25 @@ const App = () => {
 
   const handleAddTemplate = () => {
     const newId = `tpl_${Date.now()}`;
+    const newName = t('new_template_name');
+    const newAuthor = "PromptFill User";
     const newTemplate = {
       id: newId,
-      name: t('new_template_name'),
-      author: "",
+      name: newName,
+      author: newAuthor,
       content: t('new_template_content'),
       selections: {},
       tags: []
     };
-    setTemplates([...templates, newTemplate]);
+    setTemplates(prev => [...prev, newTemplate]);
     setActiveTemplateId(newId);
     setIsEditing(true);
+    
+    // 初始化标题和作者编辑状态
+    setEditingTemplateNameId(newId);
+    setTempTemplateName(newName);
+    setTempTemplateAuthor(newAuthor);
+    
     // 在移动端自动切换到编辑Tab
     if (isMobileDevice) {
       setMobileTab('editor');
@@ -1056,14 +1236,15 @@ const App = () => {
         return newName;
       };
 
+      const isSystemTemplate = INITIAL_TEMPLATES_CONFIG.some(cfg => cfg.id === t_item.id);
       const newTemplate = {
           ...t_item,
           id: newId,
           name: duplicateName(t_item.name),
-          author: t_item.author || "",
+          author: isSystemTemplate ? "PromptFill User" : (t_item.author || "PromptFill User"),
           selections: { ...t_item.selections }
       };
-      setTemplates([...templates, newTemplate]);
+      setTemplates(prev => [...prev, newTemplate]);
       setActiveTemplateId(newId);
       // 在移动端自动切换到编辑Tab
       if (isMobileDevice) {
@@ -1099,10 +1280,23 @@ const App = () => {
   };
 
   const startRenamingTemplate = (t_item, e) => {
-    e.stopPropagation();
+    if (e) e.stopPropagation();
+    setIsEditing(true);
     setEditingTemplateNameId(t_item.id);
     setTempTemplateName(getLocalized(t_item.name, language));
     setTempTemplateAuthor(t_item.author || "");
+  };
+
+  const handleStartEditing = () => {
+    setIsEditing(true);
+    if (activeTemplate) {
+      startRenamingTemplate(activeTemplate);
+    }
+  };
+
+  const handleStopEditing = () => {
+    setIsEditing(false);
+    setEditingTemplateNameId(null);
   };
 
   const saveTemplateName = () => {
@@ -2072,7 +2266,7 @@ const App = () => {
     const text = isMultilingual ? (currentContent[templateLanguage] || "") : currentContent;
 
     if (!isEditing) {
-      setIsEditing(true);
+      handleStartEditing();
       setTimeout(() => {
         const updatedText = text + textToInsert;
         if (isMultilingual) {
@@ -2156,10 +2350,12 @@ const App = () => {
         .replace(/\*\*(.*?)\*\*/g, '$1')
         .replace(/\n\s*\n/g, '\n\n');
 
-    navigator.clipboard.writeText(cleanText).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }).catch(() => {});
+    copyToClipboard(cleanText).then((success) => {
+      if (success) {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }
+    });
   };
 
   const handleExportImage = async () => {
@@ -2207,28 +2403,9 @@ const App = () => {
         await waitForImageLoad(imgElement);
     }
 
-    // 预加载二维码（使用本地文件并转换为 base64）
-    const websiteUrl = 'https://promptfill.tanshilong.com/';
-    const localQrCodePath = '/QRCode.png';
-    let qrCodeBase64 = null;
-    
-    try {
-        console.log('正在加载本地二维码...', localQrCodePath);
-        const qrResponse = await fetch(localQrCodePath);
-        if (!qrResponse.ok) throw new Error('本地二维码加载失败');
-        const qrBlob = await qrResponse.blob();
-        qrCodeBase64 = await new Promise((resolve) => {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                console.log('本地二维码加载成功');
-                resolve(reader.result);
-            };
-            reader.readAsDataURL(qrBlob);
-        });
-    } catch (e) {
-        console.error("本地二维码加载失败", e);
-        // 即使失败也继续，会显示占位符
-    }
+    // --- 关键修复：预处理图片为 Base64 ---
+
+
 
     try {
         // 创建一个临时的导出容器
@@ -2343,8 +2520,37 @@ const App = () => {
                        contentContainer.innerHTML = contentHTML;
                        contentContainer.style.fontSize = '18px'; // 恢复原状
                        contentContainer.style.lineHeight = '1.8';
-                       contentContainer.style.color = '#374151';
+                       contentContainer.style.color = '#374151'; // 默认正文颜色
                        contentContainer.style.marginBottom = '40px';
+                       
+                       // 强制修复所有子元素的颜色（防止 DarkMode 下的类名干扰）
+                       // 1. 修复标题颜色
+                       const headers = contentContainer.querySelectorAll('h3');
+                       headers.forEach(h => {
+                           h.style.color = '#111827'; // 对应 Lightmode 的 text-gray-900
+                           h.style.borderBottom = '1px solid #f3f4f6'; // 对应 border-gray-100
+                       });
+
+                       // 2. 修复普通文本和列表项颜色
+                       const divs = contentContainer.querySelectorAll('div, p, span');
+                       divs.forEach(d => {
+                           // 排除胶囊组件，胶囊有自己的处理逻辑
+                           if (!d.hasAttribute('data-export-pill')) {
+                               d.style.color = '#374151'; // 对应 text-gray-700
+                           }
+                       });
+
+                       // 3. 修复加粗文本颜色
+                       const strongs = contentContainer.querySelectorAll('strong');
+                       strongs.forEach(s => {
+                           s.style.color = '#111827';
+                       });
+
+                       // 4. 修复列表打点和数字颜色
+                       const secondaryTexts = contentContainer.querySelectorAll('.mt-2\\.5, .font-mono');
+                       secondaryTexts.forEach(st => {
+                           st.style.color = '#9ca3af'; // 对应 Lightmode 的 text-gray-400
+                       });
                        
                        // 修复胶囊样式 - 使用更精确的属性选择器
                        const variables = contentContainer.querySelectorAll('[data-export-pill="true"]');
@@ -2367,14 +2573,21 @@ const App = () => {
                            v.style.lineHeight = '1.5';
                            v.style.verticalAlign = 'middle';
                            v.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)';
-                           v.style.color = '#ffffff'; // 确保文字是白色
+                           v.style.color = '#ffffff'; // 确保彩色胶囊文字是白色
                            v.style.border = 'none'; // 导出时去掉半透明边框，减少干扰
+                           
+                           // 如果是未定义变量的占位符（背景较浅），恢复其深色文字
+                           if (v.textContent.includes('[') && v.textContent.includes('?]')) {
+                               v.style.color = '#9ca3af'; 
+                               v.style.background = '#f8fafc';
+                               v.style.border = '1px solid #e2e8f0';
+                           }
                        });
                        
                        card.appendChild(contentContainer);
                    }
                    
-                   // --- 4. 底部水印区域（增加版本号）---
+                   // --- 4. 底部水印区域 ---
                    const footer = clonedDoc.createElement('div');
                    footer.style.marginTop = '40px';
                    footer.style.paddingTop = '25px';
@@ -2385,12 +2598,6 @@ const App = () => {
                    footer.style.alignItems = 'center';
                    footer.style.fontFamily = 'sans-serif';
                    
-                   const qrCodeHtml = qrCodeBase64 
-                       ? `<img src="${qrCodeBase64}" 
-                               style="width: 80px; height: 80px; border: 3px solid #e2e8f0; border-radius: 8px; display: block; background: white;" 
-                               alt="QR Code" />`
-                       : `<div style="width: 80px; height: 80px; border: 3px dashed #cbd5e1; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: #f8fafc; font-size: 10px; color: #94a3b8; font-weight: 500;">QR Code</div>`;
-                   
                    footer.innerHTML = `
                        <div style="flex: 1; padding-right: 20px;">
                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap;">
@@ -2399,15 +2606,17 @@ const App = () => {
                                </div>
                                ${versionText ? `<span style="font-size: 11px; padding: 3px 10px; background: #fff7ed; color: #f97316; border-radius: 5px; font-weight: 600; border: 1px solid #fed7aa;">${versionText}</span>` : ''}
                            </div>
-                           <div style="font-size: 12px; color: #6b7280; margin-bottom: 6px; font-weight: 500;">提示词填空器</div>
+                           <div style="font-size: 12px; color: #6b7280; margin-bottom: 6px; font-weight: 500;">提示词填空器 - 让分享更简单</div>
                            <div style="font-size: 11px; color: #3b82f6; font-weight: 500; background: #eff6ff; padding: 4px 8px; border-radius: 4px; display: inline-block; letter-spacing: 0.3px;">
-                               ${websiteUrl}
+                               ${window.location.origin}${window.location.pathname}
                            </div>
                        </div>
                        <div style="display: flex; align-items: center;">
                            <div style="text-align: center;">
-                               ${qrCodeHtml}
-                               <div style="font-size: 9px; color: #94a3b8; margin-top: 4px; font-weight: 500;">扫码访问</div>
+                               <img src="/QRCode.png" 
+                                    style="width: 85px; height: 85px; border: 3px solid #e2e8f0; border-radius: 8px; display: block; background: white;" 
+                                    alt="QR Code" />
+                               <div style="font-size: 9px; color: #94a3b8; margin-top: 4px; font-weight: 500;">扫码体验</div>
                            </div>
                        </div>
                    `;
@@ -2584,7 +2793,7 @@ const App = () => {
 
   return (
     <div 
-      className={`flex h-screen w-screen overflow-hidden ${isDarkMode ? '' : 'mesh-gradient-bg md:p-4'}`}
+      className={`flex h-screen w-screen overflow-hidden ${isDarkMode ? 'dark-mode' : 'mesh-gradient-bg md:p-4'}`}
       style={isDarkMode ? { 
         background: 'linear-gradient(180deg, #323131 0%, #181716 100%)',
         padding: isMobileDevice ? '0' : '16px'
@@ -2615,7 +2824,8 @@ const App = () => {
             language={language}
             setLanguage={setLanguage}
             isDarkMode={isDarkMode}
-            setIsDarkMode={setIsDarkMode}
+            themeMode={themeMode}
+            setThemeMode={setThemeMode}
             t={t}
           />
           
@@ -2702,6 +2912,8 @@ const App = () => {
             t={t}
             globalContainerStyle={globalContainerStyle}
             isDarkMode={isDarkMode}
+            themeMode={themeMode}
+            setThemeMode={setThemeMode}
           />
         ) : showDiscoveryOverlay ? (
           <DiscoveryView 
@@ -2729,9 +2941,11 @@ const App = () => {
             setSortOrder={setSortOrder}
             setRandomSeed={setRandomSeed}
             globalContainerStyle={globalContainerStyle}
+            themeMode={themeMode}
+            setThemeMode={setThemeMode}
           />
         ) : (
-          <div className="flex-1 flex gap-4 overflow-hidden">
+          <div className="flex-1 flex gap-2 lg:gap-4 overflow-hidden">
             <TemplatesSidebar 
               mobileTab={mobileTab}
               isTemplatesDrawerOpen={isTemplatesDrawerOpen}
@@ -2761,9 +2975,10 @@ const App = () => {
               startRenamingTemplate={startRenamingTemplate}
               handleDuplicateTemplate={handleDuplicateTemplate}
               handleExportTemplate={handleExportTemplate}
-              handleDeleteTemplate={handleDeleteTemplate}
-              handleAddTemplate={handleAddTemplate}
-              INITIAL_TEMPLATES_CONFIG={INITIAL_TEMPLATES_CONFIG}
+            handleDeleteTemplate={handleDeleteTemplate}
+            handleAddTemplate={handleAddTemplate}
+            handleManualTokenImport={handleManualTokenImport}
+            INITIAL_TEMPLATES_CONFIG={INITIAL_TEMPLATES_CONFIG}
               editingTemplateNameId={editingTemplateNameId}
               tempTemplateName={tempTemplateName}
               setTempTemplateName={setTempTemplateName}
@@ -2780,7 +2995,7 @@ const App = () => {
               className={`
                 ${(mobileTab === 'editor' || mobileTab === 'settings') ? 'flex fixed inset-0 z-50 md:static md:bg-transparent' : 'hidden'} 
                 ${(mobileTab === 'editor' || mobileTab === 'settings') && isMobileDevice ? (isDarkMode ? 'bg-[#242120]' : 'bg-white') : ''}
-                md:flex flex-1 flex-col h-full overflow-hidden relative
+                md:flex flex-1 shrink-[1] min-w-[400px] flex-col h-full overflow-hidden relative
                 md:rounded-2xl origin-left
               `}
             >
@@ -2809,106 +3024,160 @@ const App = () => {
               
               {/* 顶部工具栏 */}
               {(!isMobileDevice || mobileTab !== 'settings') && (
-                <div className={`px-4 md:px-8 py-3 md:py-4 border-b flex justify-between items-center z-20 h-auto min-h-[60px] md:min-h-[72px] ${isDarkMode ? 'border-white/5' : 'border-gray-100/50'}`}>
-                  <div className="min-w-0 flex-1 mr-4 flex items-center gap-6">
-                    <h1 className={`text-xl md:text-2xl font-black truncate tracking-tight ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{getLocalized(activeTemplate.name, language)}</h1>
-                    
-                    {/* Language Toggle */}
-                    {activeTemplate && (() => {
-                      const templateLangs = activeTemplate.language ? (Array.isArray(activeTemplate.language) ? activeTemplate.language : [activeTemplate.language]) : ['cn', 'en'];
-                      const showLanguageToggle = templateLangs.length > 1;
-                      const supportsChinese = templateLangs.includes('cn');
-                      const supportsEnglish = templateLangs.includes('en');
-                      
-                      if (!showLanguageToggle) return null;
+                <div className={`px-4 md:px-8 py-3 md:py-4 border-b flex flex-col md:flex-row md:justify-between md:items-center z-20 h-auto ${isDarkMode ? 'border-white/5' : 'border-gray-100/50'}`}>
+                  {/* 第一行：语言切换与模式切换 (Mobile) / 标题与语言 (Desktop) */}
+                  <div className="w-full md:w-auto flex justify-between items-center">
+                    <div className="flex items-center gap-3">
+                      {/* Language Toggle - Mobile: Left of Title */}
+                      {isMobileDevice && activeTemplate && (() => {
+                        const templateLangs = activeTemplate.language ? (Array.isArray(activeTemplate.language) ? activeTemplate.language : [activeTemplate.language]) : ['cn', 'en'];
+                        if (templateLangs.length <= 1) return null;
+                        const supportsChinese = templateLangs.includes('cn');
+                        const supportsEnglish = templateLangs.includes('en');
+                        return (
+                          <div className={`premium-toggle-container ${isDarkMode ? 'dark' : 'light'} scale-90 origin-left shrink-0`}>
+                              <button 
+                                  onClick={() => supportsChinese && setTemplateLanguage('cn')}
+                                  className={`premium-toggle-item ${isDarkMode ? 'dark' : 'light'} ${templateLanguage === 'cn' ? 'is-active' : ''} !px-2`}
+                              >
+                                  CN
+                              </button>
+                              <button 
+                                  onClick={() => supportsEnglish && setTemplateLanguage('en')}
+                                  className={`premium-toggle-item ${isDarkMode ? 'dark' : 'light'} ${templateLanguage === 'en' ? 'is-active' : ''} !px-2`}
+                              >
+                                  EN
+                              </button>
+                          </div>
+                        );
+                      })()}
 
-                      return (
-                        <div className={`flex items-center p-1 rounded-xl border shadow-inner shrink-0 ${isDarkMode ? 'bg-black/20 border-white/5' : 'bg-gray-100/80 border-gray-200'}`}>
-                            <button 
-                                onClick={() => supportsChinese && setTemplateLanguage('cn')}
-                                disabled={!supportsChinese}
-                                className={`
-                                    text-[10px] font-black tracking-widest transition-all py-1.5 px-3 rounded-lg
-                                    ${!supportsChinese 
-                                        ? 'text-gray-600 cursor-not-allowed opacity-30' 
-                                        : templateLanguage === 'cn' 
-                                            ? (isDarkMode ? 'bg-white/10 text-orange-400 shadow-lg' : 'bg-white text-orange-600 shadow-sm ring-1 ring-black/5') 
-                                            : (isDarkMode ? 'text-gray-500 hover:text-gray-300 hover:bg-white/5' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50')}
-                                `}
-                            >
-                                CN
-                            </button>
-                            <button 
-                                onClick={() => supportsEnglish && setTemplateLanguage('en')}
-                                disabled={!supportsEnglish}
-                                className={`
-                                    text-[10px] font-black tracking-widest transition-all py-1.5 px-3 rounded-lg
-                                    ${!supportsEnglish 
-                                        ? 'text-gray-600 cursor-not-allowed opacity-30' 
-                                        : templateLanguage === 'en' 
-                                            ? (isDarkMode ? 'bg-white/10 text-orange-400 shadow-lg' : 'bg-white text-orange-600 shadow-sm ring-1 ring-black/5') 
-                                            : (isDarkMode ? 'text-gray-500 hover:text-gray-300 hover:bg-white/5' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50')}
-                                `}
-                            >
-                                EN
-                            </button>
-                        </div>
-                      );
-                    })()}
+                      {!isMobileDevice && (
+                        <h1 className={`text-xl md:text-2xl font-black truncate tracking-tight ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{getLocalized(activeTemplate.name, language)}</h1>
+                      )}
+                      
+                      {/* Language Toggle - Desktop: Right of Title */}
+                      {!isMobileDevice && activeTemplate && (() => {
+                        const templateLangs = activeTemplate.language ? (Array.isArray(activeTemplate.language) ? activeTemplate.language : [activeTemplate.language]) : ['cn', 'en'];
+                        const showLanguageToggle = templateLangs.length > 1;
+                        const supportsChinese = templateLangs.includes('cn');
+                        const supportsEnglish = templateLangs.includes('en');
+                        
+                        if (!showLanguageToggle) return null;
+
+                        return (
+                          <div className={`premium-toggle-container ${isDarkMode ? 'dark' : 'light'} shrink-0`}>
+                              <button 
+                                  onClick={() => supportsChinese && setTemplateLanguage('cn')}
+                                  disabled={!supportsChinese}
+                                  className={`
+                                      premium-toggle-item ${isDarkMode ? 'dark' : 'light'}
+                                      ${!supportsChinese 
+                                          ? 'opacity-30 cursor-not-allowed' 
+                                          : templateLanguage === 'cn' 
+                                              ? 'is-active' 
+                                              : ''}
+                                  `}
+                              >
+                                  CN
+                              </button>
+                              <button 
+                                  onClick={() => supportsEnglish && setTemplateLanguage('en')}
+                                  disabled={!supportsEnglish}
+                                  className={`
+                                      premium-toggle-item ${isDarkMode ? 'dark' : 'light'}
+                                      ${!supportsEnglish 
+                                          ? 'opacity-30 cursor-not-allowed' 
+                                          : templateLanguage === 'en' 
+                                              ? 'is-active' 
+                                              : ''}
+                                  `}
+                              >
+                                  EN
+                              </button>
+                          </div>
+                        );
+                      })()}
+                    </div>
+
+                    {/* 模式切换 (Mobile Only) */}
+                    <div className="md:hidden">
+                      <div className={`premium-toggle-container ${isDarkMode ? 'dark' : 'light'}`}>
+                          <button
+                              onClick={handleStopEditing}
+                              className={`premium-toggle-item ${isDarkMode ? 'dark' : 'light'} ${!isEditing ? 'is-active' : ''}`}
+                              title={t('preview_mode')}
+                          >
+                              <Eye size={14} /> <span className="text-[11px] ml-1">{t('preview_mode')}</span>
+                          </button>
+                          <button
+                              onClick={handleStartEditing}
+                              className={`premium-toggle-item ${isDarkMode ? 'dark' : 'light'} ${isEditing ? 'is-active' : ''}`}
+                              title={t('edit_mode')}
+                          >
+                              <Edit3 size={14} /> <span className="text-[11px] ml-1">{t('edit_mode')}</span>
+                          </button>
+                      </div>
+                    </div>
                   </div>
                   
-                  <div className="flex items-center gap-2 md:gap-3 shrink-0">
-                     
-                     <div className={`flex p-1 rounded-xl border shadow-inner ${isDarkMode ? 'bg-black/20 border-white/5' : 'bg-gray-100/80 border-gray-200'}`}>
-                        <button
-                            onClick={() => setIsEditing(false)}
-                            className={`
-                                p-1.5 md:px-3 md:py-1.5 rounded-lg text-sm font-medium transition-all duration-300 flex items-center gap-1.5
-                                ${!isEditing 
-                                    ? (isDarkMode ? 'bg-white/10 text-orange-400 shadow-lg' : 'bg-white text-orange-600 shadow-sm ring-1 ring-black/5') 
-                                    : (isDarkMode ? 'text-gray-600 hover:text-gray-300 hover:bg-white/5' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50')}
-                            `}
-                            title={t('preview_mode')}
-                        >
-                            <Eye size={16} /> <span className="hidden md:inline">{t('preview_mode')}</span>
-                        </button>
-                        <button
-                            onClick={() => setIsEditing(true)}
-                            className={`
-                                p-1.5 md:px-3 md:py-1.5 rounded-lg text-sm font-medium transition-all duration-300 flex items-center gap-1.5
-                                ${isEditing 
-                                    ? (isDarkMode ? 'bg-white/10 text-orange-400 shadow-lg' : 'bg-white text-orange-600 shadow-sm ring-1 ring-black/5') 
-                                    : (isDarkMode ? 'text-gray-600 hover:text-gray-300 hover:bg-white/5' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50')}
-                            `}
-                            title={t('edit_mode')}
-                        >
-                            <Edit3 size={16} /> <span className="hidden md:inline">{t('edit_mode')}</span>
-                        </button>
-                     </div>
+                  {/* 第二行：分享、保存、复制 (Mobile) / 模式切换与按钮 (Desktop) */}
+                  <div className="w-full md:w-auto flex items-center justify-between md:justify-end gap-2 md:gap-3 shrink-0 mt-2 md:mt-0">
+                     {/* 模式切换 (Desktop Only) */}
+                     {!isMobileDevice && (
+                        <>
+                          <div className={`premium-toggle-container ${isDarkMode ? 'dark' : 'light'}`}>
+                              <button
+                                  onClick={handleStopEditing}
+                                  className={`premium-toggle-item ${isDarkMode ? 'dark' : 'light'} ${!isEditing ? 'is-active' : ''}`}
+                                  title={t('preview_mode')}
+                              >
+                                  <Eye size={14} /> <span className="hidden md:inline">{t('preview_mode')}</span>
+                              </button>
+                              <button
+                                  onClick={handleStartEditing}
+                                  className={`premium-toggle-item ${isDarkMode ? 'dark' : 'light'} ${isEditing ? 'is-active' : ''}`}
+                                  title={t('edit_mode')}
+                              >
+                                  <Edit3 size={14} /> <span className="hidden md:inline">{t('edit_mode')}</span>
+                              </button>
+                          </div>
+                          <div className={`h-6 w-px mx-1 hidden md:block ${isDarkMode ? 'bg-white/5' : 'bg-gray-200'}`}></div>
+                        </>
+                     )}
 
-                    <div className={`h-6 w-px mx-1 hidden md:block ${isDarkMode ? 'bg-white/5' : 'bg-gray-200'}`}></div>
+                    <div className="flex-1 md:flex-none flex items-center justify-between md:justify-end gap-2">
+                      <PremiumButton 
+                          onClick={handleShareLink} 
+                          title={t('share_link')} 
+                          icon={Share2} 
+                          isDarkMode={isDarkMode}
+                          className="flex-1 md:flex-none"
+                      >
+                          <span className="text-[11px] md:text-sm">{t('share')}</span>
+                      </PremiumButton>
 
-                    <PremiumButton 
-                        onClick={handleExportImage} 
-                        disabled={isEditing || isExporting} 
-                        title={isExporting ? t('exporting') : t('export_image')} 
-                        icon={ImageIcon} 
-                        color="orange"
-                        isDarkMode={isDarkMode}
-                    >
-                        <span className="hidden sm:inline">{isExporting ? t('exporting') : t('export_image')}</span>
-                    </PremiumButton>
-                    <PremiumButton 
-                        onClick={handleCopy} 
-                        title={copied ? t('copied') : t('copy_result')} 
-                        icon={copied ? Check : CopyIcon} 
-                        color={copied ? "emerald" : "orange"}
-                        active={true} // Always active look for CTA
-                        isDarkMode={isDarkMode}
-                        className="transition-all duration-300 transform hover:-translate-y-0.5"
-                    >
-                         <span className="hidden md:inline ml-1">{copied ? t('copied') : t('copy_result')}</span>
-                    </PremiumButton>
+                      <PremiumButton 
+                          onClick={handleExportImage} 
+                          disabled={isEditing || isExporting} 
+                          title={isExporting ? t('exporting') : t('export_image')} 
+                          icon={ImageIcon} 
+                          isDarkMode={isDarkMode}
+                          className="flex-1 md:flex-none"
+                      >
+                          <span className="text-[11px] md:text-sm">{isExporting ? t('exporting') : t('export_image')}</span>
+                      </PremiumButton>
+                      <PremiumButton 
+                          onClick={handleCopy} 
+                          title={copied ? t('copied') : t('copy_result')} 
+                          icon={copied ? Check : CopyIcon} 
+                          active={true}
+                          isDarkMode={isDarkMode}
+                          className="flex-1 md:flex-none"
+                      >
+                           <span className="text-[11px] md:text-sm ml-1">{copied ? t('copied') : t('copy_result')}</span>
+                      </PremiumButton>
+                    </div>
                   </div>
                 </div>
               )}
@@ -2931,6 +3200,8 @@ const App = () => {
                               SYSTEM_DATA_VERSION={SYSTEM_DATA_VERSION}
                               t={t}
                               isDarkMode={isDarkMode}
+                              themeMode={themeMode}
+                              setThemeMode={setThemeMode}
                           />
                       </div>
                   ) : (
@@ -2954,7 +3225,44 @@ const App = () => {
                       )}
                       
                       {isEditing ? (
-                          <div className="flex-1 relative overflow-hidden">
+                          <div className="flex-1 relative overflow-hidden flex flex-col">
+                              {/* Edit Mode: Title & Author Inputs */}
+                              <div className={`px-8 pt-6 pb-4 flex flex-col gap-4 border-b ${isDarkMode ? 'bg-black/20 border-white/5' : 'bg-gray-50 border-gray-200'}`}>
+                                  <div className="flex flex-col gap-1.5">
+                                      <label className={`text-[10px] font-black uppercase tracking-widest ${isDarkMode ? 'text-gray-600' : 'text-gray-400'}`}>
+                                          {language === 'cn' ? '模版标题 (Title)' : 'Template Title'}
+                                      </label>
+                                      <input 
+                                          type="text" 
+                                          value={tempTemplateName}
+                                          onChange={(e) => setTempTemplateName(e.target.value)}
+                                          onBlur={saveTemplateName}
+                                          className={`text-xl font-bold bg-transparent border-b-2 border-orange-500/20 focus:border-orange-500 focus:outline-none w-full pb-1 transition-all ${isDarkMode ? 'text-white' : 'text-gray-800'}`}
+                                          placeholder={t('label_placeholder')}
+                                      />
+                                  </div>
+                                  <div className="flex flex-col gap-1.5">
+                                      <label className={`text-[10px] font-black uppercase tracking-widest ${isDarkMode ? 'text-gray-600' : 'text-gray-400'}`}>
+                                          {language === 'cn' ? '作者 (Author)' : 'Author'}
+                                      </label>
+                                      <div className="relative">
+                                          <input 
+                                              type="text" 
+                                              value={tempTemplateAuthor}
+                                              onChange={(e) => setTempTemplateAuthor(e.target.value)}
+                                              onBlur={saveTemplateName}
+                                              disabled={INITIAL_TEMPLATES_CONFIG.some(cfg => cfg.id === activeTemplate.id)}
+                                              className={`text-sm font-bold bg-transparent border-b border-dashed focus:border-solid border-orange-500/30 focus:border-orange-500 focus:outline-none w-full pb-1 transition-all ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}
+                                              placeholder={language === 'cn' ? '作者名称...' : 'Author name...'}
+                                          />
+                                          {INITIAL_TEMPLATES_CONFIG.some(cfg => cfg.id === activeTemplate.id) && (
+                                              <p className="text-[10px] text-orange-500/50 font-bold italic mt-1">
+                                                  {language === 'cn' ? '* 系统模版作者不可修改' : '* System template author is read-only'}
+                                              </p>
+                                          )}
+                                      </div>
+                                  </div>
+                              </div>
                               <VisualEditor
                                   ref={textareaRef}
                                   value={getLocalized(activeTemplate.content, templateLanguage)}
@@ -3009,6 +3317,9 @@ const App = () => {
                               saveTemplateName={saveTemplateName}
                               startRenamingTemplate={startRenamingTemplate}
                               setEditingTemplateNameId={setEditingTemplateNameId}
+                              tempTemplateAuthor={tempTemplateAuthor}
+                              setTempTemplateAuthor={setTempTemplateAuthor}
+                              INITIAL_TEMPLATES_CONFIG={INITIAL_TEMPLATES_CONFIG}
                               globalContainerStyle={globalContainerStyle}
                               isDarkMode={isDarkMode}
                           />
@@ -3086,6 +3397,153 @@ const App = () => {
           </div>
         )}
       </div>
+      {/* --- Share Import Modal --- */}
+      {showShareImportModal && sharedTemplateData && (
+        <div 
+          className="fixed inset-0 z-[1000] bg-black/40 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-300"
+          onClick={() => setShowShareImportModal(false)}
+        >
+          <div 
+            className={`w-full max-w-2xl rounded-[32px] shadow-2xl overflow-hidden border animate-scale-up ${isDarkMode ? 'bg-[#242120] border-white/5 shadow-black/50' : 'bg-white border-gray-100'}`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className={`p-6 border-b flex justify-between items-center ${isDarkMode ? 'bg-black/20 border-white/5' : 'bg-gray-50 border-gray-100'}`}>
+              <h3 className={`text-xl font-black flex items-center gap-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                <div className="p-2 bg-orange-500 rounded-xl text-white">
+                  <Share2 size={20} />
+                </div>
+                {t('import_shared_template')}
+              </h3>
+              <button 
+                onClick={() => setShowShareImportModal(false)}
+                className={`p-2 rounded-xl transition-all ${isDarkMode ? 'hover:bg-white/10 text-gray-500' : 'hover:bg-gray-200 text-gray-500'}`}
+              >
+                <X size={20}/>
+              </button>
+            </div>
+            
+            <div className="p-8 space-y-6">
+              <div className="flex items-start gap-6">
+                <div className={`w-24 h-24 shrink-0 rounded-3xl overflow-hidden shadow-lg border-4 ${isDarkMode ? 'border-white/10' : 'border-white'}`}>
+                  {sharedTemplateData.imageUrl ? (
+                    <img src={sharedTemplateData.imageUrl} alt="" className="w-full h-full object-cover" />
+                  ) : (
+                    <div className={`w-full h-full flex items-center justify-center ${isDarkMode ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+                      <ImageIcon size={32} className="text-gray-400" />
+                    </div>
+                  )}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <h4 className={`text-2xl font-black tracking-tight truncate ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>
+                    {getLocalized(sharedTemplateData.name, language)}
+                  </h4>
+                  <p className="text-sm font-bold text-orange-500 uppercase tracking-widest mt-1">
+                    {sharedTemplateData.author ? `${t('shared_by')} ${sharedTemplateData.author}` : t('official')}
+                  </p>
+                  <div className="flex flex-wrap gap-2 mt-3">
+                    {sharedTemplateData.tags?.map(tag => (
+                      <span key={tag} className={`px-2 py-0.5 rounded-lg text-[10px] font-bold ${TAG_STYLES[tag] || TAG_STYLES["default"]}`}>
+                        {displayTag(tag)}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className={`p-6 rounded-2xl border text-sm leading-relaxed max-h-[300px] overflow-y-auto custom-scrollbar transition-all ${isDarkMode ? 'bg-black/40 border-white/5 text-gray-400 shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)]' : 'bg-gray-100/50 border-gray-200 text-gray-500 shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)]'}`}>
+                <div className="whitespace-pre-wrap font-mono">
+                  {getLocalized(sharedTemplateData.content, language)}
+                </div>
+              </div>
+
+              <div className="pt-2 flex gap-3">
+                <PremiumButton
+                  onClick={() => setShowShareImportModal(false)}
+                  isDarkMode={isDarkMode}
+                  className="flex-1 size-lg"
+                  icon={X}
+                >
+                  {t('cancel')}
+                </PremiumButton>
+                <PremiumButton
+                  onClick={handleImportSharedTemplate}
+                  active={true}
+                  isDarkMode={isDarkMode}
+                  className="flex-1 size-lg"
+                  icon={Download}
+                >
+                  {t('import_now')}
+                </PremiumButton>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* --- Share Options Modal --- */}
+      {showShareOptionsModal && activeTemplate && (
+        <div 
+          className="fixed inset-0 z-[1000] bg-black/40 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-300"
+          onClick={() => setShowShareOptionsModal(false)}
+        >
+          <div 
+            className={`w-full max-w-sm rounded-[32px] shadow-2xl overflow-hidden border animate-scale-up ${isDarkMode ? 'bg-[#242120] border-white/5' : 'bg-white border-gray-100'}`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="p-8 relative">
+              <button 
+                onClick={() => setShowShareOptionsModal(false)}
+                className={`absolute top-6 right-6 p-2 rounded-full transition-all ${isDarkMode ? 'text-gray-500 hover:text-white hover:bg-white/5' : 'text-gray-400 hover:text-gray-900 hover:bg-gray-100'}`}
+              >
+                <X size={20} />
+              </button>
+              <h3 className={`text-xl font-black mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                {language === 'cn' ? '分享模版' : 'Share Template'}
+              </h3>
+              <p className={`text-xs font-bold mb-8 ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>
+                {language === 'cn' ? '选择您喜欢的分享方式' : 'Choose your preferred sharing method'}
+              </p>
+
+              <div className="space-y-4">
+                <PremiumButton 
+                  onClick={doCopyShareLink}
+                  isDarkMode={isDarkMode}
+                  className="w-full size-lg"
+                  icon={CopyIcon}
+                  justify="start"
+                >
+                  <div className="flex flex-col items-start ml-2 text-left">
+                    <span className="text-sm font-black">
+                      {language === 'cn' ? '链接分享' : 'Share via Link'}
+                    </span>
+                    <span className={`text-[10px] font-bold opacity-50`}>
+                      {language === 'cn' ? '复制完整 URL 链接' : 'Copy the full URL link'}
+                    </span>
+                  </div>
+                </PremiumButton>
+
+                <PremiumButton 
+                  onClick={handleShareToken}
+                  isDarkMode={isDarkMode}
+                  className="w-full size-lg"
+                  icon={Share2}
+                  justify="start"
+                >
+                  <div className="flex flex-col items-start ml-2 text-left">
+                    <span className="text-sm font-black">
+                      {language === 'cn' ? '口令分享 (推荐)' : 'Share via Token'}
+                    </span>
+                    <span className={`text-[10px] font-bold opacity-70`}>
+                      {language === 'cn' ? '适合微信分享，不易被拦截' : 'Best for WeChat, anti-blocking'}
+                    </span>
+                  </div>
+                </PremiumButton>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* --- Add Bank Modal --- */}
       <AddBankModal
         isOpen={isAddingBank}
@@ -3110,6 +3568,8 @@ const App = () => {
         accept="image/*"
         onChange={handleUploadImage}
       />
+
+      {/* 隐藏的图片选择器 */}
 
       {/* --- Settings Modal - Enhanced UI (Legacy/Mobile) --- */}
       {isSettingsOpen && isMobileDevice && (
@@ -3464,16 +3924,29 @@ const App = () => {
              </div>
           </button>
 
-          {/* 暗色模式切换 */}
+          {/* 暗色模式切换 (循环：Light -> Dark -> System) */}
           <button 
-             onClick={() => setIsDarkMode(!isDarkMode)}
-             className="flex flex-col items-center justify-center w-full h-full transition-all active:scale-90 group"
+             onClick={() => {
+               if (themeMode === 'light') setThemeMode('dark');
+               else if (themeMode === 'dark') setThemeMode('system');
+               else setThemeMode('light');
+             }}
+             className="flex flex-col items-center justify-center w-full h-full transition-all active:scale-90 group relative"
+             title={themeMode === 'system' ? 'Follow System' : (themeMode === 'dark' ? 'Dark Mode' : 'Light Mode')}
           >
              <div className="p-2 rounded-xl transition-all">
                 <div className={`${isDarkMode ? 'text-[#8E9196]' : 'text-[#6B7280]'} transition-colors`}>
-                   {isDarkMode ? <Sun size={24} /> : <Moon size={24} />}
+                   {themeMode === 'system' ? (
+                     <div className="relative">
+                       <Sun size={24} className="opacity-50" />
+                       <Moon size={14} className="absolute -bottom-1 -right-1" />
+                     </div>
+                   ) : (themeMode === 'dark' ? <Moon size={24} /> : <Sun size={24} />)}
                 </div>
              </div>
+             {themeMode === 'system' && (
+               <span className="absolute top-2 right-2 w-1.5 h-1.5 bg-orange-500 rounded-full"></span>
+             )}
           </button>
       </div>
 

@@ -11,8 +11,8 @@
 A **structured prompt generation tool** designed specifically for AI painting (GPT, Midjourney, Nano Banana, etc.). Help users quickly build, manage, and iterate complex prompts through a visual "fill-in-the-blank" interaction.
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Version](https://img.shields.io/badge/Version-0.6.1-orange.svg)
-![Data](https://img.shields.io/badge/Data-0.7.2-green.svg)
+![Version](https://img.shields.io/badge/Version-0.6.5-orange.svg)
+![Data](https://img.shields.io/badge/Data-0.7.6-green.svg)
 ![React](https://img.shields.io/badge/React-18.x-61DAFB.svg)
 ![Vite](https://img.shields.io/badge/Vite-5.x-646CFF.svg)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC.svg)
@@ -22,7 +22,7 @@ A **structured prompt generation tool** designed specifically for AI painting (G
 
 ## 📝 Foreword
 
-Prompt Fill is now at version **v0.6.1**. The original intention of this project is to solve the problem of hard-to-remember, hard-to-manage, and tedious modification of prompts in the AI painting process. By structuring prompts, creation becomes as simple as "filling in the blanks".
+Prompt Fill is now at version **v0.6.5**. The original intention of this project is to solve the problem of hard-to-remember, hard-to-manage, and tedious modification of prompts in the AI painting process. By structuring prompts, creation becomes as simple as "filling in the blanks".
 
 ### 🌟 Progress & Core Features
 
@@ -163,6 +163,12 @@ Copy the final prompt or save as a long image. JSON Import/Export is available f
 
 ## 📝 Change Log
 
+### Version 0.6.5 (2025-12-31)
+*   **🔗 Link Sharing**: Added support for sharing templates via public URLs.
+*   **📊 Data Milestone**: Data version upgraded to V0.7.6 with a comprehensive update to preset banks and templates.
+*   **⚡ Optimization**: Improved persistence logic and cross-device data validation.
+*   **🎨 UI Refinement**: Fixed minor rendering issues in Dark Mode.
+
 ### Version 0.6.1 (2025-12-26)
 *   **🔗 Linkage Group Bug Fix**: Fixed loose matching bug in linkage groups.
 *   **🆙 Version Alignment**: Synchronized version identifiers site-wide.
@@ -206,8 +212,8 @@ MIT License / [MIT 许可证](LICENSE).
 一个专为 AI 绘画（GPT、Nano Banana 等）设计的**结构化提示词生成工具**。通过可视化的"填空"交互方式，帮助用户快速构建、管理和迭代复杂的 Prompt。
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Version](https://img.shields.io/badge/Version-0.6.1-orange.svg)
-![Data](https://img.shields.io/badge/Data-0.7.2-green.svg)
+![Version](https://img.shields.io/badge/Version-0.6.5-orange.svg)
+![Data](https://img.shields.io/badge/Data-0.7.6-green.svg)
 ![React](https://img.shields.io/badge/React-18.x-61DAFB.svg)
 ![Vite](https://img.shields.io/badge/Vite-5.x-646CFF.svg)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC.svg)
@@ -217,7 +223,7 @@ MIT License / [MIT 许可证](LICENSE).
 
 ## 📝 写在前面
 
-Prompt Fill 现已迭代至 **v0.6.1** 版本。本项目初衷是解决 AI 绘画过程中提示词难记忆、难管理、修改繁琐的问题。通过将 Prompt 结构化，让创作变得像"填空"一样简单。
+Prompt Fill 现已迭代至 **v0.6.5** 版本。本项目初衷是解决 AI 绘画过程中提示词难记忆、难管理、修改繁琐的问题。通过将 Prompt 结构化，让创作变得像"填空"一样简单。
 
 ### 🌟 目前进度与核心功能
 
@@ -357,6 +363,12 @@ Prompt Fill 现已迭代至 **v0.6.1** 版本。本项目初衷是解决 AI 绘�
 ---
 
 ## 📝 更新日志
+
+### Version 0.6.5 (2025-12-31)
+*   **🔗 链接分享**：新增支持通过公开链接分享模版功能。
+*   **📊 数据里程碑**：数据版本升级至 V0.7.6，全面更新预置词库与模版。
+*   **⚡ 系统优化**：优化数据持久化逻辑，增强多端同步校验稳定性。
+*   **🎨 UI 微调**：修复了暗色模式下的部分细节显示问题。
 
 ### Version 0.6.1 (2025-12-26)
 *   **🔗 联动组逻辑修复**：修复了联动组匹配过于宽松的 Bug。

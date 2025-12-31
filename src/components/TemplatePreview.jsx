@@ -1,5 +1,7 @@
 import React, { useMemo } from 'react';
 import { Variable } from './Variable';
+import { VisualEditor } from './VisualEditor';
+import { EditorToolbar } from './EditorToolbar';
 import { ImageIcon, ArrowUpRight, Upload, Globe, RotateCcw, Pencil, Check, X, ChevronLeft, ChevronRight, Plus } from 'lucide-react';
 import { getLocalized } from '../utils/helpers';
 
@@ -40,7 +42,24 @@ export const TemplatePreview = React.memo(({
   saveTemplateName, 
   startRenamingTemplate, 
   setEditingTemplateNameId,
-  isDarkMode
+  tempTemplateAuthor,
+  setTempTemplateAuthor,
+  INITIAL_TEMPLATES_CONFIG,
+  isDarkMode,
+  // 编辑模式相关
+  isEditing,
+  setIsInsertModalOpen,
+  historyPast,
+  historyFuture,
+  handleUndo,
+  handleRedo,
+  cursorInVariable,
+  currentGroupId,
+  handleSetGroup,
+  handleRemoveGroup,
+  updateActiveTemplateContent,
+  textareaRef,
+  templateLanguage,
 }) => {
   const [editImageIndex, setEditImageIndex] = React.useState(0);
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
@@ -254,40 +273,56 @@ export const TemplatePreview = React.memo(({
         ></div>
         <div className={`absolute inset-0 pointer-events-none ${isDarkMode ? 'bg-black/30' : 'bg-white/5'}`}></div>
 
-        <div className="w-full h-full overflow-y-auto px-3 py-4 md:p-8 custom-scrollbar relative z-10">
+        <div className="w-full h-full overflow-y-auto px-3 py-4 md:px-4 lg:p-8 custom-scrollbar relative z-10">
             <div 
                 id="preview-card"
-                className={`max-w-4xl mx-auto p-4 sm:p-6 md:p-12 min-h-[500px] md:min-h-[600px] transition-all duration-500 relative ${isMobile ? (isDarkMode ? 'bg-[#242120]/90 border border-white/5 rounded-2xl shadow-2xl' : 'bg-white/90 border border-white/60 rounded-2xl shadow-xl') : (isDarkMode ? 'bg-black/20 backdrop-blur-md rounded-2xl border border-white/5 shadow-2xl' : 'bg-white/40 backdrop-blur-sm rounded-2xl border border-white/40 shadow-sm')}`}
+                className={`max-w-4xl mx-auto p-4 sm:p-6 md:p-8 lg:p-12 min-h-[500px] md:min-h-[600px] transition-all duration-500 relative ${isMobile ? (isDarkMode ? 'bg-[#242120]/90 border border-white/5 rounded-2xl shadow-2xl' : 'bg-white/90 border border-white/60 rounded-2xl shadow-xl') : (isDarkMode ? 'bg-black/20 backdrop-blur-md rounded-2xl border border-white/5 shadow-2xl' : 'bg-white/40 backdrop-blur-sm rounded-2xl border border-white/40 shadow-sm')}`}
             >
                 {/* --- Top Section: Title & Image --- */}
-                <div className="flex flex-col md:flex-row justify-between items-start mb-6 md:mb-10 relative">
+                <div className={`flex flex-col md:flex-row justify-between items-start mb-6 md:mb-10 relative ${isEditing ? 'border-b pb-8' : ''} ${isDarkMode ? 'border-white/5' : 'border-gray-100'}`}>
                     {/* Left: Title & Meta Info */}
                     <div className="flex-1 min-w-0 pr-4 z-10 pt-2">
-                        {editingTemplateNameId === activeTemplate.id ? (
+                        {isEditing ? (
                             <div className="mb-4 flex flex-col gap-3 animate-in fade-in slide-in-from-top-1 duration-200">
-                                <input 
-                                    autoFocus
-                                    type="text" 
-                                    value={tempTemplateName}
-                                    onChange={(e) => setTempTemplateName(e.target.value)}
-                                    className={`text-2xl md:text-3xl font-bold bg-transparent border-b-2 border-orange-500 focus:outline-none w-full pb-1 ${isDarkMode ? 'text-white' : 'text-gray-800'}`}
-                                    placeholder={t('label_placeholder')}
-                                    onKeyDown={(e) => e.key === 'Enter' && saveTemplateName()}
-                                />
-                                <div className="flex gap-2">
+                                <div className="flex flex-col gap-1.5">
+                                    <label className={`text-[10px] font-black uppercase tracking-widest ${isDarkMode ? 'text-gray-600' : 'text-gray-400'}`}>
+                                        {language === 'cn' ? '模版标题 (TITLE)' : 'Template Title'}
+                                    </label>
+                                    <input 
+                                        autoFocus
+                                        type="text" 
+                                        value={tempTemplateName}
+                                        onChange={(e) => setTempTemplateName(e.target.value)}
+                                        className={`text-2xl md:text-3xl font-bold bg-transparent border-b-2 border-orange-500 focus:outline-none w-full pb-1 ${isDarkMode ? 'text-white' : 'text-gray-800'}`}
+                                        placeholder={t('label_placeholder')}
+                                        onKeyDown={(e) => e.key === 'Enter' && saveTemplateName()}
+                                    />
+                                </div>
+                                <div className="flex flex-col gap-1.5 mt-2">
+                                    <label className={`text-[10px] font-black uppercase tracking-widest ${isDarkMode ? 'text-gray-600' : 'text-gray-400'}`}>
+                                        {language === 'cn' ? '作者 (AUTHOR)' : 'Author'}
+                                    </label>
+                                    <input 
+                                        type="text" 
+                                        value={tempTemplateAuthor}
+                                        onChange={(e) => setTempTemplateAuthor(e.target.value)}
+                                        className={`text-sm font-bold bg-transparent border-b border-dashed focus:border-solid border-orange-500/30 focus:border-orange-500 focus:outline-none w-full pb-1 ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}
+                                        placeholder={language === 'cn' ? '作者名称...' : 'Author name...'}
+                                        disabled={INITIAL_TEMPLATES_CONFIG.some(cfg => cfg.id === activeTemplate.id)}
+                                    />
+                                    {INITIAL_TEMPLATES_CONFIG.some(cfg => cfg.id === activeTemplate.id) && (
+                                        <p className="text-[10px] text-orange-500/50 font-bold italic">
+                                            {language === 'cn' ? '* 系统模版作者不可修改' : '* System template author is read-only'}
+                                        </p>
+                                    )}
+                                </div>
+                                <div className="flex gap-2 mt-2">
                                     <button 
                                         onClick={saveTemplateName}
-                                        className="px-3 py-1.5 bg-orange-500 text-white text-xs font-bold rounded-lg hover:bg-orange-600 transition-all flex items-center gap-1.5 shadow-sm"
+                                        className="px-4 py-2 bg-orange-500 text-white text-xs font-bold rounded-xl hover:bg-orange-600 transition-all flex items-center gap-2 shadow-lg shadow-orange-500/20"
                                     >
                                         <Check size={14} />
                                         {t('confirm')}
-                                    </button>
-                                    <button 
-                                        onClick={() => setEditingTemplateNameId(null)}
-                                        className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all flex items-center gap-1.5 ${isDarkMode ? 'bg-white/10 text-gray-400 hover:bg-white/20' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}
-                                    >
-                                        <X size={14} />
-                                        {t('cancel')}
                                     </button>
                                 </div>
                             </div>
@@ -308,15 +343,25 @@ export const TemplatePreview = React.memo(({
                                 </button>
                             </div>
                         )}
+
+                        {/* Author Info Display (when not editing) */}
+                        {!isEditing && (
+                            <div className="flex flex-col gap-1 mt-1 mb-3">
+                                <p className={`text-sm font-black flex items-center gap-2 ${isDarkMode ? 'text-gray-600' : 'text-gray-400'}`}>
+                                    <span className="uppercase tracking-widest text-[10px] opacity-50">{language === 'cn' ? '作者' : 'Author'}:</span>
+                                    <span className={activeTemplate.author === '官方' || !activeTemplate.author ? 'text-orange-500' : 'text-orange-500/80'}>
+                                        {activeTemplate.author === '官方' ? t('official') : (activeTemplate.author || t('official'))}
+                                    </span>
+                                </p>
+                            </div>
+                        )}
+
                         {/* Tags / Meta */}
-                        <div className="flex flex-wrap items-center gap-2 mb-2">
-                            <span className={`px-2.5 py-1 rounded-md text-xs font-bold tracking-wide border ${isDarkMode ? 'bg-orange-500/10 text-orange-400 border-orange-500/20' : 'bg-orange-50 text-orange-600 border-orange-100/50'}`}>
-                                V0.6.1
-                            </span>
+                        <div className="flex flex-wrap items-center gap-2 mb-4">
                             {(activeTemplate.tags || []).map(tag => (
                                 <span 
                                     key={tag} 
-                                    className={`px-2.5 py-1 rounded-md text-xs font-bold tracking-wide border ${TAG_STYLES[tag] || TAG_STYLES["default"]}`}
+                                    className={`px-2.5 py-1 rounded-md text-xs font-bold tracking-wide ${TAG_STYLES[tag] || TAG_STYLES["default"]}`}
                                 >
                                     {displayTag(tag)}
                                 </span>
@@ -394,12 +439,6 @@ export const TemplatePreview = React.memo(({
                                 </div>
                             </div>
                         )}
-                        <p className={`text-sm font-medium mt-2 ${isDarkMode ? 'text-gray-600' : 'text-gray-400'}`}>
-                            {t('source_and_contribution')}：{activeTemplate.author === '官方' ? t('official') : (activeTemplate.author || t('official'))}
-                        </p>
-                        <p className={`text-sm font-medium mt-1 ${isDarkMode ? 'text-gray-600' : 'text-gray-400'}`}>
-                            {t('made_by')}
-                        </p>
                     </div>
 
                     {/* Right: Image (Overhanging) */}

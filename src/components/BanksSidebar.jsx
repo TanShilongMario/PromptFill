@@ -151,19 +151,28 @@ const BankGroup = ({ bankKey, bank, onInsert, onDeleteOption, onAddOption, onDel
             <div 
                 className="rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
                 style={{
-                    background: `linear-gradient(${isDarkMode ? '#433E3B' : '#F3E7E0'}, ${isDarkMode ? '#433E3B' : '#F3E7E0'}) padding-box, ${
+                    display: 'flex',
+                    flexDirection: 'column',
+                    padding: '11px 12px',
+                    gap: '10px',
+                    background: `${
                         isDarkMode 
-                            ? 'linear-gradient(0deg, #3E3E3E 1%, rgba(255, 255, 255, 0.38) 100%) border-box' 
-                            : 'linear-gradient(0deg, #BEBEBE 0%, rgba(255, 255, 255, 0) 100%) border-box'
-                    }`,
-                    border: '1px solid transparent',
+                            ? 'linear-gradient(180deg, #393939 9%, #242220 99%)' 
+                            : 'linear-gradient(180deg, #F0EAE5 9%, #DEDCDC 96%)'
+                    } padding-box, ${
+                        isDarkMode 
+                            ? 'linear-gradient(0deg, #1A1A1A 0%, #494949 96%)' 
+                            : 'linear-gradient(0deg, #BFBFBF 0%, #FFFFFF 100%)'
+                    } border-box`,
+                    border: '2px solid transparent',
+                    boxSizing: 'border-box',
                 }}
             >
                 <div 
-                    className="flex justify-between items-center py-2.5 px-4 cursor-pointer"
+                    className="flex justify-between items-center cursor-pointer"
                     onClick={() => setIsCollapsed(!isCollapsed)}
                 >
-                    <div className="flex items-center gap-4 overflow-hidden flex-1">
+                    <div className="flex items-center gap-[10px] overflow-hidden flex-1">
                         <div className={`flex-shrink-0 transition-transform duration-300 ${isDarkMode ? 'text-gray-500' : 'text-gray-600'}`}>
                             {isCollapsed ? <ChevronDown size={18} strokeWidth={2.5} /> : <ChevronUp size={18} strokeWidth={2.5} />}
                         </div>
@@ -209,7 +218,7 @@ const BankGroup = ({ bankKey, bank, onInsert, onDeleteOption, onAddOption, onDel
                 
                 {/* Expanded Content */}
                 {!isCollapsed && (
-                    <div className="p-4 pt-0 animate-in slide-in-from-top-2 duration-300">
+                    <div className="animate-in slide-in-from-top-2 duration-300">
                         <div className={`h-px mb-4 ${isDarkMode ? 'bg-white/5' : 'bg-white/20'}`}></div>
                         
                         {/* Category Edit Mode */}
@@ -250,7 +259,7 @@ const BankGroup = ({ bankKey, bank, onInsert, onDeleteOption, onAddOption, onDel
                             <input
                                 type="text"
                                 placeholder={t('add_option_placeholder')}
-                                className={`flex-1 px-4 py-2.5 text-[14px] font-medium border-none rounded-xl focus:ring-4 focus:ring-orange-500/10 transition-all outline-none ${isDarkMode ? 'bg-white/5 text-gray-200 placeholder:text-gray-700' : 'bg-white/50 text-gray-700 placeholder:text-gray-400'}`}
+                                className={`flex-1 px-4 py-2.5 text-[14px] font-medium border-none rounded-xl focus:ring-4 focus:ring-orange-500/10 transition-all outline-none ${isDarkMode ? 'bg-white/5 text-gray-200 placeholder:text-gray-500' : 'bg-white/50 text-gray-700 placeholder:text-gray-400'}`}
                                 onKeyDown={(e) => {
                                     if (e.key === 'Enter') {
                                         onAddOption(bankKey, e.target.value);
@@ -614,14 +623,14 @@ export const BanksSidebar = React.memo(({
         className={`
             ${isMobile 
               ? `fixed inset-y-0 right-0 z-[300] w-[85%] max-w-[360px] transform transition-transform duration-500 ease-out shadow-2xl ${isBanksDrawerOpen ? 'translate-x-0' : 'translate-x-full'}`
-              : 'relative md:flex flex-col h-full flex-shrink-0 overflow-hidden'
+              : 'relative md:flex flex-col h-full shrink-[10] overflow-hidden min-w-[240px]'
             } 
             flex flex-col overflow-hidden
-            ${!isMobile ? 'bg-transparent' : (isDarkMode ? 'bg-[#242120]' : 'bg-white')}
+            ${!isMobile ? 'bg-transparent' : (isDarkMode ? 'bg-[#242120]/95' : 'bg-white/95')}
             ${!isMobile && mobileTab !== 'editor' && mobileTab !== 'banks' ? 'hidden md:flex' : ''}
         `}
       >
-        <div className={`flex flex-col w-full h-full backdrop-blur-sm rounded-2xl ${isMobile ? (isDarkMode ? 'bg-[#242120]' : 'bg-white') : (isDarkMode ? 'bg-black/20' : 'bg-white/30')}`}>
+        <div className={`flex flex-col w-full h-full backdrop-blur-sm rounded-2xl ${isMobile ? (isDarkMode ? 'bg-[#242120]/95' : 'bg-white/95') : (isDarkMode ? 'bg-black/20' : 'bg-white/30')}`}>
           <div 
               className="hidden md:flex absolute -left-2 top-0 bottom-0 w-4 cursor-col-resize z-40 group items-center justify-center"
               onMouseDown={startResizing}
@@ -629,7 +638,7 @@ export const BanksSidebar = React.memo(({
               <div className={`h-12 w-1.5 rounded-full transition-all duration-300 shadow-sm group-hover:shadow-lg group-hover:shadow-orange-400/30 ${isDarkMode ? 'bg-white/5 group-hover:bg-gradient-to-b group-hover:from-orange-400 group-hover:to-orange-500' : 'bg-gray-300/60 group-hover:bg-gradient-to-b group-hover:from-orange-400 group-hover:to-orange-500'}`}></div>
           </div>
 
-      <div className={`p-6 pb-4 sticky top-0 z-30 border-b ${isDarkMode ? 'border-white/5' : 'border-white/30'}`}>
+      <div className={`px-6 pt-4 pb-4 sticky top-0 z-30 border-b ${isDarkMode ? 'border-white/5' : 'border-white/30'}`}>
         <div className="flex items-center justify-between mb-6">
           <div className="flex flex-col items-start gap-1">
               <h1 className="font-black tracking-tight text-[22px] text-orange-500 flex items-baseline gap-2">
@@ -639,10 +648,8 @@ export const BanksSidebar = React.memo(({
           </div>
           <PremiumButton 
               onClick={() => setIsCategoryManagerOpen(true)}
-              className="text-sm font-medium"
               title={t('manage_categories')}
               icon={Settings}
-              color="orange"
               isDarkMode={isDarkMode}
           >
               {t('manage_categories')}
@@ -650,27 +657,14 @@ export const BanksSidebar = React.memo(({
         </div>
         <div className="flex flex-col gap-4">
             {/* 搜索框 */}
-            <div className="relative group">
-                <Search className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors pointer-events-none ${isDarkMode ? 'text-gray-600 group-focus-within:text-orange-500' : 'text-gray-400 group-focus-within:text-orange-500'}`} size={16} />
+            <div className={`premium-search-container group ${isDarkMode ? 'dark' : 'light'}`}>
+                <Search className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors pointer-events-none z-10 ${isDarkMode ? 'text-gray-600 group-focus-within:text-orange-500' : 'text-gray-400 group-focus-within:text-orange-500'}`} size={16} />
                 <input 
                   type="text" 
-                  placeholder={t('search_templates')} // 这里可以考虑新增一个翻译项 search_banks
+                  placeholder={t('search_banks') || "搜索词条..."} 
                   value={bankSearchQuery} 
                   onChange={(e) => setBankSearchQuery(e.target.value)} 
-                  style={isDarkMode ? {
-                    background: '#2A2726',
-                    border: '1px solid transparent',
-                    backgroundImage: 'linear-gradient(#2A2726, #2A2726), linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%)',
-                    backgroundOrigin: 'border-box',
-                    backgroundClip: 'padding-box, border-box',
-                  } : {
-                    background: '#E8E3DD',
-                    border: '1px solid transparent',
-                    backgroundImage: 'linear-gradient(#E8E3DD, #E8E3DD), linear-gradient(0deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%)',
-                    backgroundOrigin: 'border-box',
-                    backgroundClip: 'padding-box, border-box',
-                  }}
-                  className={`w-full pl-11 pr-4 py-3 rounded-2xl text-[14px] font-medium transition-all outline-none focus:ring-4 focus:ring-orange-500/5 ${isDarkMode ? 'text-gray-200 placeholder-gray-600' : 'text-gray-700 placeholder-gray-400'}`} 
+                  className={`premium-search-input ${isDarkMode ? 'dark' : 'light'}`} 
                 />
             </div>
         </div>

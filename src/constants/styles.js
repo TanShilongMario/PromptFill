@@ -115,17 +115,17 @@ export const CATEGORY_STYLES = {
 };
 
 export const TAG_STYLES = {
-  "建筑": "bg-stone-50 text-stone-600 border border-stone-200",
-  "人物": "bg-rose-50 text-rose-600 border border-rose-200",
-  "摄影": "bg-orange-50 text-orange-600 border border-orange-200",
-  "产品": "bg-amber-50 text-amber-600 border border-amber-200",
-  "实拍": "bg-emerald-50 text-emerald-600 border border-emerald-200",
-  "图表": "bg-sky-50 text-sky-600 border border-sky-200",
-  "卡通": "bg-pink-50 text-pink-600 border border-pink-200",
-  "宠物": "bg-orange-50 text-orange-600 border border-orange-200",
-  "游戏": "bg-violet-50 text-violet-600 border border-violet-200",
-  "创意": "bg-fuchsia-50 text-fuchsia-600 border border-fuchsia-200",
-  "default": "bg-gray-50 text-gray-500 border border-gray-200"
+  "建筑": "bg-transparent text-stone-500/90 border-orange-500/20 dark:text-stone-400/90 dark:border-orange-500/30",
+  "人物": "bg-transparent text-stone-500/90 border-orange-500/20 dark:text-stone-400/90 dark:border-orange-500/30",
+  "摄影": "bg-transparent text-stone-500/90 border-orange-500/20 dark:text-stone-400/90 dark:border-orange-500/30",
+  "产品": "bg-transparent text-stone-500/90 border-orange-500/20 dark:text-stone-400/90 dark:border-orange-500/30",
+  "实拍": "bg-transparent text-stone-500/90 border-orange-500/20 dark:text-stone-400/90 dark:border-orange-500/30",
+  "图表": "bg-transparent text-stone-500/90 border-orange-500/20 dark:text-stone-400/90 dark:border-orange-500/30",
+  "卡通": "bg-transparent text-stone-500/90 border-orange-500/20 dark:text-stone-400/90 dark:border-orange-500/30",
+  "宠物": "bg-transparent text-stone-500/90 border-orange-500/20 dark:text-stone-400/90 dark:border-orange-500/30",
+  "游戏": "bg-transparent text-stone-500/90 border-orange-500/20 dark:text-stone-400/90 dark:border-orange-500/30",
+  "创意": "bg-transparent text-stone-500/90 border-orange-500/20 dark:text-stone-400/90 dark:border-orange-500/30",
+  "default": "bg-transparent text-stone-500/90 border-orange-500/20 dark:text-stone-400/90 dark:border-orange-500/30"
 };
 
 export const TAG_LABELS = {

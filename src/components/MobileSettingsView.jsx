@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { 
   Settings, Globe, Database, Download, Upload, 
   RotateCcw, Trash2, Mail, MessageCircle, Github, 
-  ChevronRight, RefreshCw, FileText, Info, X
+  ChevronRight, RefreshCw, FileText, Info, X,
+  Moon, Sun, Heart
 } from 'lucide-react';
 
 export const MobileSettingsView = ({ 
@@ -12,12 +13,26 @@ export const MobileSettingsView = ({
   handleCompleteBackup, handleImportAllData,
   handleResetSystemData, handleClearAllData,
   SYSTEM_DATA_VERSION, t,
-  isDarkMode
+  isDarkMode,
+  themeMode,
+  setThemeMode
 }) => {
   const [showWechatQR, setShowWechatQR] = useState(false);
+  const [showCredits, setShowCredits] = useState(false);
   
   // 完善后的更新日志 (同步桌面端内容)
   const updateLogs = language === 'cn' ? [
+    { 
+      version: 'V0.6.5', 
+      date: '2025-12-31', 
+      title: '数据版本升级与性能优化',
+      content: [
+        '新增模版链接分享功能，支持通过 URL 快速分享与导入模版',
+        '数据版本升级至 V0.7.6，包含多项预置模版更新与词库扩充',
+        '系统版本升级至 V0.6.5，优化跨端数据同步稳定性',
+        '修复了移动端部分 UI 适配细节'
+      ]
+    },
     { 
       version: 'V0.6.1', 
       date: '2025-12-26', 
@@ -57,6 +72,17 @@ export const MobileSettingsView = ({
       ]
     }
   ] : [
+    { 
+      version: 'V0.6.5', 
+      date: '2025-12-31', 
+      title: 'Data Update & Optimization',
+      content: [
+        'Added template link sharing support via public URLs',
+        'Data version upgraded to V0.7.6 with new templates and bank expansions',
+        'System version upgraded to V0.6.5 with improved sync stability',
+        'Fixed minor mobile UI adaptation issues'
+      ]
+    },
     { 
       version: 'V0.6.1', 
       date: '2025-12-26', 
@@ -147,6 +173,33 @@ export const MobileSettingsView = ({
           value={language === 'cn' ? '简体中文' : 'English'} 
           onClick={() => setLanguage(language === 'cn' ? 'en' : 'cn')}
         />
+        <div className={`w-full flex items-center justify-between px-5 py-4 transition-all border-b ${
+          isDarkMode ? 'border-white/5' : 'border-gray-100/50'
+        }`}>
+          <div className="flex items-center gap-3">
+            <div className={`p-2 rounded-xl ${isDarkMode ? 'bg-white/10 text-gray-300' : 'bg-gray-50 text-gray-600'}`}>
+              {isDarkMode ? <Moon size={18} /> : <Sun size={18} />}
+            </div>
+            <span className={`text-sm font-bold ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>
+              {language === 'cn' ? '外观模式' : 'Appearance'}
+            </span>
+          </div>
+          <div className={`premium-toggle-container ${isDarkMode ? 'dark' : 'light'} scale-[0.85] origin-right mr-2`}>
+            {[
+              { id: 'light', label: language === 'cn' ? '亮色' : 'Light' },
+              { id: 'dark', label: language === 'cn' ? '暗色' : 'Dark' },
+              { id: 'system', label: language === 'cn' ? '自动' : 'Auto' }
+            ].map(mode => (
+              <button
+                key={mode.id}
+                onClick={() => setThemeMode(mode.id)}
+                className={`premium-toggle-item ${isDarkMode ? 'dark' : 'light'} ${themeMode === mode.id ? 'is-active' : ''}`}
+              >
+                {mode.label}
+              </button>
+            ))}
+          </div>
+        </div>
         <SettingItem 
           icon={Database} 
           label={t('storage_mode')} 
@@ -185,7 +238,14 @@ export const MobileSettingsView = ({
             <div key={idx} className={`relative pl-5 border-l-2 ${isDarkMode ? 'border-orange-500/40' : 'border-orange-500/20'}`}>
               <div className="absolute -left-[5px] top-0 w-2 h-2 rounded-full bg-orange-500" />
               <div className="flex items-center justify-between mb-2">
-                <span className={`text-[13px] font-black ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>{log.title}</span>
+                <div className="flex items-center gap-2">
+                  <span className={`text-[13px] font-black ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>{log.title}</span>
+                  {idx === 0 && (
+                    <span className="px-1 py-0.5 text-[8px] font-black bg-orange-500 text-white rounded uppercase tracking-wider">
+                      {language === 'cn' ? '最新' : 'LATEST'}
+                    </span>
+                  )}
+                </div>
                 <span className={`text-[10px] font-bold tabular-nums ${isDarkMode ? 'text-gray-500' : 'text-gray-400'}`}>{log.date}</span>
               </div>
               <ul className="space-y-1.5">
@@ -203,6 +263,11 @@ export const MobileSettingsView = ({
 
       {/* 4. 关于与联系 */}
       <SettingSection title={t('connect_author')} icon={Info}>
+        <SettingItem 
+          icon={Heart} 
+          label={language === 'cn' ? '鸣谢与致敬' : 'Credits'} 
+          onClick={() => setShowCredits(true)}
+        />
         <SettingItem 
           icon={Mail} 
           label={t('contact_author')} 
@@ -253,8 +318,70 @@ export const MobileSettingsView = ({
         </div>
       )}
 
+      {/* Credits Popover (Mobile Style) */}
+      {showCredits && (
+        <div 
+          className="fixed inset-0 z-[400] flex items-center justify-center bg-black/60 backdrop-blur-sm animate-in fade-in duration-300 px-6"
+          onClick={() => setShowCredits(false)}
+        >
+          <div 
+            className={`${isDarkMode ? 'bg-zinc-900 border-white/10' : 'bg-white border-white/60'} w-full max-w-sm p-8 rounded-[40px] shadow-2xl border relative animate-in zoom-in-95 duration-300`}
+            onClick={e => e.stopPropagation()}
+          >
+            <button 
+              onClick={() => setShowCredits(false)}
+              className="absolute top-6 right-6 p-2 text-gray-400 hover:text-orange-500 transition-colors"
+            >
+              <X size={24} />
+            </button>
+            
+            <div className="flex flex-col items-center text-center">
+              <div className={`w-14 h-14 rounded-full flex items-center justify-center mb-6 ${isDarkMode ? 'bg-orange-500/10' : 'bg-orange-50'}`}>
+                <Heart size={28} className="text-orange-500 fill-orange-500" />
+              </div>
+              
+              <h3 className={`text-xl font-black mb-4 tracking-tight ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                {language === 'cn' ? '鸣谢与致敬' : 'Credits'}
+              </h3>
+              
+              <div className={`space-y-4 text-xs leading-relaxed ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                <p className="font-bold text-orange-600">
+                  {language === 'cn' 
+                    ? '本项目为开源项目，旨在提升 AI 创作者的工作流效率。' 
+                    : 'An open-source project for AI creators.'}
+                </p>
+                
+                <p>
+                  {language === 'cn' ? '感谢灵感来源作者：' : 'Thanks to prompt authors:'}
+                  <br />
+                  <span className={`font-bold ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                    宝玉(@dotey), MarioTan(@tanshilong), sundyme, Berryxia.AI, sidona, AmirMushich, Latte(@0xbisc), 阿兹特克小羊驼(@AztecaAlpaca)
+                  </span>
+                </p>
+                
+                <p>
+                  {language === 'cn' ? '初期支持：' : 'Early support:'} 
+                  <span className={`font-bold ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>松果先森</span>
+                  <br />
+                  {language === 'cn' ? '及所有提供建议、Bug 发现的小伙伴。' : '& all community contributors.'}
+                </p>
+                
+                <div className={`h-px w-10 mx-auto my-4 ${isDarkMode ? 'bg-white/5' : 'bg-gray-100'}`} />
+                
+                <p className="italic">
+                  {language === 'cn' 
+                    ? '最终感谢我的挚爱，我的女神，感谢她能够忍受我在半夜敲键盘的声音，并给予我一路的陪伴和支持。' 
+                    : 'Final thanks to my beloved, my goddess, for enduring my late-night typing and for her constant support.'}
+                  <Heart size={10} className="inline ml-1 text-red-500 fill-red-500" />
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className={`text-center pb-8 ${isDarkMode ? 'opacity-10' : 'opacity-20'}`}>
-        <p className={`text-[10px] font-black tracking-[0.3em] uppercase ${isDarkMode ? 'text-white' : 'text-black'}`}>Prompt Fill V0.6.1</p>
+        <p className={`text-[10px] font-black tracking-[0.3em] uppercase ${isDarkMode ? 'text-white' : 'text-black'}`}>Prompt Fill V0.6.5</p>
         <p className={`text-[9px] font-bold mt-1 ${isDarkMode ? 'text-white' : 'text-black'}`}>Made by CornerStudio</p>
       </div>
     </div>

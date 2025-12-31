@@ -265,10 +265,39 @@ export const INITIAL_BANKS = {
       { cn: "润滑液与安全套", en: "Lubricant and condom" }
     ]
   },
+  city_name: {
+    label: { cn: "城市/国家", en: "City/Country" },
+    category: "location",
+    options: [
+      { cn: "京都", en: "Kyoto" },
+      { cn: "巴塞罗那", en: "Barcelona" },
+      { cn: "墨西哥城", en: "Mexico City" },
+      { cn: "圣彼得堡", en: "St. Petersburg" },
+      { cn: "巴黎", en: "Paris" },
+      { cn: "伦敦", en: "London" },
+      { cn: "纽约", en: "New York" },
+      { cn: "东京", en: "Tokyo" }
+    ]
+  },
+  art_tool: {
+    label: { cn: "绘画工具", en: "Art Tool" },
+    category: "item",
+    options: [
+      { cn: "毛笔", en: "Ink Brush" },
+      { cn: "画笔", en: "Paintbrush" },
+      { cn: "调色刀", en: "Palette Knife" },
+      { cn: "触控笔", en: "Stylus" },
+      { cn: "传统和纸画笔", en: "Traditional Washi Brush" }
+    ]
+  },
   art_style: {
     label: { cn: "画风", en: "Art Style" },
     category: "visual",
     options: [
+      { cn: "浮世绘 (Ukiyo-e)", en: "Ukiyo-e" },
+      { cn: "毕加索立体主义 (Cubism)", en: "Cubism" },
+      { cn: "弗里达超现实主义 (Surrealism)", en: "Surrealism" },
+      { cn: "列宾现实主义 (Realism)", en: "Realism" },
       { cn: "高质量的 2D 插画风格", en: "High-quality 2D illustration style" },
       { cn: "写实厚涂风格", en: "Realistic impasto style" },
       { cn: "赛博朋克霓虹风格", en: "Cyberpunk neon style" },
@@ -377,6 +406,39 @@ export const INITIAL_BANKS = {
       { cn: "任天堂（Nintendo）", en: "Nintendo" },
       { cn: "SONY", en: "SONY" },
       { cn: "宜家（IKEA）", en: "IKEA" }
+    ]
+  },
+  dominant_colors: {
+    label: { cn: "主色调", en: "Dominant Colors" },
+    category: "visual",
+    options: [
+      { cn: "传统的京都红与古朴的墨黑色", en: "Traditional Kyoto red and antique ink black" },
+      { cn: "地中海蓝与阳光金", en: "Mediterranean blue and sunny gold" },
+      { cn: "鲜艳的仙人掌绿与深红色", en: "Vibrant cactus green and deep red" },
+      { cn: "冷峻的极光蓝与雪白色", en: "Cool aurora blue and snow white" },
+      { cn: "莫兰迪色系", en: "Morandi tones" },
+      { cn: "高级灰与极简白", en: "High-end gray and minimalist white" }
+    ]
+  },
+  background_color_clean: {
+    label: { cn: "背景色", en: "Background Color" },
+    category: "visual",
+    options: [
+      { cn: "纯白", en: "Pure White" },
+      { cn: "明亮的天空蓝", en: "Bright Sky Blue" },
+      { cn: "阳光般的浅黄色", en: "Sunny Light Yellow" },
+      { cn: "清爽的薄荷绿", en: "Refreshing Mint Green" },
+      { cn: "奶油色", en: "Cream Color" }
+    ]
+  },
+  city_glimpse_subtitle: {
+    label: { cn: "副标题内容", en: "Subtitle Content" },
+    category: "other",
+    options: [
+      { cn: "古韵悠长的千年古都", en: "The thousand-year-old ancient capital" },
+      { cn: "高迪的奇幻建筑之城", en: "Gaudí's city of fantastic architecture" },
+      { cn: "色彩斑斓的艺术灵魂", en: "Vibrant soul of art" },
+      { cn: "北方的威尼斯，艺术的殿堂", en: "Venice of the North, the temple of art" }
     ]
   },
   ratio: {
@@ -534,6 +596,20 @@ export const INITIAL_BANKS = {
       { cn: "挥手致意", en: "Waving greeting" },
       { cn: "舞蹈姿势", en: "Dance pose" },
       { cn: "比心手势", en: "Heart gesture" }
+    ]
+  },
+  action_status: {
+    label: { cn: "行为状态", en: "Action Status" },
+    category: "action",
+    options: [
+      { cn: "玩PS5", en: "playing PS5" },
+      { cn: "弹吉他", en: "playing the guitar" },
+      { cn: "在电脑前写代码", en: "coding in front of a computer" },
+      { cn: "拿着香蕉在画画", en: "painting with a banana" },
+      { cn: "穿潜水脚蹼", en: "putting on diving fins" },
+      { cn: "正在调酒", en: "mixing a cocktail" },
+      { cn: "在看一本厚厚的旧书", en: "reading a thick old book" },
+      { cn: "在修剪巨大的室内绿植", en: "trimming a giant indoor plant" }
     ]
   },
   fingernail_detail: {
@@ -905,5 +981,11 @@ export const INITIAL_DEFAULTS = {
   fashion_parts: { cn: "风衣拆解：翻领、肩章、腰带、袖口束带、主衣身", en: "Trench coat: Lapel, epaulets, belt, cuffs, main body" },
   beauty_items: { cn: "彩妆：口红（带切面）、眼影盘、粉饼、腮红刷", en: "Makeup: Lipstick (cut), eyeshadow palette, compact, blush brush" },
   digital_items: { cn: "手机拆解：手机壳、屏幕内容、摄像头模组、主板组件", en: "Phone: Case, screen content, camera module, motherboard" },
-  luxury_hobby_items: { cn: "珠宝：项链、耳环、戒指（宝石带色散效果）", en: "Jewelry: Necklace, earrings, ring (gemstone dispersion)" }
+  luxury_hobby_items: { cn: "珠宝：项链、耳环、戒指（宝石带色散效果）", en: "Jewelry: Necklace, earrings, ring (gemstone dispersion)" },
+  city_name: { cn: "京都", en: "Kyoto" },
+  art_tool: { cn: "毛笔", en: "Ink Brush" },
+  dominant_colors: { cn: "传统的京都红与古朴的墨黑色", en: "Traditional Kyoto red and antique ink black" },
+  background_color_clean: { cn: "纯白", en: "Pure White" },
+  city_glimpse_subtitle: { cn: "古韵悠长的千年古都", en: "The thousand-year-old ancient capital" },
+  action_status: { cn: "玩PS5", en: "playing PS5" }
 };
