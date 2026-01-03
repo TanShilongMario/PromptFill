@@ -1028,6 +1028,25 @@ const App = () => {
       ));
   };
 
+  const handleDeleteImage = () => {
+      setTemplates(prev => prev.map(t => {
+          if (t.id !== activeTemplateId) return t;
+          
+          if (t.imageUrls && Array.isArray(t.imageUrls) && t.imageUrls.length > 1) {
+              const newUrls = t.imageUrls.filter((_, idx) => idx !== currentImageEditIndex);
+              return { 
+                  ...t, 
+                  imageUrls: newUrls, 
+                  imageUrl: newUrls[0] // 默认切回第一张
+              };
+          } else {
+              // 只有一张图时，清除图片
+              return { ...t, imageUrl: "", imageUrls: [] };
+          }
+      }));
+      setCurrentImageEditIndex(0);
+  };
+
   const handleSetImageUrl = () => {
       if (!imageUrlInput.trim()) return;
       
@@ -1542,6 +1561,11 @@ const App = () => {
     
     // --- 新增：尝试获取短链接并预处理二维码 ---
     let displayUrl = window.location.origin + window.location.pathname;
+    // 确保 displayUrl 不会以双斜杠结尾，且至少有一个基础值
+    if (!displayUrl || displayUrl === 'null' || displayUrl === 'undefined') {
+        displayUrl = "https://www.aipromptfill.com";
+    }
+    
     let qrContentUrl = "https://www.aipromptfill.com"; // 默认官网地址
     let qrBase64 = "/QRCode.png";
     
@@ -1549,31 +1573,40 @@ const App = () => {
         const compressed = compressTemplate(activeTemplate);
         // 尝试向服务器换取短码
         const shortCode = await getShortCodeFromServer(compressed);
-        const base = PUBLIC_SHARE_URL || (window.location.origin + window.location.pathname);
+        const base = PUBLIC_SHARE_URL || displayUrl;
+        const normalizedBase = base.endsWith('/') ? base.slice(0, -1) : base;
         
         if (shortCode) {
             // 成功获取短码，二维码和文字都指向短链接
-            const shortUrl = `${base}${base.endsWith('/') ? '' : '/'}#/share?share=${shortCode}`;
+            const shortUrl = `${normalizedBase}/#/share?share=${shortCode}`;
             displayUrl = shortUrl;
             qrContentUrl = shortUrl;
-        } else {
+        } else if (compressed) {
             // 未获取到短码（长链接情况），文字显示长链接，但二维码指向官网
-            displayUrl = `${base}${base.endsWith('/') ? '' : '/'}#/share?share=${compressed}`;
+            displayUrl = `${normalizedBase}/#/share?share=${compressed}`;
             qrContentUrl = "https://www.aipromptfill.com";
         }
         
         // 生成二维码 Base64 (避免跨域问题)
         const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=10&data=${encodeURIComponent(qrContentUrl)}`;
         const qrResponse = await fetch(qrApiUrl);
-        const qrBlob = await qrResponse.blob();
-        qrBase64 = await new Promise((resolve) => {
-            const reader = new FileReader();
-            reader.onloadend = () => resolve(reader.result);
-            reader.readAsDataURL(qrBlob);
-        });
+        if (qrResponse.ok) {
+            const qrBlob = await qrResponse.blob();
+            qrBase64 = await new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.readAsDataURL(qrBlob);
+            });
+        }
     } catch (e) {
         console.warn("获取短链接或二维码失败:", e);
     }
+    
+    // 如果是极长的链接（超过 150 字符），进行截断显示，防止撑破布局
+    // 但在导出 DOM 中我们要确保它能换行
+    const displayUrlText = displayUrl.length > 150 
+        ? displayUrl.substring(0, 140) + '...' 
+        : displayUrl;
     
     // --- 关键修复：预处理图片为 Base64 ---
     // 这能彻底解决 html2canvas 的跨域 (CORS) 和图片加载不全问题
@@ -1839,8 +1872,8 @@ const App = () => {
                                ${versionText ? `<span style="font-size: 11px; padding: 3px 10px; background: #fff7ed; color: #f97316; border-radius: 5px; font-weight: 600; border: 1px solid #fed7aa;">${versionText}</span>` : ''}
                            </div>
                            <div style="font-size: 12px; color: #6b7280; margin-bottom: 6px; font-weight: 500;">提示词填空器 - 让分享更简单</div>
-                           <div style="font-size: 11px; color: #3b82f6; font-weight: 500; background: #eff6ff; padding: 4px 8px; border-radius: 4px; display: inline-block; letter-spacing: 0.3px;">
-                               ${displayUrl}
+                           <div style="font-size: 11px; color: #3b82f6; font-weight: 500; background: #eff6ff; padding: 4px 10px; border-radius: 6px; display: block; letter-spacing: 0.3px; word-break: break-all; max-width: 100%; min-height: 14px; line-height: 1.4;">
+                               ${displayUrlText}
                            </div>
                        </div>
                        <div style="display: flex; align-items: center;">
@@ -2531,6 +2564,7 @@ const App = () => {
                               fileInputRef={fileInputRef}
                               setShowImageUrlInput={setShowImageUrlInput}
                               handleResetImage={handleResetImage}
+                              handleDeleteImage={handleDeleteImage}
                               language={templateLanguage}
                               setLanguage={setTemplateLanguage}
                               // 标签编辑相关
@@ -2745,6 +2779,13 @@ const App = () => {
         />
       )}
       <Analytics />
+      <input 
+        type="file" 
+        ref={fileInputRef} 
+        onChange={handleUploadImage} 
+        className="hidden" 
+        accept="image/*" 
+      />
     </div>
   );
 };
