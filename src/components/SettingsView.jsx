@@ -59,10 +59,10 @@ export const SettingsView = ({
       title: '视频模版深度支持与移动端体验优化',
       type: 'MAJOR',
       content: [
-        '✨ 视频模版深度支持：新增视频预览、封面管理及参考素材多源上传功能。',
-        '📱 移动端编辑重构：采用“上二下一”新布局，文字区域宽度提升至 60%，预览支持横向滑动。',
-        '⚡ 交互优化：手机端编辑或滑动正文时，信息区域支持自动折叠，释放更多创作空间。',
-        '🎨 视觉微调：优化了上传控件尺寸与标签显示逻辑，界面更加清爽紧凑。'
+        '视频模版深度支持：新增视频预览、封面管理及参考素材多源上传功能。',
+        '移动端编辑重构：采用“上二下一”新布局，文字区域宽度提升至 60%，预览支持横向滑动。',
+        '交互优化：手机端编辑或滑动正文时，信息区域支持自动折叠，释放更多创作空间。',
+        '视觉微调：优化了上传控件尺寸与标签显示逻辑，界面更加清爽紧凑。'
       ]
     },
     { 
@@ -282,10 +282,10 @@ export const SettingsView = ({
       title: 'Video Template Support & Mobile UX Upgrade',
       type: 'MAJOR',
       content: [
-        '✨ Video Support: Added video previews, cover management, and multi-source asset uploads.',
-        '📱 Mobile Refactor: New layout with 60% text width and horizontal scrolling previews.',
-        '⚡ Smart Interaction: Auto-collapsing info section when editing on mobile.',
-        '🎨 UI Refinement: Optimized upload control sizes and label visibility for a cleaner look.'
+        'Video Support: Added video previews, cover management, and multi-source asset uploads.',
+        'Mobile Refactor: New layout with 60% text width and horizontal scrolling previews.',
+        'Smart Interaction: Auto-collapsing info section when editing on mobile.',
+        'UI Refinement: Optimized upload control sizes and label visibility for a cleaner look.'
       ]
     },
     { 
@@ -829,7 +829,7 @@ export const SettingsView = ({
                     : 'Special thanks to authors who provided prompt inspirations:'}
                   <br />
                   <span className={`font-bold ${isDarkMode ? 'text-gray-300' : 'text-gray-800'}`}>
-                    宝玉(@dotey), MarioTan(@tanshilong), sundyme, Berryxia.AI, sidona, AmirMushich, Latte(@0xbisc), 阿兹特克小羊驼(@AztecaAlpaca), Keng哥(@langzihan), 虎小象(@hx831126), PlayForge AI(@94van.AI), underwood(@underwoodxie96), @YaseenK7212, Taaruk(@Taaruk_), M7(@mi7_crypto), @aleenaamiir, 两斤(@0x00_Krypt), ttmouse-豆爸(@ttmouse), Amira Zairi(@azed_ai), Ege(@egeberkina), Vigo Zhao(@VigoCreativeAI), Michael Rabone(@michaelrabone), Gadgetify(@Gdgtify)
+                    宝玉(@dotey), MarioTan(@tanshilong), sundyme, Berryxia.AI, sidona, AmirMushich, Latte(@0xbisc), 阿兹特克小羊驼(@AztecaAlpaca), Keng哥(@langzihan), 虎小象(@hx831126), PlayForge AI(@94van.AI), underwood(@underwoodxie96), @YaseenK7212, Taaruk(@Taaruk_), M7(@mi7_crypto), @aleenaamiir, 两斤(@0x00_Krypt), ttmouse-豆爸(@ttmouse), Amira Zairi(@azed_ai), Ege(@egeberkina), Vigo Zhao(@VigoCreativeAI), Michael Rabone(@michaelrabone), Gadgetify(@Gdgtify), YangGuang (@YangGuangAI), Mr.Iancu @Iancu_ai, John @johnAGI168, Umesh @umesh_ai
                   </span>
                 </p>
                 

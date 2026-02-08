@@ -57,10 +57,10 @@ export const MobileSettingsView = ({
       date: '2026-02-08', 
       title: '视频模版支持与移动端体验优化',
       content: [
-        '✨ 视频支持：支持视频预览、封面管理及素材上传',
-        '📱 布局重构：移动端编辑区采用新布局，文字宽度 60%',
-        '⚡ 自动折叠：手机端编辑或滑动时信息区自动折叠',
-        '🎨 视觉优化：减小上传控件尺寸，隐藏冗余标签'
+        '视频支持：支持视频预览、封面管理及素材上传',
+        '布局重构：移动端编辑区采用新布局，文字宽度 60%',
+        '自动折叠：手机端编辑或滑动时信息区自动折叠',
+        '视觉优化：减小上传控件尺寸，隐藏冗余标签'
       ]
     },
     { 
@@ -187,10 +187,10 @@ export const MobileSettingsView = ({
       date: '2026-02-08', 
       title: 'Video Support & Mobile UX Upgrade',
       content: [
-        '✨ Video Support: Preview, cover, and asset management',
-        '📱 Layout: New mobile editor layout with 60% text width',
-        '⚡ Auto-collapse: Info section auto-hides when editing',
-        '🎨 UI: Optimized sizes and cleaner label logic'
+        'Video Support: Preview, cover, and asset management',
+        'Layout: New mobile editor layout with 60% text width',
+        'Auto-collapse: Info section auto-hides when editing',
+        'UI: Optimized sizes and cleaner label logic'
       ]
     },
     { 
@@ -580,7 +580,7 @@ export const MobileSettingsView = ({
                   {language === 'cn' ? '感谢灵感来源作者：' : 'Thanks to prompt authors:'}
                   <br />
                   <span className={`font-bold ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                    宝玉(@dotey), MarioTan(@tanshilong), sundyme, Berryxia.AI, sidona, AmirMushich, Latte(@0xbisc), 阿兹特克小羊驼(@AztecaAlpaca), Keng哥(@langzihan), 虎小象(@hx831126), PlayForge AI(@94van.AI), underwood(@underwoodxie96), @YaseenK7212, Taaruk(@Taaruk_), M7(@mi7_crypto), @aleenaamiir, 两斤(@0x00_Krypt), ttmouse-豆爸(@ttmouse), Amira Zairi(@azed_ai), Ege(@egeberkina), Vigo Zhao(@VigoCreativeAI), Michael Rabone(@michaelrabone), Gadgetify(@Gdgtify)
+                    宝玉(@dotey), MarioTan(@tanshilong), sundyme, Berryxia.AI, sidona, AmirMushich, Latte(@0xbisc), 阿兹特克小羊驼(@AztecaAlpaca), Keng哥(@langzihan), 虎小象(@hx831126), PlayForge AI(@94van.AI), underwood(@underwoodxie96), @YaseenK7212, Taaruk(@Taaruk_), M7(@mi7_crypto), @aleenaamiir, 两斤(@0x00_Krypt), ttmouse-豆爸(@ttmouse), Amira Zairi(@azed_ai), Ege(@egeberkina), Vigo Zhao(@VigoCreativeAI), Michael Rabone(@michaelrabone), Gadgetify(@Gdgtify), YangGuang (@YangGuangAI), Mr.Iancu @Iancu_ai, John @johnAGI168, Umesh @umesh_ai
                   </span>
                 </p>
                 
