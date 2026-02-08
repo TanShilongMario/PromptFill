@@ -40,7 +40,7 @@
 /**
  * 模板系统版本号，每次更新 templates.js 或 banks.js 时请更新此版本号
  */
-export const SYSTEM_DATA_VERSION = "0.8.9";
+export const SYSTEM_DATA_VERSION = "0.9.0";
 
 /**
  * 分享功能正式环境域名（扫码导入需使用公网可访问地址）
