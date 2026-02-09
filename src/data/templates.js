@@ -40,7 +40,7 @@
 /**
  * 模板系统版本号，每次更新 templates.js 或 banks.js 时请更新此版本号
  */
-export const SYSTEM_DATA_VERSION = "0.9.1";
+export const SYSTEM_DATA_VERSION = "0.9.2";
 
 /**
  * 分享功能正式环境域名（扫码导入需使用公网可访问地址）
@@ -171,10 +171,10 @@ A beautiful, detailed illustration of multi-layered wooden art created by laser 
 
 export const DEFAULT_TEMPLATE_CONTENT = {
   cn: `### Role (角色设定)
-你是一位顶尖的 {{role}}，擅长制作详尽的角色设定图（Character Sheet）。你具备“像素级拆解”的能力，能够透视角色的穿着层级、捕捉微表情变化，并将与其相关的物品进行具象化还原。你特别擅长通过 {{subject}} 的私密物品、随身物件和生活细节来侧面丰满人物性格与背景故事。
+你是一位顶尖的 {{role}}，擅长制作详尽的角色设定图（Character Sheet）。你具备“像素级拆解”的能力，能够透视角色的穿着层级、捕捉微表情变化，并将与其相关的物品进行具象化还原。你特别擅长通过 {{subject}} 的品质生活好物、随身物件和生活细节来侧面丰满人物性格与背景故事。
 
 ### Task (任务目标)
-根据用户上传或描述的主体形象，生成一张**“全景式角色深度概念分解图”**。该图片必须包含 {{layout_focus}}，并在其周围环绕展示该人物的服装分层、不同表情、核心道具、材质特写，以及极具生活气息的私密与随身物品展示。
+根据用户上传或描述的主体形象，生成一张**“全景式角色深度概念分解图”**。该图片必须包含 {{layout_focus}}，并在其周围环绕展示该人物的服装分层、不同表情、核心道具、材质特写，以及极具生活气息的品质生活好物与随身物品展示。
 
 ### Visual Guidelines (视觉规范)
 **1. 构图布局 (Layout):**
@@ -184,7 +184,7 @@ export const DEFAULT_TEMPLATE_CONTENT = {
 
 **2. 拆解内容 (Deconstruction Details):**
 - **服装分层 (Clothing Layers):** 将角色的服装拆分为单品展示
-- **私密内着拆解:** 独立展示角色的内层衣物，重点突出设计感与材质。例如： {{underwear_style}} （展示细节与剪裁）。
+- **时尚内着设计:** 独立展示角色的内层衣物，重点突出设计感与材质。例如： {{underwear_style}} （展示细节与剪裁）。
 - **表情集 (Expression Sheet):** 在角落绘制 3-4 个不同的头部特写，展示不同的情绪，如： {{expressions}} 。
 - **材质特写 (Texture & Zoom):** 选取关键部位进行放大特写. 例如： {{texture_zoom}} ，增加对小物件材质的描绘。
 - **动作:** 绘制特殊的动作和表情，例如：{{action_detail}}，增加动作的深度刻画。
@@ -193,7 +193,7 @@ export const DEFAULT_TEMPLATE_CONTENT = {
 - **关联物品 (Related Items):**
  - **随身包袋与内容物:** 绘制 {{bag_content}}，并将其“打开”，展示散落在旁的物品。
  - **美妆与护理:** 展示 {{cosmetics}}。
- - **私密生活物件:** 具象化角色隐藏面的物品。根据角色性格可能包括： {{private_items}}，需以一种设计图的客观视角呈现。
+ - **品质生活好物:** 具象化角色隐藏面的物品。根据角色性格可能包括： {{private_items}}，需以一种设计图的客观视角呈现。
 
 **3.风格与注释 (Style & Annotations):**
 - **画风:** {{art_style}}，线条干净利落。
@@ -207,10 +207,10 @@ export const DEFAULT_TEMPLATE_CONTENT = {
 4. 生成一张包含所有这些元素的组合图，确保透视准确，光影统一，注释清晰。
 5. 使用中文，高清输出。`,
   en: `### Role
-You are a top-tier {{role}}, specializing in creating detailed Character Sheets. You possess the ability of "pixel-level deconstruction," capable of seeing through the layering of characters' outfits, capturing subtle facial expressions, and restoring related items into concrete visuals. You particularly excel at enriching character personalities and background stories through {{subject}}'s private items, personal belongings, and daily life details.
+You are a top-tier {{role}}, specializing in creating detailed Character Sheets. You possess the ability of "pixel-level deconstruction," capable of seeing through the layering of characters' outfits, capturing subtle facial expressions, and restoring related items into concrete visuals. You particularly excel at enriching character personalities and background stories through {{subject}}'s quality life items, personal belongings, and daily life details.
 
 ### Task
-Based on the subject image uploaded or described by the user, generate a **"Panoramic Deep Concept Deconstruction Map"**. This image must include the character's {{layout_focus}}, surrounded by displays of their clothing layers, different expressions, core props, material close-ups, and intimate and everyday items that evoke a sense of life.
+Based on the subject image uploaded or described by the user, generate a **"Panoramic Deep Concept Deconstruction Map"**. This image must include the character's {{layout_focus}}, surrounded by displays of their clothing layers, different expressions, core props, material close-ups, and quality and everyday items that evoke a sense of life.
 
 ### Visual Guidelines
 **1. Layout:**
@@ -220,7 +220,7 @@ Based on the subject image uploaded or described by the user, generate a **"Pano
 
 **2. Deconstruction Details:**
 - **Clothing Layers:** Break down the character's clothing into individual items for display.
-- **Intimate Underwear Deconstruction:** Independently display the character's inner layers, highlighting design sense and materials. For example: {{underwear_style}} (showcasing details and tailoring).
+- **Innerwear Style Design:** Independently display the character's inner layers, highlighting design sense and materials. For example: {{underwear_style}} (showcasing details and tailoring).
 - **Expression Sheet:** Draw 3-4 different head close-ups in the corner, showing different emotions like: {{expressions}}.
 - **Texture & Zoom:** Select key parts for enlarged close-ups. For example: {{texture_zoom}}, adding more depiction of the materials of small items.
 - **Action:** Draw special movements and expressions, such as: {{action_detail}}, increasing depth in action portrayal.
@@ -229,7 +229,7 @@ Based on the subject image uploaded or described by the user, generate a **"Pano
 - **Related Items:**
  - **Bag Content:** Draw {{bag_content}} and "open" it to show the items scattered beside it.
  - **Cosmetics & Care:** Show {{cosmetics}}.
- - **Private Life Items:** Concretize the character's hidden-side items. Depending on the personality, these could include: {{private_items}}, presented from an objective design-sheet perspective.
+ - **Quality Life Items:** Concretize the character's hidden-side items. Depending on the personality, these could include: {{private_items}}, presented from an objective design-sheet perspective.
 
 **3. Style & Annotations:**
 - **Art Style:** {{art_style}}, with clean and crisp lines.
@@ -2098,18 +2098,6 @@ The sequence culminates as the jet bursts above the waterfall, revealing a breat
  * 5. tags 可以从 TEMPLATE_TAGS 中选择
  */
 export const INITIAL_TEMPLATES_CONFIG = [
-  {
-    id: "tpl_default",
-    name: { cn: "角色概念分解图", en: "Character Concept Sheet" },
-    content: DEFAULT_TEMPLATE_CONTENT,
-    imageUrl: "https://s3.bmp.ovh/imgs/2025/12/08/ec433cf214faf102.jpg",
-    author: "@berryxia（Berryxia.AI）",
-    selections: {},
-    tags: ["人物", "创意", "图表"],
-    language: ["cn", "en"],
-    bestModel: "Nano Banana Pro",
-    baseImage: "optional_base_image"
-  },
   {
     id: "tpl_photo_grid",
     name: { cn: "3x3 摄影网格", en: "3x3 Photo Grid" },

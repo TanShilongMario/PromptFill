@@ -129,14 +129,14 @@ export const INITIAL_BANKS = {
     ]
   },
   underwear_style: {
-    label: { cn: "私密内着拆解", en: "Underwear Style" },
+    label: { cn: "时尚内着设计", en: "Innerwear Style" },
     category: "item",
     options: [
-      { cn: "成套的蕾丝内衣裤", en: "Matching lace lingerie set" },
-      { cn: "运动风格纯棉内衣", en: "Athletic style cotton underwear" },
-      { cn: "极简主义丝绸内衣", en: "Minimalist silk lingerie" },
-      { cn: "哥特风格绑带内衣", en: "Gothic style strappy lingerie" },
-      { cn: "“纯欲风”服饰", en: "'pure-seductive' outfit style" }
+      { cn: "简约舒适棉质内衣", en: "Simple and comfortable cotton innerwear" },
+      { cn: "运动风格透气内衣", en: "Athletic style breathable innerwear" },
+      { cn: "极简主义无痕内衣", en: "Minimalist seamless innerwear" },
+      { cn: "时尚剪裁内搭", en: "Fashionable cut inner layers" },
+      { cn: "“纯美风”服饰", en: "'pure-aesthetic' outfit style" }
     ]
   },
   clothing: {
@@ -240,8 +240,8 @@ export const INITIAL_BANKS = {
     label: { cn: "材质特写", en: "Texture Zoom" },
     category: "visual",
     options: [
-      { cn: "凌乱感与私处汗渍", en: "Messiness and sweat stains in private areas" },
-      { cn: "皮肤上的勒痕与红印", en: "Strangulation marks and red imprints on skin" },
+      { cn: "丝滑感", en: "Silkiness" },
+      { cn: "精细的皮肤纹理", en: "Fine skin texture" },
       { cn: "丝袜的抽丝细节", en: "Snagged details on silk stockings" },
       { cn: "皮革的光泽与磨损", en: "Luster and wear on leather" }
     ]
@@ -250,10 +250,10 @@ export const INITIAL_BANKS = {
     label: { cn: "动作细节", en: "Action Detail" },
     category: "action",
     options: [
-      { cn: "带着项圈的爬行", en: "Crawling with a collar" },
-      { cn: "双手被缚在身后的挣扎", en: "Struggling with hands bound behind back" },
-      { cn: "跪姿并展示鞋底", en: "Kneeling and showing soles" },
-      { cn: "拉扯领口的诱惑", en: "Temptation of pulling at the neckline" }
+      { cn: "优雅的行走姿态", en: "Elegant walking posture" },
+      { cn: "自信的站立", en: "Confident standing" },
+      { cn: "开怀大笑", en: "Laughing out loud" },
+      { cn: "专注的眼神", en: "Focused gaze" }
     ]
   },
   special_view: {
@@ -287,13 +287,13 @@ export const INITIAL_BANKS = {
     ]
   },
   private_items: {
-    label: { cn: "私密生活物件", en: "Private Items" },
+    label: { cn: "品质生活好物", en: "Quality Life Items" },
     category: "item",
     options: [
-      { cn: "震动棒与项圈", en: "Vibrator and collar" },
-      { cn: "手铐与眼罩", en: "Handcuffs and eye mask" },
-      { cn: "鞭子与蜡烛", en: "Whip and candle" },
-      { cn: "润滑液与安全套", en: "Lubricant and condom" }
+      { cn: "香薰加湿器", en: "Aroma Diffuser" },
+      { cn: "降噪耳机", en: "Noise-cancelling Headphones" },
+      { cn: "复古黑胶唱片机", en: "Vintage Vinyl Player" },
+      { cn: "智能运动手表", en: "Smart Sports Watch" }
     ]
   },
   city_name: {
@@ -648,8 +648,8 @@ export const INITIAL_BANKS = {
       { cn: "正在调酒", en: "mixing a cocktail" },
       { cn: "在看一本厚厚的旧书", en: "reading a thick old book" },
       { cn: "在修剪巨大的室内绿植", en: "trimming a giant indoor plant" },
-      { cn: "坐在沙发上，正随意地玩着手机", en: "Sitting on a sofa, casually playing on her phone" },
-      { cn: "换衣时惊讶地抬头直视镜头", en: "frozen in surprise, looking directly into the lens while changing" },
+      { cn: "正在阅读书籍", en: "reading a book" },
+      { cn: "整理衣领时自信地看向镜头", en: "looking confidently into the lens while adjusting collar" },
       { cn: "温柔地凝视着镜头，带着淡淡的忧郁", en: "Looking gently toward the camera, with a touch of melancholy" }
     ]
   },
@@ -2040,7 +2040,7 @@ export const INITIAL_DEFAULTS = {
   layout_focus: { cn: "全身立绘", en: "Full-body Portrait" },
   camera_angle: { cn: "脸颊和颈部特写", en: "Cheek and neck close-up" },
   connectors: { cn: "手绘箭头或引导线", en: "Hand-drawn arrows or guide lines" },
-  underwear_style: { cn: "成套的蕾丝内衣裤", en: "Matching lace lingerie set" },
+  underwear_style: { cn: "简约舒适棉质内衣", en: "Simple and comfortable cotton innerwear" },
   clothing: { cn: "炭灰色无袖连衣裙", en: "Charcoal grey sleeveless dress" },
   clothing_male: { cn: "剪裁合体的深蓝西装", en: "Tailored deep blue suit" },
   clothing_female: { cn: "炭灰色无袖连衣裙", en: "Charcoal grey sleeveless dress" },
@@ -2048,12 +2048,12 @@ export const INITIAL_DEFAULTS = {
   character_originality: { cn: "创作一个原创人物", en: "Create an original character" },
   character_groups: { cn: "中外知名侦探（包青天、狄仁杰、福尔摩斯、柯南等）", en: "Famous Detectives (Bao Zheng, Di Renjie, Sherlock Holmes, Conan, etc.)" },
   social_media: { cn: "微信朋友圈", en: "WeChat Moments" },
-  texture_zoom: { cn: "凌乱感与私处汗渍", en: "Messiness and sweat stains in private areas" },
-  action_detail: { cn: "带着项圈的爬行", en: "Crawling with a collar" },
-  special_view: { cn: "被踩在脚下的仰视视角", en: "Low-angle view from being stepped on" },
+  texture_zoom: { cn: "精细的皮肤纹理", en: "Fine skin texture" },
+  action_detail: { cn: "自信的站立", en: "Confident standing" },
+  special_view: { cn: "背影回眸", en: "Back view reflected in a mirror" },
   bag_content: { cn: "日常通勤包或手拿包", en: "Daily commuter bag or clutch" },
   cosmetics: { cn: "常用的化妆品组合", en: "Commonly used cosmetics combo" },
-  private_items: { cn: "震动棒与项圈", en: "Vibrator and collar" },
+  private_items: { cn: "智能运动手表", en: "Smart Sports Watch" },
   art_style: { cn: "高质量的 2D 插画风格", en: "High-quality 2D illustration style" },
   background_style: { cn: "漫画网格笔记本", en: "Manga grid notebook" },
   fashion_deconstruct: { cn: "整齐折叠的外套和精致的高跟鞋", en: "Neatly folded coat and exquisite high heels" },

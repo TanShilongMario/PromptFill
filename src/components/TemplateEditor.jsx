@@ -452,14 +452,16 @@ export const TemplateEditor = React.memo(({
                     onClick={() => toggleAccordion('info')}
                     className={`w-full flex items-center gap-2.5 px-4 h-11 select-none active:opacity-70 transition-opacity ${isDarkMode ? 'text-white' : 'text-gray-800'}`}
                   >
-                    <Info size={14} className={`flex-shrink-0 ${mobileAccordion === 'info' ? 'text-orange-500' : 'opacity-40'}`} />
-                    <span className="text-[13px] font-bold">{language === 'cn' ? '基础信息' : 'Basic Info'}</span>
+                    <div className="flex items-center gap-2.5 flex-shrink-0 w-28">
+                      <Info size={14} className={`flex-shrink-0 ${mobileAccordion === 'info' ? 'text-orange-500' : 'opacity-40'}`} />
+                      <span className="text-[13px] font-bold">{language === 'cn' ? '基础信息' : 'Basic Info'}</span>
+                    </div>
                     {mobileAccordion !== 'info' && (
-                      <span className={`text-[10px] truncate opacity-50 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                      <span className={`text-[10px] truncate opacity-50 flex-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                         {tempTemplateName || '—'} · {tempTemplateAuthor || '—'} · {tempTemplateBestModel || '—'}
                       </span>
                     )}
-                    <span className="ml-auto flex-shrink-0">
+                    <span className="ml-auto flex-shrink-0 pl-2">
                       {mobileAccordion === 'info' ? <ChevronUp size={14} className="text-orange-500" /> : <ChevronDown size={14} className="opacity-40" />}
                     </span>
                   </button>
@@ -529,17 +531,19 @@ export const TemplateEditor = React.memo(({
                     onClick={() => toggleAccordion('preview')}
                     className={`w-full flex items-center gap-2.5 px-4 h-11 select-none active:opacity-70 transition-opacity ${isDarkMode ? 'text-white' : 'text-gray-800'}`}
                   >
-                    <Film size={14} className={`flex-shrink-0 ${mobileAccordion === 'preview' ? 'text-orange-500' : 'opacity-40'}`} />
-                    <span className="text-[13px] font-bold">{language === 'cn' ? '成果预览' : 'Results'}</span>
+                    <div className="flex items-center gap-2.5 flex-shrink-0 w-28">
+                      <Film size={14} className={`flex-shrink-0 ${mobileAccordion === 'preview' ? 'text-orange-500' : 'opacity-40'}`} />
+                      <span className="text-[13px] font-bold">{language === 'cn' ? '成果预览' : 'Results'}</span>
+                    </div>
                     {mobileAccordion !== 'preview' && (
-                      <span className={`text-[10px] truncate opacity-50 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                      <span className={`text-[10px] truncate opacity-50 flex-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                         {activeTemplate.type === 'video'
                           ? `${tempVideoUrl ? '1' : '0'} ${language === 'cn' ? '视频' : 'Video'}${activeTemplate.imageUrl ? ` + ${language === 'cn' ? '封面' : 'Cover'}` : ''}`
                           : `${(activeTemplate.imageUrls?.length || (activeTemplate.imageUrl ? 1 : 0))} ${language === 'cn' ? '张图' : 'images'}`
                         }
                       </span>
                     )}
-                    <span className="ml-auto flex-shrink-0">
+                    <span className="ml-auto flex-shrink-0 pl-2">
                       {mobileAccordion === 'preview' ? <ChevronUp size={14} className="text-orange-500" /> : <ChevronDown size={14} className="opacity-40" />}
                     </span>
                   </button>
@@ -646,14 +650,16 @@ export const TemplateEditor = React.memo(({
                     onClick={() => toggleAccordion('source')}
                     className={`w-full flex items-center gap-2.5 px-4 h-11 select-none active:opacity-70 transition-opacity ${isDarkMode ? 'text-white' : 'text-gray-800'}`}
                   >
-                    <FolderOpen size={14} className={`flex-shrink-0 ${mobileAccordion === 'source' ? 'text-orange-500' : 'opacity-40'}`} />
-                    <span className="text-[13px] font-bold">{language === 'cn' ? '素材准备' : 'Source Assets'}</span>
+                    <div className="flex items-center gap-2.5 flex-shrink-0 w-28">
+                      <FolderOpen size={14} className={`flex-shrink-0 ${mobileAccordion === 'source' ? 'text-orange-500' : 'opacity-40'}`} />
+                      <span className="text-[13px] font-bold">{language === 'cn' ? '素材准备' : 'Source Assets'}</span>
+                    </div>
                     {mobileAccordion !== 'source' && (
-                      <span className={`text-[10px] truncate opacity-50 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                      <span className={`text-[10px] truncate opacity-50 flex-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                         {(activeTemplate.source || []).length} {language === 'cn' ? '个素材' : 'assets'}
                       </span>
                     )}
-                    <span className="ml-auto flex-shrink-0">
+                    <span className="ml-auto flex-shrink-0 pl-2">
                       {mobileAccordion === 'source' ? <ChevronUp size={14} className="text-orange-500" /> : <ChevronDown size={14} className="opacity-40" />}
                     </span>
                   </button>
@@ -670,9 +676,11 @@ export const TemplateEditor = React.memo(({
                     onClick={() => toggleAccordion('content')}
                     className={`w-full flex items-center gap-2.5 px-4 h-11 select-none active:opacity-70 transition-opacity ${isDarkMode ? 'text-white' : 'text-gray-800'}`}
                   >
-                    <FileText size={14} className={`flex-shrink-0 ${mobileAccordion === 'content' ? 'text-orange-500' : 'opacity-40'}`} />
-                    <span className="text-[13px] font-bold">{language === 'cn' ? '内容呈现' : 'Content'}</span>
-                    <span className="ml-auto flex-shrink-0">
+                    <div className="flex items-center gap-2.5 flex-shrink-0 w-28">
+                      <FileText size={14} className={`flex-shrink-0 ${mobileAccordion === 'content' ? 'text-orange-500' : 'opacity-40'}`} />
+                      <span className="text-[13px] font-bold">{language === 'cn' ? '内容呈现' : 'Content'}</span>
+                    </div>
+                    <span className="ml-auto flex-shrink-0 pl-2">
                       {mobileAccordion === 'content' ? <ChevronUp size={14} className="text-orange-500" /> : <ChevronDown size={14} className="opacity-40" />}
                     </span>
                   </button>

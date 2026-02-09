@@ -63,7 +63,7 @@ const App = () => {
   // 基础配置保持使用 LocalStorage (同步读取)
   const [language, setLanguage] = useStickyState(getSystemLanguage(), "app_language_v1"); // 全局UI语言
   const [templateLanguage, setTemplateLanguage] = useStickyState(getSystemLanguage(), "app_template_language_v1"); // 模板内容语言
-  const [activeTemplateId, setActiveTemplateId] = useStickyState("tpl_default", "app_active_template_id_v4");
+  const [activeTemplateId, setActiveTemplateId] = useStickyState("tpl_photo_grid", "app_active_template_id_v4");
 
   const [isSmartSplitLoading, setIsSmartSplitLoading] = useState(false);
   const [isSmartSplitConfirmOpen, setIsSmartSplitConfirmOpen] = useState(false);
@@ -1429,7 +1429,7 @@ const App = () => {
     setTemplates(templateResult.templates);
     setBanks(bankResult.banks);
     setDefaults(bankResult.defaults);
-    setActiveTemplateId(prev => templateResult.templates.some(t => t.id === prev) ? prev : "tpl_default");
+    setActiveTemplateId(prev => templateResult.templates.some(t => t.id === prev) ? prev : "tpl_photo_grid");
     
     // 更新版本号，避免再次提示更新
     setLastAppliedDataVersion(SYSTEM_DATA_VERSION);

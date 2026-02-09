@@ -39,9 +39,8 @@ export const openExternalLink = async (url) => {
 
   if (isTauri()) {
     try {
-      // 使用变量拼接绕过 Vite 静态分析，避免在非 Tauri 环境下报模块找不到
-      const pkg = '@tauri-apps/' + 'plugin-opener';
-      const { openUrl } = await import(/* @vite-ignore */ pkg);
+      // 改为直接引入，确保 Vite 能正确识别并打包插件
+      const { openUrl } = await import('@tauri-apps/plugin-opener');
       await openUrl(url);
       return;
     } catch (err) {
