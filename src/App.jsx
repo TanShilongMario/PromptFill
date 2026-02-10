@@ -796,7 +796,8 @@ const App = () => {
     banks,
     setBanks,
     categories,
-    setCategories
+    setCategories,
+    templates
   );
 
   useEffect(() => {

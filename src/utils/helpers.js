@@ -73,7 +73,7 @@ export const copyToClipboard = async (text) => {
 };
 
 // 压缩模板数据
-export const compressTemplate = (data, banks = null, categories = null) => {
+export const compressTemplate = (data, banks = null, categories = null, templates = null) => {
   try {
     if (!data) return null;
 
@@ -94,6 +94,49 @@ export const compressTemplate = (data, banks = null, categories = null) => {
       vu: data.videoUrl || "",     // vu for videoUrl
       src: data.source || []       // src for source
     };
+
+    // 1.5 如果提供了 templates，打包 source 中关联的模版（一层，不递归）
+    if (templates) {
+      const sourceArr = data.source || [];
+      const linkedTemplateIds = [...new Set(
+        sourceArr.filter(s => s.templateId).map(s => s.templateId)
+      )];
+
+      if (linkedTemplateIds.length > 0) {
+        const linkedTemplates = [];
+        linkedTemplateIds.forEach(tid => {
+          const linkedTpl = templates.find(t => t.id === tid);
+          if (linkedTpl) {
+            // 精简关联模版数据（不传 templates 参数，避免递归）
+            const ltData = {
+              oid: tid, // oid = original id，用于导入时建立映射
+              n: linkedTpl.name || "",
+              c: linkedTpl.content || "",
+              t: linkedTpl.tags || [],
+              a: linkedTpl.author || 'User',
+              l: linkedTpl.language || ['cn', 'en'],
+              i: (typeof linkedTpl.imageUrl === 'string' && linkedTpl.imageUrl.startsWith('http')) ? linkedTpl.imageUrl : "",
+              s: linkedTpl.selections || {},
+              ty: linkedTpl.type || 'image',
+              vu: linkedTpl.videoUrl || "",
+              // 关联模版的 source：降级处理，移除其中的 templateId 避免嵌套
+              src: (linkedTpl.source || []).map(s => {
+                if (s.templateId) {
+                  const { templateId, ...rest } = s;
+                  return rest;
+                }
+                return s;
+              })
+            };
+            linkedTemplates.push(ltData);
+          }
+        });
+
+        if (linkedTemplates.length > 0) {
+          simplifiedData.lt = linkedTemplates; // lt = linkedTemplates
+        }
+      }
+    }
 
     // 2. 如果提供了 banks，提取模板中使用的自定义词库
     if (banks) {
@@ -182,7 +225,7 @@ export const decompressTemplate = (compressedBase64) => {
     const data = JSON.parse(jsonStr);
 
     // 统一映射回原始键名，兼容精简版和超精简版
-    return {
+    const result = {
       name: data.n || data.name,
       content: data.c || data.content,
       tags: data.t || [],
@@ -197,6 +240,25 @@ export const decompressTemplate = (compressedBase64) => {
       videoUrl: data.vu || data.videoUrl || "",
       source: data.src || data.source || []
     };
+
+    // --- 还原关联模版数据 ---
+    if (data.lt && Array.isArray(data.lt) && data.lt.length > 0) {
+      result.linkedTemplates = data.lt.map(lt => ({
+        originalId: lt.oid || '',
+        name: lt.n || '',
+        content: lt.c || '',
+        tags: lt.t || [],
+        author: lt.a || 'User',
+        language: lt.l || ['cn', 'en'],
+        imageUrl: lt.i || '',
+        selections: lt.s || {},
+        type: lt.ty || 'image',
+        videoUrl: lt.vu || '',
+        source: lt.src || []
+      }));
+    }
+
+    return result;
   } catch (error) {
     console.error('Decompression error:', error);
     return null;

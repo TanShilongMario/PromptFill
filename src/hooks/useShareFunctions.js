@@ -84,6 +84,7 @@ const fetchShareByCode = async (code) => {
  * @param {Function} setBanks - 更新词库的函数
  * @param {Object} categories - 分类数据
  * @param {Function} setCategories - 更新分类的函数
+ * @param {Array} templates - 所有模版数据（用于打包关联模版）
  * @returns {Object} 分享相关的状态和函数
  */
 export const useShareFunctions = (
@@ -98,7 +99,8 @@ export const useShareFunctions = (
   banks,
   setBanks,
   categories,
-  setCategories
+  setCategories,
+  templates
 ) => {
   // 分享功能相关状态
   const [sharedTemplateData, setSharedTemplateData] = useState(null);
@@ -124,7 +126,7 @@ export const useShareFunctions = (
   const shareUrlMemo = useMemo(() => {
     if (!activeTemplate) return "";
 
-    const compressed = compressTemplate(activeTemplate, banks, categories);
+    const compressed = compressTemplate(activeTemplate, banks, categories, templates);
     // 修正：在 Tauri 环境下强制使用官网域名作为分享基准
     // 使用更健壮的检测方式
     const isTauri = !!(window.__TAURI_INTERNALS__ || window.__TAURI_IPC__ || window.location.protocol === 'tauri:');
@@ -301,12 +303,54 @@ export const useShareFunctions = (
   const handleImportSharedTemplate = useCallback(() => {
     if (!sharedTemplateData) return;
 
+    // --- 0. 先处理关联模版（linkedTemplates），建立 oldId -> newId 映射 ---
+    const linkedTemplateIdMap = {}; // { originalId: newId }
+    const linkedTemplatesToAdd = [];
+
+    if (sharedTemplateData.linkedTemplates && Array.isArray(sharedTemplateData.linkedTemplates)) {
+      sharedTemplateData.linkedTemplates.forEach((lt) => {
+        const originalId = lt.originalId;
+        if (!originalId) return;
+
+        // 检查本地是否已存在相同 ID 的模版（跳过导入，直接复用）
+        const existsLocally = templates && templates.some(t => t.id === originalId);
+        if (existsLocally) {
+          linkedTemplateIdMap[originalId] = originalId; // 直接复用本地 ID
+          return;
+        }
+
+        // 生成新 ID 并建立映射
+        const newId = `tpl_shared_${Date.now()}_lt_${Math.random().toString(36).substr(2, 4)}`;
+        linkedTemplateIdMap[originalId] = newId;
+
+        linkedTemplatesToAdd.push({
+          ...lt,
+          id: newId,
+          selections: lt.selections || {},
+          author: lt.author || t('official')
+        });
+      });
+    }
+
     let templateToImport = {
       ...sharedTemplateData,
       id: `tpl_shared_${Date.now()}`,
       selections: sharedTemplateData.selections || {},
       author: sharedTemplateData.author || t('official')
     };
+
+    // 清除 linkedTemplates 字段（不需要存储到本地模版中）
+    delete templateToImport.linkedTemplates;
+
+    // --- 0.5 更新主模版 source 中的 templateId 为新 ID ---
+    if (templateToImport.source && Array.isArray(templateToImport.source) && Object.keys(linkedTemplateIdMap).length > 0) {
+      templateToImport.source = templateToImport.source.map(s => {
+        if (s.templateId && linkedTemplateIdMap[s.templateId]) {
+          return { ...s, templateId: linkedTemplateIdMap[s.templateId] };
+        }
+        return s;
+      });
+    }
 
     const keyMap = {};
     const banksToImport = sharedTemplateData.banks || {};
@@ -431,8 +475,8 @@ export const useShareFunctions = (
       });
     }
 
-    // 5. 完成模板导入
-    setTemplates(prev => [...prev, templateToImport]);
+    // 5. 先导入关联模版，再导入主模版
+    setTemplates(prev => [...prev, ...linkedTemplatesToAdd, templateToImport]);
     setActiveTemplateId(templateToImport.id);
     setShowShareImportModal(false);
     setSharedTemplateData(null);
@@ -441,7 +485,7 @@ export const useShareFunctions = (
     if (isMobileDevice) {
       setMobileTab('editor');
     }
-  }, [sharedTemplateData, setTemplates, setActiveTemplateId, setDiscoveryView, isMobileDevice, setMobileTab, t, setBanks, setCategories, banks]);
+  }, [sharedTemplateData, setTemplates, setActiveTemplateId, setDiscoveryView, isMobileDevice, setMobileTab, t, setBanks, setCategories, banks, templates]);
 
   /**
    * 打开分享选项弹窗
@@ -452,7 +496,7 @@ export const useShareFunctions = (
     if (activeTemplate && !prefetchedShortCode && !isPrefetching) {
       setIsPrefetching(true);
       setShortCodeError(null);
-      const compressed = compressTemplate(activeTemplate, banks, categories);
+      const compressed = compressTemplate(activeTemplate, banks, categories, templates);
       getShortCodeFromServer(compressed).then(code => {
         if (code) setPrefetchedShortCode(code);
         if (!code) setShortCodeError(language === 'cn' ? '短链接生成失败，已回退为长链接' : 'Short link generation failed; using long link');
@@ -462,7 +506,7 @@ export const useShareFunctions = (
         setIsPrefetching(false);
       });
     }
-  }, [activeTemplate, banks, categories, getShortCodeFromServer, prefetchedShortCode, isPrefetching]);
+  }, [activeTemplate, banks, categories, templates, getShortCodeFromServer, prefetchedShortCode, isPrefetching]);
 
   /**
    * 复制分享链接到剪贴板 (优先尝试短链接)
@@ -472,7 +516,7 @@ export const useShareFunctions = (
 
     setIsGenerating(true);
     try {
-      const compressed = compressTemplate(activeTemplate, banks, categories);
+      const compressed = compressTemplate(activeTemplate, banks, categories, templates);
       let finalShareData = prefetchedShortCode;
 
       if (!finalShareData) {
@@ -508,7 +552,7 @@ export const useShareFunctions = (
     } finally {
       setIsGenerating(false);
     }
-  }, [activeTemplate, getShortCodeFromServer, t, language, banks, categories, prefetchedShortCode, shortCodeError]);
+  }, [activeTemplate, getShortCodeFromServer, t, language, banks, categories, templates, prefetchedShortCode, shortCodeError]);
 
   /**
    * 复制分享口令 (支持短码)
@@ -518,7 +562,7 @@ export const useShareFunctions = (
 
     setIsGenerating(true);
     try {
-      const compressed = compressTemplate(activeTemplate, banks, categories);
+      const compressed = compressTemplate(activeTemplate, banks, categories, templates);
       
       let finalToken = prefetchedShortCode || compressed;
       if (!prefetchedShortCode) {
@@ -542,7 +586,7 @@ export const useShareFunctions = (
     } finally {
       setIsGenerating(false);
     }
-  }, [activeTemplate, language, getShortCodeFromServer, banks, categories, prefetchedShortCode]);
+  }, [activeTemplate, language, getShortCodeFromServer, banks, categories, templates, prefetchedShortCode]);
 
   // 计算分享 URL（优先显示短码链接，失败则显示长链接作为兜底）
   const currentShareUrl = useMemo(() => {
