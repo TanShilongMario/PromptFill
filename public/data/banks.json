@@ -3099,6 +3099,55 @@
         }
       ]
     },
+    "character_type": {
+      "label": {
+        "cn": "人物类型",
+        "en": "Character Type"
+      },
+      "category": "character",
+      "options": [
+        {
+          "cn": "女性",
+          "en": "woman"
+        },
+        {
+          "cn": "男性",
+          "en": "man"
+        },
+        {
+          "cn": "女孩",
+          "en": "girl"
+        },
+        {
+          "cn": "男孩",
+          "en": "boy"
+        },
+        {
+          "cn": "少女",
+          "en": "teenage girl"
+        },
+        {
+          "cn": "少年",
+          "en": "teenage boy"
+        },
+        {
+          "cn": "儿童",
+          "en": "child"
+        },
+        {
+          "cn": "婴儿",
+          "en": "baby"
+        },
+        {
+          "cn": "老人",
+          "en": "elderly person"
+        },
+        {
+          "cn": "年轻人",
+          "en": "young person"
+        }
+      ]
+    },
     "costume_material": {
       "label": {
         "cn": "装扮材质",
@@ -3194,6 +3243,104 @@
         {
           "cn": "彩虹色小马装扮",
           "en": "Rainbow pony costume"
+        }
+      ]
+    },
+    "location": {
+      "label": {
+        "cn": "车厢类型",
+        "en": "Carriage Type"
+      },
+      "category": "location",
+      "options": [
+        {
+          "cn": "日本地铁",
+          "en": "Japanese subway"
+        },
+        {
+          "cn": "韩国地铁",
+          "en": "Korean subway"
+        },
+        {
+          "cn": "北京地铁",
+          "en": "Beijing subway"
+        },
+        {
+          "cn": "上海地铁",
+          "en": "Shanghai subway"
+        },
+        {
+          "cn": "伦敦地铁",
+          "en": "London Underground"
+        },
+        {
+          "cn": "纽约地铁",
+          "en": "New York subway"
+        },
+        {
+          "cn": "巴黎地铁",
+          "en": "Paris Metro"
+        },
+        {
+          "cn": "轻轨车厢",
+          "en": "Light rail carriage"
+        },
+        {
+          "cn": "高铁车厢",
+          "en": "High-speed rail carriage"
+        },
+        {
+          "cn": "普通列车车厢",
+          "en": "Regular train carriage"
+        }
+      ]
+    },
+    "accessory": {
+      "label": {
+        "cn": "头饰配饰",
+        "en": "Head Accessory"
+      },
+      "category": "item",
+      "options": [
+        {
+          "cn": "粉色花朵发夹",
+          "en": "pink flower hair clip"
+        },
+        {
+          "cn": "蓝色蝴蝶结",
+          "en": "blue butterfly bow"
+        },
+        {
+          "cn": "红色发带",
+          "en": "red hair band"
+        },
+        {
+          "cn": "小皇冠",
+          "en": "small crown"
+        },
+        {
+          "cn": "猫咪耳朵",
+          "en": "cat ears"
+        },
+        {
+          "cn": "兔耳朵",
+          "en": "rabbit ears"
+        },
+        {
+          "cn": "发箍",
+          "en": "headband"
+        },
+        {
+          "cn": "鸭舌帽",
+          "en": "baseball cap"
+        },
+        {
+          "cn": "针织帽",
+          "en": "beanie hat"
+        },
+        {
+          "cn": "耳机",
+          "en": "headphones"
         }
       ]
     },
@@ -7081,6 +7228,10 @@
       "cn": "@RealMe+",
       "en": "@RealMe+"
     },
+    "character_type": {
+      "cn": "女性",
+      "en": "woman"
+    },
     "costume_material": {
       "cn": "羊毛",
       "en": "wool"
@@ -7088,6 +7239,14 @@
     "subway_costume": {
       "cn": "粉色羊毛兔子装扮",
       "en": "Pink wool rabbit costume"
+    },
+    "location": {
+      "cn": "日本地铁",
+      "en": "Japanese subway"
+    },
+    "accessory": {
+      "cn": "粉色花朵发夹",
+      "en": "pink flower hair clip"
     },
     "drink_product": {
       "cn": "芬达软饮料罐",

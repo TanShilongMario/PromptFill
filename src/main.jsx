@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import App from './App.jsx'
 import { RootLayout } from './components'
 import { RootProvider } from './context/RootContext'
@@ -24,22 +24,25 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               </Suspense>
             } />
 
-            {/* 首页：原来的 App 组件 */}
-            <Route path="/" element={<App />} />
+            {/* 根路径重定向到主页 */}
+            <Route path="/" element={<Navigate to="/explore" replace />} />
+
+            {/* 主页（发现页） */}
             <Route path="/explore" element={<App />} />
 
-            {/* 设置页面：由 App 组件内部处理 */}
+            {/* 详情页（编辑器） */}
+            <Route path="/detail" element={<App />} />
+
+            {/* 设置页 */}
             <Route path="/setting" element={<App />} />
 
             {/* UI 测试页（仅开发用） */}
             <Route path="/ui-test" element={<UITestPage isDarkMode={false} />} />
 
-            {/* 其他路由未来可以在这里添加 */}
-            {/* <Route path="/about" element={<AboutPage />} /> */}
             <Route path="/privacy" element={<PrivacyPage />} />
 
-            {/* 404 页面：暂时重定向到首页 */}
-            <Route path="*" element={<App />} />
+            {/* 404 重定向到主页 */}
+            <Route path="*" element={<Navigate to="/explore" replace />} />
           </Routes>
         </RootLayout>
       </BrowserRouter>

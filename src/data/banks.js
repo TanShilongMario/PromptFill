@@ -1127,6 +1127,23 @@ export const INITIAL_BANKS = {
       { cn: "@DigitalCreator", en: "@DigitalCreator" }
     ]
   },
+  // 人物类型（用于社交卡片模板）
+  character_type: {
+    label: { cn: "人物类型", en: "Character Type" },
+    category: "character",
+    options: [
+      { cn: "女性", en: "woman" },
+      { cn: "男性", en: "man" },
+      { cn: "女孩", en: "girl" },
+      { cn: "男孩", en: "boy" },
+      { cn: "少女", en: "teenage girl" },
+      { cn: "少年", en: "teenage boy" },
+      { cn: "儿童", en: "child" },
+      { cn: "婴儿", en: "baby" },
+      { cn: "老人", en: "elderly person" },
+      { cn: "年轻人", en: "young person" }
+    ]
+  },
   // 装扮材质（用于地铁玩偶装扮模板）
   costume_material: {
     label: { cn: "装扮材质", en: "Costume Material" },
@@ -1159,6 +1176,40 @@ export const INITIAL_BANKS = {
       { cn: "绿色恐龙装扮", en: "Green dinosaur costume" },
       { cn: "紫色独角兽装扮", en: "Purple unicorn costume" },
       { cn: "彩虹色小马装扮", en: "Rainbow pony costume" }
+    ]
+  },
+  // 车厢类型（用于地铁玩偶装扮模板）
+  location: {
+    label: { cn: "车厢类型", en: "Carriage Type" },
+    category: "location",
+    options: [
+      { cn: "日本地铁", en: "Japanese subway" },
+      { cn: "韩国地铁", en: "Korean subway" },
+      { cn: "北京地铁", en: "Beijing subway" },
+      { cn: "上海地铁", en: "Shanghai subway" },
+      { cn: "伦敦地铁", en: "London Underground" },
+      { cn: "纽约地铁", en: "New York subway" },
+      { cn: "巴黎地铁", en: "Paris Metro" },
+      { cn: "轻轨车厢", en: "Light rail carriage" },
+      { cn: "高铁车厢", en: "High-speed rail carriage" },
+      { cn: "普通列车车厢", en: "Regular train carriage" }
+    ]
+  },
+  // 头饰配饰（用于地铁玩偶装扮模板）
+  accessory: {
+    label: { cn: "头饰配饰", en: "Head Accessory" },
+    category: "item",
+    options: [
+      { cn: "粉色花朵发夹", en: "pink flower hair clip" },
+      { cn: "蓝色蝴蝶结", en: "blue butterfly bow" },
+      { cn: "红色发带", en: "red hair band" },
+      { cn: "小皇冠", en: "small crown" },
+      { cn: "猫咪耳朵", en: "cat ears" },
+      { cn: "兔耳朵", en: "rabbit ears" },
+      { cn: "发箍", en: "headband" },
+      { cn: "鸭舌帽", en: "baseball cap" },
+      { cn: "针织帽", en: "beanie hat" },
+      { cn: "耳机", en: "headphones" }
     ]
   },
   character_heroic: {
@@ -2486,9 +2537,12 @@ export const INITIAL_DEFAULTS = {
   // 社交卡片模板默认值
   social_bg_color: { cn: "粉色和勃艮第红", en: "pink and burgundy" },
   social_profile_name: { cn: "@RealMe+", en: "@RealMe+" },
+  character_type: { cn: "女性", en: "woman" },
   // 地铁玩偶装扮模板默认值
   costume_material: { cn: "羊毛", en: "wool" },
   subway_costume: { cn: "粉色羊毛兔子装扮", en: "Pink wool rabbit costume" },
+  location: { cn: "日本地铁", en: "Japanese subway" },
+  accessory: { cn: "粉色花朵发夹", en: "pink flower hair clip" },
   // 饮料产品模板默认值
   drink_product: { cn: "芬达软饮料罐", en: "Fanta softdrink can" },
   drink_action: { cn: "爆炸，橙子从罐中涌出", en: "exploding with oranges bursting from the can" },

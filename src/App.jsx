@@ -48,12 +48,12 @@ const App = () => {
   const location = useLocation();
   const isSettingPage = location.pathname === '/setting';
 
-  const { isDarkMode, language, t, themeMode, setThemeMode, setLanguage } = useRootContext();
+  const { isDarkMode, language, t, themeMode, setThemeMode, setLanguage, isTagSidebarVisible, isTemplatesSidebarVisible, isBanksSidebarVisible } = useRootContext();
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
 
   // 当前应用代码版本 (必须与 package.json 和 version.json 一致)
-  const APP_VERSION = "1.0.1";
+  const APP_VERSION = "1.0.2";
 
   // 临时功能：瀑布流样式管理
   const [masonryStyleKey, setMasonryStyleKey] = useState('poster');
@@ -310,15 +310,15 @@ const App = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [editingTemplateTags, setEditingTemplateTags] = useState(null); // {id, tags}
   const [isDiscoveryView, setDiscoveryView] = useState(() => {
-    // 只有在根路径或 /explore 路径下才默认显示发现页
-    return location.pathname === '/explore' || location.pathname === '/';
+    // /explore 显示主页，/detail 显示详情页
+    return location.pathname !== '/detail';
   });
   
   // 同步 URL 路径到 isDiscoveryView 状态
   useEffect(() => {
-    if (location.pathname === '/explore' && !isDiscoveryView) {
+    if (location.pathname === '/explore') {
       setDiscoveryView(true);
-    } else if (location.pathname === '/' && isDiscoveryView) {
+    } else if (location.pathname === '/detail') {
       setDiscoveryView(false);
     }
   }, [location.pathname]);
@@ -329,16 +329,13 @@ const App = () => {
     setDiscoveryView(val);
     
     // 同步 URL 路径：发现页显示时使用 /explore，隐藏时（详情页）使用 /
-    const targetPath = val ? '/explore' : '/';
+    const targetPath = val ? '/explore' : '/detail';
     if (location.pathname !== targetPath) {
       navigate({
         pathname: targetPath,
         search: searchParams.toString()
       }, { replace: true });
     }
-
-    // 同步到 RootLayout 的侧边栏状态
-    window.dispatchEvent(new CustomEvent('app-sync-tab', { detail: val ? 'home' : 'details' }));
 
     // 移动端：侧边栏里的“回到发现页”按钮需要同步切回 mobileTab
     if (!skipMobileTabSync && isMobileDevice && val) {
@@ -1909,29 +1906,22 @@ The background is {{background_color::pink and burgundy}}. The profile name is {
     }
   }, [banks, defaults, templates, t]);
 
-  // 监听来自 RootLayout 的侧边栏导航事件
-  // （必须在 handleSetDiscoveryView 和 handleRefreshSystemData 定义之后）
+  // 监听来自 RootLayout Sidebar 的操作事件
   useEffect(() => {
-    const onHome = () => handleSetDiscoveryView(true);
-    const onDetail = () => handleSetDiscoveryView(false);
     const onRefresh = () => handleRefreshSystemData();
     const onSetSortOrder = (e) => setSortOrder(e.detail);
     const onSetRandomSeed = (e) => setRandomSeed(e.detail);
 
-    window.addEventListener('app-nav-home', onHome);
-    window.addEventListener('app-nav-detail', onDetail);
     window.addEventListener('app-nav-refresh', onRefresh);
     window.addEventListener('app-set-sort-order', onSetSortOrder);
     window.addEventListener('app-set-random-seed', onSetRandomSeed);
 
     return () => {
-      window.removeEventListener('app-nav-home', onHome);
-      window.removeEventListener('app-nav-detail', onDetail);
       window.removeEventListener('app-nav-refresh', onRefresh);
       window.removeEventListener('app-set-sort-order', onSetSortOrder);
       window.removeEventListener('app-set-random-seed', onSetRandomSeed);
     };
-  }, [handleSetDiscoveryView, handleRefreshSystemData]);
+  }, [handleRefreshSystemData]);
 
   const handleAutoUpdate = () => {
     handleRefreshSystemData();
@@ -3369,12 +3359,11 @@ The background is {{background_color::pink and burgundy}}. The profile name is {
             handleAddTemplate={handleAddTemplate}
             TEMPLATE_TAGS={TEMPLATE_TAGS}
             availableTags={availableTags}
-            appVersion={APP_VERSION}
           />
         ) : (
           <div className="flex-1 h-full flex gap-2 lg:gap-4 overflow-hidden">
-            {/* Tag Sidebar - 仅在桌面端显示 */}
-            {!isMobileDevice && (
+            {/* Tag Sidebar - 仅在桌面端且面板可见时显示 */}
+            {!isMobileDevice && isTagSidebarVisible && (
               <TagSidebar
                 TEMPLATE_TAGS={TEMPLATE_TAGS}
                 availableTags={availableTags}
@@ -3389,44 +3378,46 @@ The background is {{background_color::pink and burgundy}}. The profile name is {
               />
             )}
 
-            <TemplatesSidebar
-              mobileTab={mobileTab}
-              isTemplatesDrawerOpen={isTemplatesDrawerOpen}
-              setIsTemplatesDrawerOpen={setIsTemplatesDrawerOpen}
-              setDiscoveryView={handleSetDiscoveryView}
-              activeTemplateId={activeTemplateId}
-              setActiveTemplateId={handleSetActiveTemplateId}
-              filteredTemplates={filteredTemplates}
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-              handleRefreshSystemData={handleRefreshSystemData}
-              language={language}
-              setLanguage={setLanguage}
-              isDarkMode={isDarkMode}
-              t={t}
-              isSortMenuOpen={isSortMenuOpen}
-              setIsSortMenuOpen={setIsSortMenuOpen}
-              sortOrder={sortOrder}
-              setSortOrder={setSortOrder}
-              setRandomSeed={setRandomSeed}
-              handleResetTemplate={requestResetTemplate}
-              startRenamingTemplate={startRenamingTemplate}
-              handleDuplicateTemplate={handleDuplicateTemplate}
-              handleExportTemplate={handleExportTemplate}
-            handleDeleteTemplate={requestDeleteTemplate}
-            handleAddTemplate={handleAddTemplate}
-            handleManualTokenImport={handleManualTokenImport}
-            setShowImportTokenModal={setShowImportTokenModal}
-            INITIAL_TEMPLATES_CONFIG={INITIAL_TEMPLATES_CONFIG}
-              editingTemplateNameId={editingTemplateNameId}
-              tempTemplateName={tempTemplateName}
-              setTempTemplateName={setTempTemplateName}
-              tempTemplateAuthor={tempTemplateAuthor}
-              setTempTemplateAuthor={setTempTemplateAuthor}
-              saveTemplateName={saveTemplateName}
-              setEditingTemplateNameId={setEditingTemplateNameId}
-              globalContainerStyle={globalContainerStyle}
-            />
+            <div className={`transition-all duration-300 ease-out ${!isMobileDevice && !isTemplatesSidebarVisible ? 'hidden' : ''}`}>
+              <TemplatesSidebar
+                mobileTab={mobileTab}
+                isTemplatesDrawerOpen={isTemplatesDrawerOpen}
+                setIsTemplatesDrawerOpen={setIsTemplatesDrawerOpen}
+                setDiscoveryView={handleSetDiscoveryView}
+                activeTemplateId={activeTemplateId}
+                setActiveTemplateId={handleSetActiveTemplateId}
+                filteredTemplates={filteredTemplates}
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+                handleRefreshSystemData={handleRefreshSystemData}
+                language={language}
+                setLanguage={setLanguage}
+                isDarkMode={isDarkMode}
+                t={t}
+                isSortMenuOpen={isSortMenuOpen}
+                setIsSortMenuOpen={setIsSortMenuOpen}
+                sortOrder={sortOrder}
+                setSortOrder={setSortOrder}
+                setRandomSeed={setRandomSeed}
+                handleResetTemplate={requestResetTemplate}
+                startRenamingTemplate={startRenamingTemplate}
+                handleDuplicateTemplate={handleDuplicateTemplate}
+                handleExportTemplate={handleExportTemplate}
+                handleDeleteTemplate={requestDeleteTemplate}
+                handleAddTemplate={handleAddTemplate}
+                handleManualTokenImport={handleManualTokenImport}
+                setShowImportTokenModal={setShowImportTokenModal}
+                INITIAL_TEMPLATES_CONFIG={INITIAL_TEMPLATES_CONFIG}
+                editingTemplateNameId={editingTemplateNameId}
+                tempTemplateName={tempTemplateName}
+                setTempTemplateName={setTempTemplateName}
+                tempTemplateAuthor={tempTemplateAuthor}
+                setTempTemplateAuthor={setTempTemplateAuthor}
+                saveTemplateName={saveTemplateName}
+                setEditingTemplateNameId={setEditingTemplateNameId}
+                globalContainerStyle={globalContainerStyle}
+              />
+            </div>
 
             {/* --- 2. Main Editor (Middle) --- */}
             <TemplateEditor
@@ -3604,29 +3595,31 @@ The background is {{background_color::pink and burgundy}}. The profile name is {
               </div>
             )}
 
-            <BanksSidebar 
-              mobileTab={mobileTab}
-              isBanksDrawerOpen={isBanksDrawerOpen}
-              setIsBanksDrawerOpen={setIsBanksDrawerOpen}
-              bankSidebarWidth={bankSidebarWidth}
-              sidebarRef={sidebarRef}
-              startResizing={startResizing}
-              setIsCategoryManagerOpen={setIsCategoryManagerOpen}
-              categories={categories}
-              banks={banks}
-              insertVariableToTemplate={insertVariableToTemplate}
-              handleDeleteOption={handleDeleteOption}
-              handleAddOption={handleAddOption}
-              handleUpdateOption={handleUpdateOption}
-              handleDeleteBank={handleDeleteBank}
-              handleUpdateBankCategory={handleUpdateBankCategory}
-              handleStartAddBank={handleStartAddBank}
-              t={t}
-              language={templateLanguage}
-              isDarkMode={isDarkMode}
-              onTouchDragStart={onTouchDragStart}
-              globalContainerStyle={globalContainerStyle}
-            />
+            <div className={`transition-all duration-300 ease-out ${!isMobileDevice && !isBanksSidebarVisible ? 'hidden' : ''}`}>
+              <BanksSidebar
+                mobileTab={mobileTab}
+                isBanksDrawerOpen={isBanksDrawerOpen}
+                setIsBanksDrawerOpen={setIsBanksDrawerOpen}
+                bankSidebarWidth={bankSidebarWidth}
+                sidebarRef={sidebarRef}
+                startResizing={startResizing}
+                setIsCategoryManagerOpen={setIsCategoryManagerOpen}
+                categories={categories}
+                banks={banks}
+                insertVariableToTemplate={insertVariableToTemplate}
+                handleDeleteOption={handleDeleteOption}
+                handleAddOption={handleAddOption}
+                handleUpdateOption={handleUpdateOption}
+                handleDeleteBank={handleDeleteBank}
+                handleUpdateBankCategory={handleUpdateBankCategory}
+                handleStartAddBank={handleStartAddBank}
+                t={t}
+                language={templateLanguage}
+                isDarkMode={isDarkMode}
+                onTouchDragStart={onTouchDragStart}
+                globalContainerStyle={globalContainerStyle}
+              />
+            </div>
           </div>
         )}
       </div>

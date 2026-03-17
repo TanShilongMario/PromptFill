@@ -24,9 +24,7 @@ import { openExternalLink } from '../utils/platform';
  * Sidebar 组件 - 通用侧边导航栏
  */
 export const Sidebar = ({
-  activeTab = 'home', // 'home' | 'details' | 'settings'
-  onHome,
-  onDetail,
+  activeTab = 'home', // 'home' | 'detail' | 'settings'
   // Sort props
   isSortMenuOpen,
   setIsSortMenuOpen,
@@ -81,39 +79,21 @@ export const Sidebar = ({
         {/* 导航按钮组 */}
         <div className="flex flex-col items-center gap-4">
           <Tooltip content="主页" isDarkMode={isDarkMode}>
-            {activeTab === 'settings' ? (
-              <Link
-                to="/"
-                className={`p-2 group transition-colors block ${activeTab === 'home' ? (isDarkMode ? 'text-[#FB923C]' : 'text-[#EA580C]') : (isDarkMode ? 'text-[#8E9196]' : 'text-[#6B7280]')} hover:text-[#F97316]`}
-              >
-                <HomeIcon size={24} />
-              </Link>
-            ) : (
-              <button
-                onClick={onHome}
-                className={`p-2 group transition-colors ${activeTab === 'home' ? (isDarkMode ? 'text-[#FB923C]' : 'text-[#EA580C]') : (isDarkMode ? 'text-[#8E9196]' : 'text-[#6B7280]')} hover:text-[#F97316]`}
-              >
-                <HomeIcon size={24} />
-              </button>
-            )}
+            <Link
+              to="/explore"
+              className={`p-2 group transition-colors block ${activeTab === 'home' ? (isDarkMode ? 'text-[#FB923C]' : 'text-[#EA580C]') : (isDarkMode ? 'text-[#8E9196]' : 'text-[#6B7280]')} hover:text-[#F97316]`}
+            >
+              <HomeIcon size={24} />
+            </Link>
           </Tooltip>
 
           <Tooltip content="详情页" isDarkMode={isDarkMode}>
-            {activeTab === 'settings' ? (
-              <Link
-                to="/"
-                className={`p-2 group transition-colors block ${activeTab === 'details' ? (isDarkMode ? 'text-[#FB923C]' : 'text-[#EA580C]') : (isDarkMode ? 'text-[#8E9196]' : 'text-[#6B7280]')} hover:text-[#F97316]`}
-              >
-                <ListIcon size={24} />
-              </Link>
-            ) : (
-              <button
-                onClick={onDetail}
-                className={`p-2 group transition-colors ${activeTab === 'details' ? (isDarkMode ? 'text-[#FB923C]' : 'text-[#EA580C]') : (isDarkMode ? 'text-[#8E9196]' : 'text-[#6B7280]')} hover:text-[#F97316]`}
-              >
-                <ListIcon size={24} />
-              </button>
-            )}
+            <Link
+              to="/detail"
+              className={`p-2 group transition-colors block ${activeTab === 'detail' ? (isDarkMode ? 'text-[#FB923C]' : 'text-[#EA580C]') : (isDarkMode ? 'text-[#8E9196]' : 'text-[#6B7280]')} hover:text-[#F97316]`}
+            >
+              <ListIcon size={24} />
+            </Link>
           </Tooltip>
 
           {VIDEO_FEATURE_ENABLED && (

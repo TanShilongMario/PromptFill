@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Sidebar, DarkModeLamp } from './';
+import { AppFooter } from './AppFooter';
 import { useRootContext } from '../context/RootContext';
 import { isMobile } from '../utils/platform';
 
 /**
  * RootLayout - 全局布局容器
- * 负责渲染持久 UI（侧边栏、灯）
+ * 负责渲染持久 UI（侧边栏、灯、Footer）
  */
 export const RootLayout = ({ children }) => {
   const location = useLocation();
-  const navigate = useNavigate();
-  const { isDarkMode, language, t, themeMode, setThemeMode, setLanguage } = useRootContext();
+  const { isDarkMode, language, t, themeMode, setThemeMode, setLanguage, appVersion } = useRootContext();
   
   const [isMobileDevice, setIsMobileDevice] = useState(isMobile());
 
@@ -22,19 +22,16 @@ export const RootLayout = ({ children }) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const isVideoPage = location.pathname.startsWith('/video');
-  const isSettingPage = location.pathname === '/setting';
+  // 直接由路径计算激活 tab，无需额外 state
+  const activeTab = (() => {
+    if (location.pathname.startsWith('/video')) return 'video';
+    if (location.pathname === '/setting') return 'settings';
+    if (location.pathname === '/detail') return 'detail';
+    return 'home'; // /explore 及其他
+  })();
 
-  // 针对主页模块的特殊 UI 状态
   const [isSortMenuOpen, setIsSortMenuOpen] = useState(false);
-  const [activeHomeTab, setActiveHomeTab] = useState('home');
   const [sortOrder, setSortOrderState] = useState('newest');
-
-  useEffect(() => {
-    const syncTab = (e) => setActiveHomeTab(e.detail);
-    window.addEventListener('app-sync-tab', syncTab);
-    return () => window.removeEventListener('app-sync-tab', syncTab);
-  }, []);
 
   const handleSetSortOrder = (value) => {
     setSortOrderState(value);
@@ -43,6 +40,10 @@ export const RootLayout = ({ children }) => {
 
   const handleSetRandomSeed = (seed) => {
     window.dispatchEvent(new CustomEvent('app-set-random-seed', { detail: seed }));
+  };
+
+  const handleRefresh = () => {
+    window.dispatchEvent(new CustomEvent('app-nav-refresh'));
   };
 
   // 同步 theme-color
@@ -56,22 +57,6 @@ export const RootLayout = ({ children }) => {
     }
     meta.setAttribute('content', themeColor);
   }, [isDarkMode]);
-
-  const handleHome = () => {
-    if (isVideoPage) navigate('/');
-    setActiveHomeTab('home');
-    window.dispatchEvent(new CustomEvent('app-nav-home'));
-  };
-
-  const handleDetail = () => {
-    if (isVideoPage) navigate('/');
-    setActiveHomeTab('details');
-    window.dispatchEvent(new CustomEvent('app-nav-detail'));
-  };
-
-  const handleRefresh = () => {
-    window.dispatchEvent(new CustomEvent('app-nav-refresh'));
-  };
 
   return (
     <div 
@@ -114,9 +99,7 @@ export const RootLayout = ({ children }) => {
       )}
       {!isMobileDevice && (
         <Sidebar
-          activeTab={isVideoPage ? 'video' : (isSettingPage ? 'settings' : activeHomeTab)}
-          onHome={handleHome}
-          onDetail={handleDetail}
+          activeTab={activeTab}
           isSortMenuOpen={isSortMenuOpen}
           setIsSortMenuOpen={setIsSortMenuOpen}
           sortOrder={sortOrder}
@@ -135,7 +118,12 @@ export const RootLayout = ({ children }) => {
       {!isMobileDevice && <DarkModeLamp isDarkMode={isDarkMode} />}
 
       <div className="flex-1 h-full min-w-0 min-h-0 flex flex-col relative z-[1]">
-        {children}
+        <div className="flex-1 min-h-0 overflow-hidden">
+          {children}
+        </div>
+        {!isMobileDevice && (
+          <AppFooter appVersion={appVersion} isDarkMode={isDarkMode} />
+        )}
       </div>
     </div>
   );

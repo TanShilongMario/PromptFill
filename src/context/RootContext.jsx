@@ -5,10 +5,17 @@ import { TRANSLATIONS } from '../constants/translations';
 
 const RootContext = createContext();
 
+const APP_VERSION = "1.0.1";
+
 export const RootProvider = ({ children }) => {
   const [language, setLanguage] = useStickyState(getSystemLanguage(), "app_language_v1");
   const [themeMode, setThemeMode] = useStickyState("system", "app_theme_mode_v1");
   const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // 面板显隐状态，持久化
+  const [isTagSidebarVisible, setIsTagSidebarVisible] = useStickyState(true, "panel_tag_sidebar_v1");
+  const [isTemplatesSidebarVisible, setIsTemplatesSidebarVisible] = useStickyState(true, "panel_templates_sidebar_v1");
+  const [isBanksSidebarVisible, setIsBanksSidebarVisible] = useStickyState(true, "panel_banks_sidebar_v1");
 
   const t = (key, params = {}) => {
     let str = TRANSLATIONS[language]?.[key] || key;
@@ -34,7 +41,11 @@ export const RootProvider = ({ children }) => {
     <RootContext.Provider value={{ 
       language, setLanguage, 
       themeMode, setThemeMode, 
-      isDarkMode, t 
+      isDarkMode, t,
+      appVersion: APP_VERSION,
+      isTagSidebarVisible, setIsTagSidebarVisible,
+      isTemplatesSidebarVisible, setIsTemplatesSidebarVisible,
+      isBanksSidebarVisible, setIsBanksSidebarVisible,
     }}>
       {children}
     </RootContext.Provider>
