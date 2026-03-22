@@ -54,6 +54,7 @@ start.command
 # Internal Docs
 release_checklist.md
 Prompt Template Skills.md
+iOS_Release.md
 
 # Tauri (Desktop App)
 src-tauri/
