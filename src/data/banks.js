@@ -2351,6 +2351,148 @@ export const INITIAL_BANKS = {
       { cn: "分离镜头（Split Shot）", en: "Split Shot" },
       { cn: "震动跟拍（Shaky Tracking）", en: "Shaky Tracking" }
     ]
+  },
+  // 角色设计表专用词库
+  character_animal: {
+    label: { cn: "动物角色类型", en: "Animal Character Type" },
+    category: "character",
+    options: [
+      { cn: "小兔子", en: "Little Bunny" },
+      { cn: "小熊", en: "Little Bear" },
+      { cn: "小猫", en: "Little Kitten" },
+      { cn: "小狗", en: "Little Puppy" },
+      { cn: "小狐狸", en: "Little Fox" },
+      { cn: "小松鼠", en: "Little Squirrel" },
+      { cn: "小刺猬", en: "Little Hedgehog" },
+      { cn: "小鸟", en: "Little Bird" },
+      { cn: "小老鼠", en: "Little Mouse" },
+      { cn: "小龙", en: "Little Dragon" }
+    ]
+  },
+  fur_color: {
+    label: { cn: "毛色/主色调", en: "Fur Color / Main Color" },
+    category: "character",
+    options: [
+      { cn: "柔和温暖的粉彩黄色", en: "Soft warm pastel yellow" },
+      { cn: "纯白色", en: "Pure white" },
+      { cn: "浅棕色", en: "Light brown" },
+      { cn: "奶油色", en: "Creamy white" },
+      { cn: "粉彩粉色", en: "Pastel pink" },
+      { cn: "粉彩蓝色", en: "Pastel blue" },
+      { cn: "粉彩绿色", en: "Pastel green" },
+      { cn: "浅灰色", en: "Light gray" },
+      { cn: "橙黄色", en: "Orange-yellow" },
+      { cn: "浅紫色", en: "Light purple" }
+    ]
+  },
+  body_description: {
+    label: { cn: "身体特征", en: "Body Features" },
+    category: "character",
+    options: [
+      { cn: "大圆头和小椭圆身体", en: "Large round head and small oval body" },
+      { cn: "圆润可爱的身体", en: "Round and cute body" },
+      { cn: "小巧玲珑的身体", en: "Small and delicate body" },
+      { cn: "胖乎乎的身体", en: "Chubby body" },
+      { cn: "纤细优雅的身体", en: "Slender and elegant body" },
+      { cn: "方方正正的身体", en: "Square and sturdy body" },
+      { cn: "修长的身体", en: "Elongated body" },
+      { cn: "紧凑的身体", en: "Compact body" }
+    ]
+  },
+  character_accessories: {
+    label: { cn: "服装配饰", en: "Accessories" },
+    category: "item",
+    options: [
+      { cn: "小红橙色探险家围巾和棕色小挎包", en: "Small red-orange adventurer scarf and tiny brown satchel" },
+      { cn: "蓝色小领结", en: "Small blue bow tie" },
+      { cn: "红色小领巾", en: "Small red neckerchief" },
+      { cn: "粉色蝴蝶结", en: "Pink bow" },
+      { cn: "小帽子", en: "Small hat" },
+      { cn: "小背包", en: "Small backpack" },
+      { cn: "围裙", en: "Apron" },
+      { cn: "小斗篷", en: "Small cape" },
+      { cn: "眼镜", en: "Glasses" },
+      { cn: "无配饰", en: "No accessories" }
+    ]
+  },
+  character_persona: {
+    label: { cn: "角色定位", en: "Character Persona" },
+    category: "character",
+    options: [
+      { cn: "可爱的奇幻探险家", en: "Cute fantasy explorer" },
+      { cn: "小小魔法师", en: "Little wizard" },
+      { cn: "勇敢的小骑士", en: "Brave little knight" },
+      { cn: "好奇的小探险家", en: "Curious little explorer" },
+      { cn: "温柔的小护士", en: "Gentle little nurse" },
+      { cn: "调皮的小淘气", en: "Playful little mischief" },
+      { cn: "聪明的小学者", en: "Smart little scholar" },
+      { cn: "善良的小帮手", en: "Kind little helper" },
+      { cn: "小小厨师", en: "Little chef" },
+      { cn: "小小艺术家", en: "Little artist" }
+    ]
+  },
+  design_sheet_type: {
+    label: { cn: "设计表类型", en: "Design Sheet Type" },
+    category: "other",
+    options: [
+      { cn: "角色转身表（character turnaround sheet）", en: "Character turnaround sheet" },
+      { cn: "表情表（expression sheet）", en: "Expression sheet" },
+      { cn: "姿势表（pose sheet）", en: "Pose sheet" },
+      { cn: "完整角色设定表（full character model sheet）", en: "Full character model sheet" },
+      { cn: "动作参考表（action reference sheet）", en: "Action reference sheet" },
+      { cn: "色彩设计表（color design sheet）", en: "Color design sheet" }
+    ]
+  },
+  // 漫画页面专用词库（精简版）
+  comic_subject: {
+    label: { cn: "漫画主体", en: "Comic Subject" },
+    category: "character",
+    options: [
+      { cn: "两个潜行的忍者", en: "two stealthy ninjas" },
+      { cn: "两个武士", en: "two samurai warriors" },
+      { cn: "两个盗贼", en: "two thieves" },
+      { cn: "两个刺客", en: "two assassins" },
+      { cn: "两个剑客", en: "two swordsmen" },
+      { cn: "两个侦探", en: "two detectives" },
+      { cn: "两个间谍", en: "two spies" }
+    ]
+  },
+  comic_location: {
+    label: { cn: "场景地点", en: "Location" },
+    category: "location",
+    options: [
+      { cn: "古日本寺庙", en: "ancient Japanese temple" },
+      { cn: "城堡", en: "castle" },
+      { cn: "宫殿", en: "palace" },
+      { cn: "武士道场", en: "samurai dojo" },
+      { cn: "忍者村落", en: "ninja village" },
+      { cn: "森林神社", en: "forest shrine" },
+      { cn: "山顶古堡", en: "mountain fortress" }
+    ]
+  },
+  comic_time: {
+    label: { cn: "时间", en: "Time of Day" },
+    category: "visual",
+    options: [
+      { cn: "夜晚", en: "night" },
+      { cn: "黎明", en: "dawn" },
+      { cn: "黄昏", en: "dusk" },
+      { cn: "午夜", en: "midnight" },
+      { cn: "月圆之夜", en: "full moon night" },
+      { cn: "暴雨之夜", en: "stormy night" }
+    ]
+  },
+  comic_art_style: {
+    label: { cn: "漫画风格", en: "Comic Art Style" },
+    category: "visual",
+    options: [
+      { cn: "传统黑白漫画风格", en: "traditional black and white manga style" },
+      { cn: "现代彩漫风格", en: "modern colored manga style" },
+      { cn: "水墨漫画风格", en: "ink wash manga style" },
+      { cn: "美式漫画风格", en: "American comic book style" },
+      { cn: "复古印刷风格", en: "vintage print style" },
+      { cn: "素描手绘风格", en: "sketchy hand-drawn style" }
+    ]
   }
 };
 
@@ -2555,6 +2697,18 @@ export const INITIAL_DEFAULTS = {
   fantasy_dress_style: { cn: "优雅飘逸的连衣裙", en: "elegant flowing dress" },
   fantasy_floating_elements: { cn: "成熟桃子和桃子切片", en: "ripe peaches and peach slices" },
   fantasy_sky_background: { cn: "明亮清澈的蓝天", en: "bright clear blue sky" },
-  pastel_color_palette: { cn: "粉桃色和天蓝色", en: "pastel peach and sky blue" }
+  pastel_color_palette: { cn: "粉桃色和天蓝色", en: "pastel peach and sky blue" },
+  // 角色设计表模板默认值
+  character_animal: { cn: "小兔子", en: "Little Bunny" },
+  fur_color: { cn: "柔和温暖的粉彩黄色", en: "Soft warm pastel yellow" },
+  body_description: { cn: "大圆头和小椭圆身体", en: "Large round head and small oval body" },
+  character_accessories: { cn: "小红橙色探险家围巾和棕色小挎包", en: "Small red-orange adventurer scarf and tiny brown satchel" },
+  character_persona: { cn: "可爱的奇幻探险家", en: "Cute fantasy explorer" },
+  design_sheet_type: { cn: "角色转身表（character turnaround sheet）", en: "Character turnaround sheet" },
+  // 漫画页面模板默认值
+  comic_subject: { cn: "两个潜行的忍者", en: "two stealthy ninjas" },
+  comic_location: { cn: "古日本寺庙", en: "ancient Japanese temple" },
+  comic_time: { cn: "夜晚", en: "night" },
+  comic_art_style: { cn: "传统黑白漫画风格", en: "traditional black and white manga style" }
 };
 

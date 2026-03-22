@@ -42,6 +42,8 @@ Backup/
 App-clean.jsx
 重构完成-*.md
 测试用例-智能拆分.md
+release_checklist.md
+iOS_Release.md
 PRD/
 # Data and Scripts
 prompt_fill_data.json

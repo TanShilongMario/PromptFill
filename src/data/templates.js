@@ -40,13 +40,23 @@
 /**
  * 模板系统版本号，每次更新 templates.js 或 banks.js 时请更新此版本号
  */
-export const SYSTEM_DATA_VERSION = "1.0.2";
+export const SYSTEM_DATA_VERSION = "1.1.0";
 
 /**
  * 分享功能正式环境域名（扫码导入需使用公网可访问地址）
  * 留空则自动使用当前访问地址
  */
 export const PUBLIC_SHARE_URL = "https://aipromptfill.com";
+
+export const TEMPLATE_COMIC_PAGE = {
+  cn: `单页动态漫画，{{comic_subject: 两个潜行的忍者}}在{{comic_time: 夜晚}}潜入{{comic_location: 古日本寺庙}}，多面板布局，粗黑色面板边框，白色间隔区：顶部宽幅全景镜头展示月下的寺庙，装饰性的木制宝塔，石灯笼，星空下的樱花树；中间面板：一个忍者用钩索无声地跃过高墙，第二个忍者蹲在深处阴影中避开巡逻守卫的灯笼；底部特写镜头：蒙面者紧张对话，一个忍者扔出手里剑，传统黑色忍者装束配兜帽和武士刀，戏剧性高对比度光照，冷蓝色月光，暖橙色灯笼光晕，粗墨线，半调阴影，排线，最少的对话气泡带日文文字 Shhh…，{{comic_art_style: 传统黑白漫画风格}}`,
+  en: `single dynamic comic book page, {{comic_subject: two stealthy ninjas}} infiltrating {{comic_location: ancient Japanese temple}} at {{comic_time: night}}, multi-panel layout, bold black panel borders, white gutters: top wide establishing shot of moonlit temple with ornate wooden pagodas, stone lanterns, cherry blossom trees under starry sky; middle panels: one ninja leaping silently over high wall with grappling hook, second ninja crouching in deep shadow avoiding patrolling guard lanterns; bottom close-up panels: masked faces in tense conversation, one ninja throwing a shuriken, traditional black shinobi outfits with hoods and katanas, dramatic high-contrast lighting, cool blue moonlight, warm orange lantern glow, thick ink lines, halftone shading, crosshatching, minimal speech bubbles with Japanese text Shhh…, {{comic_art_style: traditional black and white manga style}}`
+};
+
+export const TEMPLATE_CHARACTER_DESIGN_SHEET = {
+  cn: `{{character_animal}}角色设计表，角色名叫{{character_name: June}}，适合幼儿故事书，{{fur_color: 柔和温暖的粉彩黄色毛发}}，{{body_description: 大圆头和小椭圆身体}}，长耳朵微微下垂，桃粉色内耳，小巧粉色鼻子，大而黑的眼睛带着温和的高光，淡淡的红润脸颊，简单的曲线微笑，佩戴{{character_accessories: 小红橙色探险家围巾和棕色小挎包}}，{{character_persona: 可爱的奇幻探险家}}，包含多种姿势和表情（站立、跳跃、抬头、漂浮、伸展、蜷曲睡觉），表情表（好奇、坚定、惊讶、开心、困倦），正面视图、侧面视图、背面视图，姿势草图，类似动画角色设定表的整洁布局，{{art_style: 高质量的 2D 插画风格}}，{{line_art_style: 钢笔墨水风格}}，{{shading_technique: 极简排线阴影}}，白色背景，专业的{{design_sheet_type: 角色转身表}}`,
+  en: `character design sheet for a {{character_animal}} named {{character_name: June}}, toddler-friendly storybook character, {{fur_color: soft warm pastel yellow fur}}, {{body_description: large round head and small oval body}}, long slightly floppy ears with peach inner ears, tiny pink nose, large dark eyes with gentle highlights, subtle blush cheeks, simple curved smile, wearing {{character_accessories: small red-orange adventurer scarf and tiny brown satchel}}, {{character_persona: cute fantasy explorer}}, multiple poses and expressions (standing, hopping, looking up, floating, reaching, sleeping curled up), expression sheet (curious, determined, surprised, happy, sleepy), front view, side view, back view, pose sketches, clean layout like an animation model sheet, {{art_style: High-quality 2D illustration style}}, {{line_art_style: fine ink linework}}, {{shading_technique: minimal shading}}, white background, professional {{design_sheet_type: character turnaround sheet}}`
+};
 
 export const TEMPLATE_SKETCH_REALITY_COMPARISON = {
   cn: `### 手绘速写与实景对比
@@ -3223,6 +3233,87 @@ export const INITIAL_TEMPLATES_CONFIG = [
       pastel_color_palette: "粉桃色和天蓝色"
     },
     tags: ["产品","创意","奇幻"],
+    language: ["cn","en"],
+    bestModel: "Nano Banana Pro",
+    baseImage: "no_base_image"
+  },
+  {
+    id: "tpl_character_design_sheet",
+    name: { cn: "角色设计表", en: "Character Design Sheet" },
+    content: TEMPLATE_CHARACTER_DESIGN_SHEET,
+    imageUrl: "https://s3.bmp.ovh/2026/03/20/L6uohhgC.jpg",
+    author: "@j03_1",
+    selections: {
+      character_animal: {
+        cn: "小兔子",
+        en: "Little Bunny"
+      },
+      fur_color: {
+        cn: "柔和温暖的粉彩黄色",
+        en: "Soft warm pastel yellow"
+      },
+      body_description: {
+        cn: "大圆头和小椭圆身体",
+        en: "Large round head and small oval body"
+      },
+      character_accessories: {
+        cn: "小红橙色探险家围巾和棕色小挎包",
+        en: "Small red-orange adventurer scarf and tiny brown satchel"
+      },
+      character_persona: {
+        cn: "可爱的奇幻探险家",
+        en: "Cute fantasy explorer"
+      },
+      art_style: {
+        cn: "高质量的 2D 插画风格",
+        en: "High-quality 2D illustration style"
+      },
+      line_art_style: {
+        cn: "钢笔墨水风格",
+        en: "Pen and ink style"
+      },
+      shading_technique: {
+        cn: "极简排线阴影",
+        en: "Minimalist cross-hatching"
+      },
+      design_sheet_type: {
+        cn: "角色转身表（character turnaround sheet）",
+        en: "Character turnaround sheet"
+      }
+    },
+    localOptions: {
+      character_name: "June"
+    },
+    tags: ["卡通","创意"],
+    language: ["cn","en"],
+    bestModel: "Nano Banana Pro",
+    baseImage: "no_base_image"
+  },
+  {
+    id: "tpl_comic_page",
+    name: { cn: "动态漫画页面", en: "Dynamic Comic Page" },
+    content: TEMPLATE_COMIC_PAGE,
+    imageUrl: "https://s3.bmp.ovh/2026/03/20/QS11NEIQ.jpg",
+    author: "@tanshilong",
+    selections: {
+      comic_subject: {
+        cn: "两个潜行的忍者",
+        en: "two stealthy ninjas"
+      },
+      comic_location: {
+        cn: "古日本寺庙",
+        en: "ancient Japanese temple"
+      },
+      comic_time: {
+        cn: "夜晚",
+        en: "night"
+      },
+      comic_art_style: {
+        cn: "传统黑白漫画风格",
+        en: "traditional black and white manga style"
+      }
+    },
+    tags: ["创意","卡通"],
     language: ["cn","en"],
     bestModel: "Nano Banana Pro",
     baseImage: "no_base_image"

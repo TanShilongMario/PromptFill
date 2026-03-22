@@ -208,6 +208,23 @@ const DebugPanel = ({ isDarkMode, language, defaultSystemPrompt, defaultSystemPr
 
           {/* System Prompt Editor */}
           <div>
+            <div className={`rounded-2xl border p-3.5 mb-4 space-y-2 ${isDarkMode ? 'border-white/5 bg-white/2' : 'border-gray-100 bg-gray-50/50'}`}>
+              <p className={`text-[10px] font-black uppercase tracking-widest ${labelColor}`}>V1.1 语法速查</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <div className={`rounded-xl px-3 py-2 font-mono text-[11px] ${isDarkMode ? 'bg-white/5 text-gray-300' : 'bg-white text-gray-700 border border-gray-100'}`}>
+                  <span className={`${isDarkMode ? 'text-orange-400' : 'text-orange-500'}`}>{`{{key}}`}</span>
+                  <span className={`ml-2 text-[10px] ${labelColor}`}>占位符，预览时选词</span>
+                </div>
+                <div className={`rounded-xl px-3 py-2 font-mono text-[11px] ${isDarkMode ? 'bg-white/5 text-gray-300' : 'bg-white text-gray-700 border border-gray-100'}`}>
+                  <span className={`${isDarkMode ? 'text-orange-400' : 'text-orange-500'}`}>{`{{key: 选项}}`}</span>
+                  <span className={`ml-2 text-[10px] ${labelColor}`}>内联写死当前值</span>
+                </div>
+              </div>
+              <p className={`text-[10px] ${isDarkMode ? 'text-gray-600' : 'text-gray-400'}`}>
+                标注拆分输出 <span className="font-mono">{`{{key::原词}}`}</span>，系统自动转为 <span className="font-mono">{`{{key}}`}</span>；
+                词条生成结果将被用户以 <span className="font-mono">{`{{key: 词条}}`}</span> 写入模版。
+              </p>
+            </div>
             <label className={`text-[10px] font-black uppercase tracking-widest mb-1.5 block ${labelColor}`}>
               {language === 'cn' ? '系统提示词（可直接编辑调试）' : 'System Prompt (Edit & Debug)'}
             </label>

@@ -8,6 +8,21 @@ body {
   min-height: 100vh;
 }
 
+@keyframes autocompleteIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes autocompleteInUp {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-autocomplete-in {
+  animation: autocompleteIn 0.12s ease-out;
+}
+.animate-autocomplete-in-up {
+  animation: autocompleteInUp 0.12s ease-out;
+}
+
 @keyframes popoverIn {
   from {
     opacity: 0;

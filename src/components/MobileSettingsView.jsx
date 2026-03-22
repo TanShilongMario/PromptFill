@@ -54,6 +54,17 @@ export const MobileSettingsView = ({
   // 完善后的更新日志 (同步桌面端内容)
   const updateLogs = language === 'cn' ? [
     { 
+      version: 'V1.1.0', 
+      date: '2026-03-21', 
+      title: '变量智能补全 · 编辑体验全面升级',
+      content: [
+        '输入 / 或 { 弹出变量补全面板，双栏快速选变量与选项',
+        '键盘全程导航：↑↓ 切换、→ 进入选项、Enter 确认插入',
+        '新建图像模版默认内容升级，内置示例开箱即用',
+        '修复手机端 /explore 偶尔显示桌面样式的问题',
+      ]
+    },
+    { 
       version: 'V1.0.0', 
       date: '2026-03-15', 
       title: '正式版发布 · 智能拆分全面升级',
@@ -211,6 +222,17 @@ export const MobileSettingsView = ({
       ]
     }
   ] : [
+    { 
+      version: 'V1.1.0', 
+      date: '2026-03-21', 
+      title: 'Variable Autocomplete · Editor Upgrade',
+      content: [
+        'Type / or { to open autocomplete panel with dual-column variable & option selection',
+        'Full keyboard navigation: ↑↓ navigate, → enter options, Enter to insert',
+        'New image template default content with built-in examples',
+        'Mobile fix: /explore page now consistently uses mobile layout',
+      ]
+    },
     { 
       version: 'V1.0.0', 
       date: '2026-03-15', 

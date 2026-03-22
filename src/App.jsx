@@ -54,7 +54,7 @@ const App = () => {
   const navigate = useNavigate();
 
   // 当前应用代码版本 (必须与 package.json 和 version.json 一致)
-  const APP_VERSION = "1.0.2";
+  const APP_VERSION = "1.1.0";
 
   // 临时功能：瀑布流样式管理
   const [masonryStyleKey, setMasonryStyleKey] = useState('poster');
@@ -169,9 +169,18 @@ const App = () => {
     checkICloudUpdate();
   }, [iCloudEnabled, isTemplatesLoaded, isBanksLoaded, isCategoriesLoaded, isDefaultsLoaded, lastICloudSyncAt]);
 
-  // 检测是否为移动设备
-  const isMobileDevice = typeof window !== 'undefined' && window.innerWidth < 768;
-  const [mobileTab, setMobileTab] = useState(isMobileDevice ? "home" : "editor"); // 'home', 'editor', 'settings'
+  // 检测是否为移动设备（响应式：同时考虑 userAgent 和视口宽度，监听 resize）
+  const getIsMobile = () =>
+    typeof window !== 'undefined' &&
+    (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+      window.innerWidth < 768);
+  const [isMobileDevice, setIsMobileDevice] = useState(getIsMobile);
+  useEffect(() => {
+    const handler = () => setIsMobileDevice(getIsMobile());
+    window.addEventListener('resize', handler);
+    return () => window.removeEventListener('resize', handler);
+  }, []);
+  const [mobileTab, setMobileTab] = useState(() => getIsMobile() ? "home" : "editor"); // 'home', 'editor', 'settings'
 
   // 路由同步 mobileTab
   useEffect(() => {
@@ -1491,43 +1500,46 @@ ${tagsHint ? `\n${tagsHint}` : ''}
   }, [banks, TEMPLATE_TAGS]);
 
   // 生成轻量拆分模式的系统提示词（Lite：只分词标注，不生成 JSON）
+  // 保持与后端 AI_TASKS.ANNOTATE_AND_SPLIT 完全一致
   const getDebugSystemPromptLite = React.useCallback(() => {
-    return `你是提示词变量标注专家。用户给你一段 AI 图像/视频提示词，你需要找出其中"换掉就整体变了"的核心词，用 {{变量名::原词}} 的格式标注。
+    return `你是 Prompt Fill 平台的提示词变量标注专家。用户给你一段 AI 图像/视频提示词，你需要找出其中"换掉就整体变了"的核心词，用 {{变量名::原词}} 格式标注。
 
-格式：{{变量名::原词}}，"原词"必须与原文完全一致（不含括号本身）。
+━━━ 平台语法说明（必须了解）━━━
+本平台最终生成的模版使用以下两种语法：
+  {{key}}           → 占位符，由用户在预览面板中选词
+  {{key: 选项文本}} → 内联写死当前值，编辑与预览共用
 
-规则：
-1. 只标记 2-5 个核心可替换词，不要过多
-2. 颜色、材质、技术参数、修饰词不要标记
-3. 直接输出标注后的原文，不加任何解释或 Markdown
-4. 变量名用小写英文+下划线
-5. ⚠️ 最重要：原文中用 [] 或 「」 或 {} 包裹的内容是用户明确标记的可替换词，必须优先标记为变量！标注时去掉原始括号，将内容提取为变量
+你在标注时只需输出 {{变量名::原词}} 格式；后续系统会自动去掉 ::原词 生成干净的 {{key}} 模版。
+
+━━━ 标注规则 ━━━
+1. 格式：{{变量名::原词}}，"原词"必须与原文完全一致（不含括号本身）
+2. 只标记 2-5 个核心可替换词，不要过多
+3. 颜色、材质、技术参数、程度修饰词不要标记
+4. 直接输出标注后的原文，不加任何解释或 Markdown
+5. 变量名用小写英文 + 下划线
+6. ⚠️ 最重要：原文中用 [] 或 「」 或 {} 包裹的内容是用户明确标记的可替换词，必须优先标注！标注时去掉原始括号：
    示例：[pink and burgundy] → {{background_color::pink and burgundy}}
-   示例：[@RealMe+] → {{profile_name::@RealMe+}}
-   示例：「宇航服」 → {{clothing::宇航服}}
-6. 优先复用以下常用变量名（按类别）：
-  人物：subject、character_type、character_name、expressions、hair_style
-  服饰：clothing、clothing_male、clothing_female、accessory
-  动作：action_pose、action_status、dynamic_action
-  场景：background_scene、scene_type、urban_location、travel_location
-  风格：art_style、render_style、draw_style、video_art_style
-  镜头：camera_angle、lens_type、special_view
-  城市：city_name
-  物品：design_item、product_category
-  社交：social_media、profile_name
-7. 不匹配时可自创合理的变量名
+   示例：[@RealMe+]         → {{profile_name::@RealMe+}}
+   示例：「宇航服」          → {{clothing::宇航服}}
+7. 优先复用以下常用变量名（按类别）：
+   人物：subject、character_type、character_name、expressions、hair_style
+   服饰：clothing、clothing_male、clothing_female、accessory
+   动作：action_pose、action_status、dynamic_action
+   场景：background_scene、scene_type、urban_location、travel_location
+   风格：art_style、render_style、draw_style、video_art_style
+   镜头：camera_angle、lens_type、special_view
+   城市：city_name
+   物品：design_item、product_category
+   社交：social_media、profile_name
+8. 不匹配时可自创合理的变量名
 
-示例输入：
-一只可爱的柴犬穿着宇航服，坐在月球表面，卡通风格，8K渲染
+━━━ 示例 ━━━
 
-示例输出：
-一只可爱的{{character_type::柴犬}}穿着{{clothing::宇航服}}，坐在{{background_scene::月球表面}}，卡通风格，8K渲染
+输入：一只可爱的柴犬穿着宇航服，坐在月球表面，卡通风格，8K渲染
+输出：一只可爱的{{character_type::柴犬}}穿着{{clothing::宇航服}}，坐在{{background_scene::月球表面}}，卡通风格，8K渲染
 
-示例输入2：
-The background is [pink and burgundy]. The profile name is [@RealMe+].
-
-示例输出2：
-The background is {{background_color::pink and burgundy}}. The profile name is {{profile_name::@RealMe+}}.
+输入：The background is [pink and burgundy]. The profile name is [@RealMe+].
+输出：The background is {{background_color::pink and burgundy}}. The profile name is {{profile_name::@RealMe+}}.
 
 现在请标注以下提示词：`;
   }, []);

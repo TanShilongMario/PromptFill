@@ -49,8 +49,9 @@ export const useTemplateManagement = (
     const newName = t('new_template_name');
     const newAuthor = "PromptFill User";
 
-    // 根据视频子类型决定默认内容
-    let content = t('new_template_content');
+    // 图像模版：带 / 与 { 补全说明的引导文案；视频按子类型
+    let content =
+      type === 'image' ? t('new_image_template_content') : t('new_template_content');
     if (type === 'video' && videoSubType === 'structured') {
       content = t('new_video_template_structured_content');
     }

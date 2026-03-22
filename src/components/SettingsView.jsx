@@ -54,6 +54,19 @@ export const SettingsView = ({
   
   const updateLogs = language === 'cn' ? [
     { 
+      version: 'V1.1.0', 
+      date: '2026年3月21日', 
+      time: '10:00 PM',
+      title: '变量智能补全 · 编辑体验全面升级',
+      type: 'MAJOR',
+      content: [
+        '输入 / 或 { 即可弹出变量智能补全面板，双栏布局快速锁定变量与选项，大幅降低学习成本。',
+        '支持键盘全程导航：↑↓ 切换、→ 进入选项栏、Enter 确认插入，体验媲美代码编辑器。',
+        '新建图像模版默认内容升级：内置使用说明与真实可用的变量示例，开箱即用。',
+        '移动端优化：修复 /explore 页面偶尔不显示移动端样式的问题；移动端禁用 / 触发补全，避免软键盘干扰。',
+      ]
+    },
+    { 
       version: 'V1.0.0', 
       date: '2026年3月15日', 
       time: '10:00 PM',
@@ -310,6 +323,19 @@ export const SettingsView = ({
       ]
     }
   ] : [
+    { 
+      version: 'V1.1.0', 
+      date: 'Mar 21, 2026', 
+      time: '10:00 PM',
+      title: 'Variable Autocomplete · Editor Experience Upgrade',
+      type: 'MAJOR',
+      content: [
+        'Type / or { to open variable autocomplete with a dual-column panel — select variables and options instantly.',
+        'Full keyboard navigation: ↑↓ to navigate, → to enter options column, Enter to insert.',
+        'New image template default content with built-in usage tips and real variable examples.',
+        'Mobile fixes: fixed /explore page occasionally using desktop layout; disabled / trigger on mobile to avoid keyboard interference.',
+      ]
+    },
     { 
       version: 'V1.0.0', 
       date: 'Mar 15, 2026', 
