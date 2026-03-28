@@ -1,6 +1,16 @@
 import React from 'react';
 import { X } from 'lucide-react';
 import { getLocalized, getVideoEmbedInfo } from '../../utils/helpers';
+import { OptimizedImage } from '../OptimizedImage';
+import { useResolvedFolderMediaSrc } from '../../context/FolderStorageContext';
+
+function ModalDirectVideo({ src, className }) {
+  const { displaySrc, failed } = useResolvedFolderMediaSrc(src || '');
+  if (failed || !displaySrc) {
+    return <div className={`${className} flex items-center justify-center text-white/40 text-sm`}>—</div>;
+  }
+  return <video src={displaySrc} controls autoPlay loop className={className} />;
+}
 
 /**
  * 全局素材大图预览模态框
@@ -47,19 +57,14 @@ const SourceAssetModal = ({ item, onClose, language }) => {
                 />
               </div>
             ) : (
-              <video 
-                src={item.url} 
-                controls 
-                autoPlay 
-                loop
-                className="max-w-full max-h-[80vh] block"
-              />
+              <ModalDirectVideo src={item.url} className="max-w-full max-h-[80vh] block" />
             )
           ) : (
-            <img 
-              src={item.url} 
-              alt="Source Zoom" 
+            <OptimizedImage
+              src={item.url}
+              alt="Source Zoom"
               className="max-w-full max-h-[80vh] object-contain block"
+              priority={0}
             />
           )}
         </div>

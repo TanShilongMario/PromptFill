@@ -6,6 +6,7 @@ import {
   Cloud
 } from 'lucide-react';
 import { openExternalLink } from '../utils/platform';
+import { EmergencyBackupPanel } from './EmergencyBackupPanel';
 
 export const SettingsView = ({ 
   language, setLanguage, 
@@ -22,7 +23,8 @@ export const SettingsView = ({
   iCloudEnabled,
   setICloudEnabled,
   lastICloudSyncAt,
-  lastICloudSyncError
+  lastICloudSyncError,
+  onRestoreEmergencyBackup,
 }) => {
   const [showWechatQR, setShowWechatQR] = useState(false);
   const [showCredits, setShowCredits] = useState(false);
@@ -53,6 +55,17 @@ export const SettingsView = ({
   }, [storageMode]);
   
   const updateLogs = language === 'cn' ? [
+    { 
+      version: 'V1.1.2', 
+      date: '2026年3月28日', 
+      time: '10:00 PM',
+      title: '存储稳定性修复',
+      type: 'FIX',
+      content: [
+        '修复：从浏览器模式切换到本地文件夹存储时，未及时写入 IndexedDB 快照，导致切换过程中若权限失效可能丢失数据的问题。',
+        '现在切入文件夹模式前会先将当前完整数据写入 IndexedDB，保证任意存储模式切换均不会造成模版丢失。',
+      ]
+    },
     { 
       version: 'V1.1.0', 
       date: '2026年3月21日', 
@@ -323,6 +336,17 @@ export const SettingsView = ({
       ]
     }
   ] : [
+    { 
+      version: 'V1.1.2', 
+      date: 'Mar 28, 2026', 
+      time: '10:00 PM',
+      title: 'Storage Stability Fix',
+      type: 'FIX',
+      content: [
+        'Fix: switching from browser mode to local folder storage no longer risks data loss if folder permission expires mid-switch.',
+        'Current data is now written to IndexedDB before entering folder mode, ensuring no templates are lost across any storage mode switch.',
+      ]
+    },
     { 
       version: 'V1.1.0', 
       date: 'Mar 21, 2026', 
@@ -740,6 +764,13 @@ export const SettingsView = ({
                   />
                 )}
               </div>
+              {typeof onRestoreEmergencyBackup === 'function' && (
+                <EmergencyBackupPanel
+                  language={language}
+                  isDarkMode={isDarkMode}
+                  onRestore={onRestoreEmergencyBackup}
+                />
+              )}
             </SettingSection>
 
             <SettingSection title={language === 'cn' ? '模版管理' : 'Templates'}>

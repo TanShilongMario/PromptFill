@@ -98,8 +98,8 @@ class ImageLoaderQueue {
   fetchImage(url) {
     return new Promise((resolve, reject) => {
       const img = new Image();
-      img.crossOrigin = 'anonymous';
-      
+      // 不设 crossOrigin：大量外链图未返回 CORS，anonymous 会导致预加载失败（不影响页面展示但失去暖缓存意义）
+
       const timeout = setTimeout(() => {
         reject(new Error('Image load timeout'));
       }, 15000); // 15 秒超时

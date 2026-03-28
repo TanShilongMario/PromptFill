@@ -1,8 +1,10 @@
 // Lightbox 组件 - 图片预览灯箱
 import React from 'react';
 import { X } from 'lucide-react';
+import { useResolvedFolderMediaSrc } from '../context/FolderStorageContext';
 
 export const Lightbox = ({ isOpen, onClose, src }) => {
+  const { displaySrc, failed, loading } = useResolvedFolderMediaSrc(src || '');
   if (!isOpen || !src) return null;
 
   return (
@@ -22,11 +24,17 @@ export const Lightbox = ({ isOpen, onClose, src }) => {
         style={{ marginTop: 'calc(6rem + env(safe-area-inset-top))' }}
         onClick={(e) => e.stopPropagation()}
       >
-        <img
-          src={src}
-          alt="Preview"
-          className="max-w-full max-h-[80vh] object-contain rounded-lg shadow-2xl animate-in zoom-in-95 duration-300 select-none"
-        />
+        {failed || (loading && !displaySrc) ? (
+          <div className="text-white/60 text-sm px-6 py-12 rounded-lg bg-white/5">
+            {failed ? '图片不可用' : '加载中…'}
+          </div>
+        ) : (
+          <img
+            src={displaySrc}
+            alt="Preview"
+            className="max-w-full max-h-[80vh] object-contain rounded-lg shadow-2xl animate-in zoom-in-95 duration-300 select-none"
+          />
+        )}
       </div>
     </div>
   );

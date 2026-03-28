@@ -2,6 +2,32 @@ import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { X, ChevronLeft, ChevronRight, Sparkles, ImageIcon } from 'lucide-react';
 import { getLocalized, getVideoEmbedInfo } from '../../utils/helpers';
 import { PremiumButton } from '../PremiumButton';
+import { OptimizedImage } from '../OptimizedImage';
+import { useResolvedFolderMediaSrc } from '../../context/FolderStorageContext';
+
+/** 发现页大图：直连视频 + poster 均支持 images/ 相对路径 */
+function ModalInlineVideo({ src, poster, className, onClick, unavailableCn, unavailableEn }) {
+  const { displaySrc: vSrc, failed: vFail } = useResolvedFolderMediaSrc(src || '');
+  const { displaySrc: pSrc } = useResolvedFolderMediaSrc(poster || '');
+  if (vFail || !vSrc) {
+    return (
+      <div className={`max-w-full max-h-full flex items-center justify-center rounded-2xl text-xs px-4 py-8 ${className?.includes('border') ? '' : 'border border-white/10'} text-white/50`}>
+        {unavailableCn && unavailableEn ? `${unavailableCn} / ${unavailableEn}` : unavailableCn || unavailableEn || 'Unavailable'}
+      </div>
+    );
+  }
+  return (
+    <video
+      src={vSrc}
+      {...(pSrc ? { poster: pSrc } : {})}
+      controls
+      playsInline
+      preload="metadata"
+      className={className}
+      onClick={onClick}
+    />
+  );
+}
 
 /**
  * 图片 3D 预览弹窗组件
@@ -216,23 +242,24 @@ const ImagePreviewModal = React.memo(({
                             />
                           </div>
                         ) : (
-                          <video 
-                              src={template.videoUrl}
-                              {...(videoPoster ? { poster: videoPoster } : {})}
-                              controls
-                              playsInline
-                              preload="metadata"
-                              className={`max-w-full max-h-full object-contain rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] animate-in fade-in duration-300 ${isDarkMode ? 'border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.4)]' : 'border border-white/50 shadow-[0_20px_50px_rgba(0,0,0,0.15)]'}`}
-                              onClick={(e) => e.stopPropagation()}
+                          <ModalInlineVideo
+                            src={template.videoUrl}
+                            poster={videoPoster}
+                            unavailableCn="视频不可用"
+                            unavailableEn="Video unavailable"
+                            className={`max-w-full max-h-full object-contain rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] animate-in fade-in duration-300 ${isDarkMode ? 'border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.4)]' : 'border border-white/50 shadow-[0_20px_50px_rgba(0,0,0,0.15)]'}`}
+                            onClick={(e) => e.stopPropagation()}
                           />
                         )
                     ) : (
-                        <img
+                        <OptimizedImage
                             key={currentImageUrl}
                             src={currentImageUrl}
                             alt="Zoomed Preview"
                             className={`max-w-full max-h-full object-contain rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] animate-in fade-in duration-300 ${isDarkMode ? 'border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.4)]' : 'border border-white/50 shadow-[0_20px_50px_rgba(0,0,0,0.15)]'}`}
                             style={{ transform: (isTextExpanded || isVideo) ? 'none' : 'translateZ(20px)' }}
+                            isDarkMode={isDarkMode}
+                            priority={0}
                         />
                     )}
                   </div>
@@ -394,24 +421,25 @@ const ImagePreviewModal = React.memo(({
                           />
                         </div>
                       ) : (
-                        <video 
-                            src={template.videoUrl}
-                            {...(videoPoster ? { poster: videoPoster } : {})}
-                            controls
-                            playsInline
-                            preload="metadata"
-                            className={`w-full h-auto rounded-2xl shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border border-white/20 animate-in fade-in duration-300 max-h-[70vh] object-contain`}
-                            onClick={(e) => e.stopPropagation()}
+                        <ModalInlineVideo
+                          src={template.videoUrl}
+                          poster={videoPoster}
+                          unavailableCn="视频不可用"
+                          unavailableEn="Video unavailable"
+                          className="w-full h-auto rounded-2xl shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border border-white/20 animate-in fade-in duration-300 max-h-[70vh] object-contain"
+                          onClick={(e) => e.stopPropagation()}
                         />
                       )}
                     </div>
                   ) : (
-                    <img
+                    <OptimizedImage
                         key={currentImageUrl}
                         src={currentImageUrl}
                         alt="Zoomed Preview"
-                        className={`max-w-full rounded-2xl shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border border-white/20 animate-in fade-in duration-300 max-h-[75vh] object-contain`}
+                        className="max-w-full rounded-2xl shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border border-white/20 animate-in fade-in duration-300 max-h-[75vh] object-contain"
                         style={{ transform: isVideo ? 'none' : 'translateZ(20px)' }}
+                        isDarkMode={true}
+                        priority={0}
                     />
                   )}
                 </div>

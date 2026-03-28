@@ -6,6 +6,7 @@ import {
   Moon, Sun, Heart, Cloud
 } from 'lucide-react';
 import { openExternalLink, isTauri } from '../utils/platform';
+import { EmergencyBackupPanel } from './EmergencyBackupPanel';
 
 export const MobileSettingsView = ({ 
   language, setLanguage, 
@@ -21,7 +22,8 @@ export const MobileSettingsView = ({
   iCloudEnabled,
   setICloudEnabled,
   lastICloudSyncAt,
-  lastICloudSyncError
+  lastICloudSyncError,
+  onRestoreEmergencyBackup,
 }) => {
   const [showWechatQR, setShowWechatQR] = useState(false);
   const [showCredits, setShowCredits] = useState(false);
@@ -53,6 +55,15 @@ export const MobileSettingsView = ({
   
   // 完善后的更新日志 (同步桌面端内容)
   const updateLogs = language === 'cn' ? [
+    { 
+      version: 'V1.1.2', 
+      date: '2026-03-28', 
+      title: '存储稳定性修复',
+      content: [
+        '修复：浏览器模式切换到文件夹存储时，若权限失效可能丢失数据的问题',
+        '切入文件夹模式前先写入 IndexedDB 快照，任意模式切换均不丢模版',
+      ]
+    },
     { 
       version: 'V1.1.0', 
       date: '2026-03-21', 
@@ -222,6 +233,15 @@ export const MobileSettingsView = ({
       ]
     }
   ] : [
+    { 
+      version: 'V1.1.2', 
+      date: '2026-03-28', 
+      title: 'Storage Stability Fix',
+      content: [
+        'Fix: no data loss risk when switching from browser mode to folder storage if permission expires',
+        'IndexedDB snapshot written before entering folder mode — no templates lost on any mode switch',
+      ]
+    },
     { 
       version: 'V1.1.0', 
       date: '2026-03-21', 
@@ -521,6 +541,15 @@ export const MobileSettingsView = ({
                 style={{ width: `${Math.max(1, storageStats.percent)}%` }}
               />
             </div>
+          </div>
+        )}
+        {typeof onRestoreEmergencyBackup === 'function' && (
+          <div className="px-5 pb-2">
+            <EmergencyBackupPanel
+              language={language}
+              isDarkMode={isDarkMode}
+              onRestore={onRestoreEmergencyBackup}
+            />
           </div>
         )}
       </SettingSection>

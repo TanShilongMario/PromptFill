@@ -121,3 +121,50 @@ export const markMigrated = () => {
   localStorage.setItem('app_storage_migrated', 'true');
   localStorage.setItem('app_storage_mode', 'browser_indexeddb');
 };
+
+/**
+ * 列出 app_data 对象仓库中的全部 key（用于紧急备份条目管理与清理）
+ */
+export const dbListAppDataKeys = () => {
+  return new Promise((resolve, reject) => {
+    openDB().then((db) => {
+      try {
+        const transaction = db.transaction([STORES.APP_DATA], 'readonly');
+        const store = transaction.objectStore(STORES.APP_DATA);
+        const request = store.getAllKeys();
+        request.onsuccess = () => resolve(request.result || []);
+        request.onerror = () => reject(request.error);
+      } catch (e) {
+        reject(e);
+      }
+    }).catch(reject);
+  });
+};
+
+/** 删除 app_data 中指定 key */
+export const dbDeleteAppDataKey = (key) => {
+  return new Promise((resolve, reject) => {
+    openDB().then((db) => {
+      try {
+        const transaction = db.transaction([STORES.APP_DATA], 'readwrite');
+        const store = transaction.objectStore(STORES.APP_DATA);
+        const request = store.delete(key);
+        request.onsuccess = () => resolve();
+        request.onerror = () => reject(request.error);
+      } catch (e) {
+        reject(e);
+      }
+    }).catch(reject);
+  });
+};
+
+/**
+ * 将当前内存中的主数据立即写入 IndexedDB（与 useAsyncStickyState 的 key 一致）。
+ * 用于从「本地文件夹」切回「浏览器存储」时：避免仅改 localStorage 而 IDB 仍是旧快照，刷新后误丢模版。
+ */
+export async function writeFullAppStateToIndexedDB({ templates, banks, categories, defaults }) {
+  await dbSet('app_templates_v10', templates);
+  await dbSet('app_banks_v9', banks);
+  await dbSet('app_categories_v1', categories);
+  await dbSet('app_defaults_v9', defaults);
+}

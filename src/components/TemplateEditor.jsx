@@ -8,6 +8,31 @@ import { EditorToolbar } from './EditorToolbar';
 import { PremiumButton } from './PremiumButton';
 import { LinkTemplateModal } from './modals/LinkTemplateModal';
 import { ScanningAnimation } from './ScanningAnimation';
+import { OptimizedImage } from './OptimizedImage';
+import { useResolvedFolderMediaSrc } from '../context/FolderStorageContext';
+import { isFolderMediaPath } from '../utils/folderImages';
+
+/** 编辑区素材条：解析 images/ 路径后播放短视频 */
+function EditorSourceThumbVideo({ src, className, onMouseEnter, onMouseLeave, playIconSize = 24 }) {
+  const { displaySrc, failed } = useResolvedFolderMediaSrc(src || '');
+  if (failed || !displaySrc) {
+    return (
+      <div className={`${className} bg-black/20 flex items-center justify-center`}>
+        <Play size={playIconSize} className="text-white/60" fill="currentColor" />
+      </div>
+    );
+  }
+  return (
+    <video
+      src={displaySrc}
+      className={className}
+      muted
+      playsInline
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    />
+  );
+}
 
 /**
  * HScrollArea — 支持鼠标滚轮横向滑动 + 左右翻页按钮
@@ -271,16 +296,30 @@ export const TemplateEditor = React.memo(({
               }}>
               <div className={`${isMobileDevice ? 'w-[140px] h-[140px]' : 'w-[210px] h-[210px]'} overflow-hidden rounded-lg flex items-center justify-center`}>
                 {src.type === 'video' ? (
-                  getVideoEmbedInfo(src.url)?.platform === 'video' ? (
-                    <video src={src.url} className="w-full h-full object-cover" muted playsInline
-                      onMouseEnter={e => e.target.play()} onMouseLeave={e => { e.target.pause(); e.target.currentTime = 0; }} />
+                  getVideoEmbedInfo(src.url)?.platform === 'video' || isFolderMediaPath(src.url) ? (
+                    <EditorSourceThumbVideo
+                      src={src.url}
+                      className="w-full h-full object-cover"
+                      playIconSize={isMobileDevice ? 18 : 24}
+                      onMouseEnter={(e) => e.target.play()}
+                      onMouseLeave={(e) => {
+                        e.target.pause();
+                        e.target.currentTime = 0;
+                      }}
+                    />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-black/20">
                       <Play size={isMobileDevice ? 18 : 24} className="text-white/60" fill="currentColor" />
                     </div>
                   )
                 ) : (
-                  <img src={src.url} alt={`Source ${src.id || sIdx + 1}`} className="w-full h-full object-cover" />
+                  <OptimizedImage
+                    src={src.url}
+                    alt={`Source ${src.id || sIdx + 1}`}
+                    className="w-full h-full object-cover"
+                    isDarkMode={isDarkMode}
+                    priority={10}
+                  />
                 )}
               </div>
 
@@ -627,7 +666,9 @@ export const TemplateEditor = React.memo(({
                               {activeTemplate.imageUrl ? (
                                 <div className={`relative group/cover rounded-lg border-2 transition-all cursor-zoom-in hover:scale-[1.02] ${isDarkMode ? 'border-white/5 bg-white/5' : 'border-gray-100 bg-gray-50'}`}
                                   onClick={() => setSourceZoomedItem({ url: activeTemplate.imageUrl, type: 'image' })}>
-                                  <div className="w-[140px] h-[140px] overflow-hidden rounded-lg"><img src={activeTemplate.imageUrl} alt="Cover" className="w-full h-full object-cover" /></div>
+                                  <div className="w-[140px] h-[140px] overflow-hidden rounded-lg">
+                                    <OptimizedImage src={activeTemplate.imageUrl} alt="Cover" className="w-full h-full object-cover" isDarkMode={isDarkMode} priority={8} />
+                                  </div>
                                   <button onClick={(e) => { e.stopPropagation(); setImageUpdateMode('replace_cover'); fileInputRef.current?.click(); }}
                                     className="absolute top-2 left-2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-1.5 shadow-lg opacity-0 group-hover/cover:opacity-100 transition-opacity z-[20]"><Upload size={12} /></button>
                                   <button onClick={(e) => { e.stopPropagation(); updateTemplateProperty('imageUrl', ''); }}
@@ -654,7 +695,9 @@ export const TemplateEditor = React.memo(({
                               <div key={idx}
                                 className={`flex-shrink-0 relative group/result rounded-lg border-2 transition-all cursor-zoom-in hover:scale-[1.02] ${isDarkMode ? 'border-white/5 bg-white/5' : 'border-gray-100 bg-gray-50'}`}
                                 onClick={() => setSourceZoomedItem({ url, type: 'image' })}>
-                                <div className="w-[140px] h-[140px] overflow-hidden rounded-lg"><img src={url} alt={`Result ${idx + 1}`} className="w-full h-full object-cover" /></div>
+                                <div className="w-[140px] h-[140px] overflow-hidden rounded-lg">
+                                  <OptimizedImage src={url} alt={`Result ${idx + 1}`} className="w-full h-full object-cover" isDarkMode={isDarkMode} priority={8} />
+                                </div>
                                 <button onClick={(e) => { e.stopPropagation(); setImageUpdateMode('replace'); setCurrentImageEditIndex(idx); fileInputRef.current?.click(); }}
                                   className="absolute top-2 left-2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-1.5 shadow-lg opacity-0 group-hover/result:opacity-100 transition-opacity z-[20]"><Upload size={12} /></button>
                                 <button onClick={(e) => { e.stopPropagation(); requestDeleteImage(e, idx); }}
@@ -907,7 +950,9 @@ export const TemplateEditor = React.memo(({
                               {activeTemplate.imageUrl ? (
                                 <div className={`relative group/cover rounded-lg border-2 transition-all cursor-zoom-in hover:scale-[1.02] ${isDarkMode ? 'border-white/5 bg-white/5' : 'border-gray-100 bg-gray-50'}`}
                                   onClick={() => setSourceZoomedItem({ url: activeTemplate.imageUrl, type: 'image' })}>
-                                  <div className="w-[210px] h-[210px] overflow-hidden rounded-lg"><img src={activeTemplate.imageUrl} alt="Cover" className="w-full h-full object-cover" /></div>
+                                  <div className="w-[210px] h-[210px] overflow-hidden rounded-lg">
+                                    <OptimizedImage src={activeTemplate.imageUrl} alt="Cover" className="w-full h-full object-cover" isDarkMode={isDarkMode} priority={8} />
+                                  </div>
                                   <button onClick={(e) => { e.stopPropagation(); setImageUpdateMode('replace_cover'); fileInputRef.current?.click(); }}
                                     className="absolute top-2 left-2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 shadow-lg opacity-0 group-hover/cover:opacity-100 transition-opacity z-[20]"><Upload size={16} /></button>
                                   <button onClick={(e) => { e.stopPropagation(); updateTemplateProperty('imageUrl', ''); }}
@@ -934,7 +979,9 @@ export const TemplateEditor = React.memo(({
                               <div key={idx}
                                 className={`flex-shrink-0 relative group/result rounded-lg border-2 transition-all cursor-zoom-in hover:scale-[1.02] ${isDarkMode ? 'border-white/5 bg-white/5' : 'border-gray-100 bg-gray-50'}`}
                                 onClick={() => setSourceZoomedItem({ url, type: 'image' })}>
-                                <div className="w-[210px] h-[210px] overflow-hidden rounded-lg"><img src={url} alt={`Result ${idx + 1}`} className="w-full h-full object-cover" /></div>
+                                <div className="w-[210px] h-[210px] overflow-hidden rounded-lg">
+                                  <OptimizedImage src={url} alt={`Result ${idx + 1}`} className="w-full h-full object-cover" isDarkMode={isDarkMode} priority={8} />
+                                </div>
                                 <button onClick={(e) => { e.stopPropagation(); setImageUpdateMode('replace'); setCurrentImageEditIndex(idx); fileInputRef.current?.click(); }}
                                   className="absolute top-2 left-2 bg-white/80 hover:bg-white text-gray-800 rounded-full p-2 shadow-lg opacity-0 group-hover/result:opacity-100 transition-opacity z-[20]"><Upload size={16} /></button>
                                 <button onClick={(e) => { e.stopPropagation(); requestDeleteImage(e, idx); }}

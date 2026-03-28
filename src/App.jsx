@@ -21,6 +21,9 @@ import { mergeTemplatesWithSystem, mergeBanksWithSystem } from './utils/merge';
 import { generateAITerms, polishAndSplitPrompt } from './utils/aiService';  // AI 服务
 import { uploadToICloud, downloadFromICloud } from './utils/icloud'; // iCloud 服务
 import { smartFetch } from './utils/platform'; // 跨平台 fetch
+import { readPromptFillDataFile, applyPromptFillDataPayload, writePromptFillDataFile } from './utils/folderStorage';
+import { persistTemplateImagesToFolder } from './utils/folderImages';
+import { FolderStorageProvider } from './context/FolderStorageContext';
 
 // ====== 导入自定义 Hooks ======
 import { useStickyState, useAsyncStickyState, useEditorHistory, useLinkageGroups, useShareFunctions, useTemplateManagement, useServiceWorker } from './hooks';
@@ -54,7 +57,7 @@ const App = () => {
   const navigate = useNavigate();
 
   // 当前应用代码版本 (必须与 package.json 和 version.json 一致)
-  const APP_VERSION = "1.1.0";
+  const APP_VERSION = "1.1.2";
 
   // 临时功能：瀑布流样式管理
   const [masonryStyleKey, setMasonryStyleKey] = useState('poster');
@@ -262,6 +265,16 @@ const App = () => {
   });
   const [directoryHandle, setDirectoryHandle] = useState(null);
   const [isFileSystemSupported, setIsFileSystemSupported] = useState(false);
+  /** 文件夹模式：仅在「已从文件加载完成或确认无需加载」后为 true，防止未加载就自动保存覆盖磁盘 */
+  const [isFileSystemDataHydrated, setIsFileSystemDataHydrated] = useState(() => {
+    try {
+      return (localStorage.getItem('app_storage_mode') || 'browser') !== 'folder';
+    } catch {
+      return true;
+    }
+  });
+  /** 避免「用户已通过选择文件夹完成初始化」后再跑一遍启动恢复逻辑 */
+  const folderBootstrapCompleteRef = useRef(false);
   
   // Template Tag Management State
   const [selectedTags, setSelectedTags] = useState(() => {
@@ -444,9 +457,8 @@ const App = () => {
     return false;
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  useEffect(() => {
-    fetchAndApplyRemoteData(lastAppliedDataVersion || SYSTEM_DATA_VERSION);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  // 已移除：启动时 useEffect([]) 静默 fetchAndApplyRemoteData — 会在 IndexedDB 加载完成后仍全量 setTemplates/setBanks，
+  // 覆盖用户数据与文件夹存储。远端同步请使用「刷新系统数据」内的 merge 流程或数据更新通知。
   // ================================
 
   // 检查系统模版更新
@@ -540,43 +552,121 @@ const App = () => {
       }
   }, [mobileTab, templates, activeTemplateId]);
 
-  // Check File System Access API support and restore directory handle
+  // File System：检测支持 + 启动时恢复文件夹（必须在 IndexedDB 加载完成后执行，且先读后设 directoryHandle，避免自动保存用空数据覆盖文件）
   useEffect(() => {
-      const checkSupport = async () => {
-          const supported = 'showDirectoryPicker' in window;
-          setIsFileSystemSupported(supported);
-          
-          // Try to restore directory handle from IndexedDB
-          if (supported && storageMode === 'folder') {
-              try {
-                  const db = await openDB();
-                  const handle = await getDirectoryHandle(db);
-                  if (handle) {
-                      // Verify permission
-                      const permission = await handle.queryPermission({ mode: 'readwrite' });
-                      if (permission === 'granted') {
-                          setDirectoryHandle(handle);
-                          // Load data from file system
-                          await loadFromFileSystem(handle);
-                      } else {
-                          // Permission not granted, switch back to browser storage
-                          setStorageMode('browser');
-                          localStorage.setItem('app_storage_mode', 'browser');
-                      }
-                  }
-              } catch (error) {
-                  console.error('恢复文件夹句柄失败:', error);
-              }
+    const supported = 'showDirectoryPicker' in window;
+    setIsFileSystemSupported(supported);
+
+    if (storageMode !== 'folder') {
+      setIsFileSystemDataHydrated(true);
+      return;
+    }
+    if (!supported) {
+      setIsFileSystemDataHydrated(true);
+      return;
+    }
+    if (!isTemplatesLoaded || !isBanksLoaded || !isCategoriesLoaded || !isDefaultsLoaded) {
+      return;
+    }
+    if (folderBootstrapCompleteRef.current) {
+      return;
+    }
+
+    let cancelled = false;
+    (async () => {
+      try {
+        const { openDB, getDirectoryHandle } = await import('./utils/db');
+        const db = await openDB();
+        const handle = await getDirectoryHandle(db);
+        if (cancelled) return;
+        if (!handle) {
+          folderBootstrapCompleteRef.current = true;
+          setIsFileSystemDataHydrated(true);
+          return;
+        }
+        const permission = await handle.queryPermission({ mode: 'readwrite' });
+        if (permission !== 'granted') {
+          try {
+            const { writeFullAppStateToIndexedDB } = await import('./utils/db');
+            await writeFullAppStateToIndexedDB({ templates, banks, categories, defaults });
+          } catch (e) {
+            console.warn('[Storage] 文件夹权限失效，写回 IndexedDB 失败:', e);
           }
-      };
-      
-      checkSupport();
-  }, []);
+          setStorageMode('browser');
+          localStorage.setItem('app_storage_mode', 'browser');
+          folderBootstrapCompleteRef.current = true;
+          setIsFileSystemDataHydrated(true);
+          return;
+        }
+        const readResult = await readPromptFillDataFile(handle);
+        if (cancelled) return;
+        if (readResult.ok && readResult.data?.templates) {
+          const { saveEmergencySnapshot, applyMergedFolderPayloadToState } = await import('./utils/storageBackup');
+          try {
+            await saveEmergencySnapshot({
+              reason: 'before_folder_startup_merge',
+              note: 'IndexedDB 已加载到内存时的完整副本',
+              templates,
+              banks,
+              categories,
+              defaults,
+            });
+          } catch (e) {
+            console.warn('[Backup] 文件夹启动合并前快照失败:', e);
+          }
+
+          const { addedFromDisk } = applyMergedFolderPayloadToState(
+            readResult.data,
+            { templates, banks, categories, defaults },
+            { setTemplates, setBanks, setCategories, setDefaults },
+            { folderModeStartupMerge: true }
+          );
+          if (addedFromDisk > 0) {
+            setNoticeMessage(
+              language === 'cn'
+                ? `已从文件夹合并 ${addedFromDisk} 个仅保存在磁盘上的自定义模版（冷启动时同名自定义以磁盘 autosave 为准）`
+                : `Merged ${addedFromDisk} custom template(s) found only on disk. On startup, disk autosave wins for same custom id.`
+            );
+          }
+        } else if (readResult.ok === false && readResult.reason !== 'not_found') {
+          console.warn('[Folder] 读取 prompt_fill_data.json 失败:', readResult);
+        }
+        if (!cancelled) {
+          setDirectoryHandle(handle);
+          folderBootstrapCompleteRef.current = true;
+          setIsFileSystemDataHydrated(true);
+        }
+      } catch (error) {
+        console.error('恢复文件夹句柄失败:', error);
+        if (!cancelled) {
+          folderBootstrapCompleteRef.current = true;
+          setIsFileSystemDataHydrated(true);
+        }
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [
+    storageMode,
+    isTemplatesLoaded,
+    isBanksLoaded,
+    isCategoriesLoaded,
+    isDefaultsLoaded,
+    setTemplates,
+    setBanks,
+    setCategories,
+    setDefaults,
+    setStorageMode,
+    language,
+    setNoticeMessage,
+  ]);
 
   // ====== 数据迁移与初始化 ======
   useEffect(() => {
     async function migrateAndInit() {
-      const { isMigrated, markMigrated, dbSet, openDB, getDirectoryHandle } = await import('./utils/db');
+      const { isMigrated, markMigrated, dbSet, openDB } = await import('./utils/db');
       
       if (!isMigrated()) {
         console.log('检测到旧版 LocalStorage 数据，开始执行 IndexedDB 迁移...');
@@ -597,6 +687,18 @@ const App = () => {
           const oldDefaults = localStorage.getItem("app_defaults_v9");
           if (oldDefaults) await dbSet("app_defaults_v9", JSON.parse(oldDefaults));
 
+          try {
+            const { saveEmergencySnapshot } = await import('./utils/storageBackup');
+            const snap = { reason: 'before_localStorage_to_indexeddb_migration_reload' };
+            if (oldTemplates) snap.templates = JSON.parse(oldTemplates);
+            if (oldBanks) snap.banks = JSON.parse(oldBanks);
+            if (oldCategories) snap.categories = JSON.parse(oldCategories);
+            if (oldDefaults) snap.defaults = JSON.parse(oldDefaults);
+            if (snap.templates || snap.banks) await saveEmergencySnapshot(snap);
+          } catch (bk) {
+            console.warn('[Migration] 迁移前紧急快照失败:', bk);
+          }
+
           markMigrated();
           console.log('数据迁移完成！');
           
@@ -606,18 +708,7 @@ const App = () => {
           console.error('数据迁移失败:', error);
         }
       }
-
-      // 重新恢复文件夹句柄
-      const db = await openDB();
-      const handle = await getDirectoryHandle(db);
-      if (handle) {
-        setDirectoryHandle(handle);
-        // 验证权限
-        const permission = await handle.queryPermission({ mode: 'readwrite' });
-        if (permission !== 'granted') {
-          console.log('文件夹访问权限已过期，需重新授权');
-        }
-      }
+      // 文件夹句柄与数据恢复由上方「File System」专用 effect 统一处理（先读后设 handle，避免竞态）
     }
     migrateAndInit();
   }, []);
@@ -2445,90 +2536,203 @@ ${tagsHint ? `\n${tagsHint}` : ''}
   };
 
   // --- File System Access API Functions ---
-  const handleSelectDirectory = async () => {
-      try {
-          if (!isFileSystemSupported) {
-              alert(t('browser_not_supported'));
-              return;
-          }
-
-          const handle = await window.showDirectoryPicker({
-              mode: 'readwrite',
-              startIn: 'documents'
-          });
-          
-          setDirectoryHandle(handle);
-          setStorageMode('folder');
-          localStorage.setItem('app_storage_mode', 'folder');
-          
-          // Save handle to IndexedDB for future use
-          await saveDirectoryHandle(handle);
-          
-          // 尝试保存当前数据到文件夹
-          await saveToFileSystem(handle);
-          alert(t('auto_save_enabled'));
-      } catch (error) {
-          console.error('选择文件夹失败:', error);
-          if (error.name !== 'AbortError') {
-              alert(t('folder_access_denied'));
-          }
+  const saveToFileSystem = async (handle) => {
+    if (!handle) return;
+    try {
+      const { templates: toWrite, changed } = await persistTemplateImagesToFolder(templates, handle);
+      await writePromptFillDataFile(handle, { templates: toWrite, banks, categories, defaults });
+      if (changed) {
+        setTemplates(toWrite);
       }
+      console.log('数据已保存到本地文件夹');
+    } catch (error) {
+      console.error('保存到文件系统失败:', error);
+    }
   };
 
-  const saveToFileSystem = async (handle) => {
-      if (!handle) return;
-      
-      try {
-          const data = {
+  const loadFromFileSystem = async (handle) => {
+    if (!handle) return;
+    const readResult = await readPromptFillDataFile(handle);
+    if (!readResult.ok) {
+      if (readResult.reason === 'not_found') {
+        const err = new Error('NOT_FOUND');
+        err.code = 'NOT_FOUND';
+        throw err;
+      }
+      throw readResult.error || new Error(readResult.reason || 'read_failed');
+    }
+    try {
+      const { saveEmergencySnapshot } = await import('./utils/storageBackup');
+      await saveEmergencySnapshot({
+        reason: 'before_manual_load_from_folder',
+        templates,
+        banks,
+        categories,
+        defaults,
+      });
+    } catch (e) {
+      console.warn('[Backup] 手动从文件夹加载前快照失败:', e);
+    }
+    const { applyMergedFolderPayloadToState } = await import('./utils/storageBackup');
+    const { addedFromDisk } = applyMergedFolderPayloadToState(
+      readResult.data,
+      { templates, banks, categories, defaults },
+      { setTemplates, setBanks, setCategories, setDefaults }
+    );
+    console.log('从本地文件夹合并数据成功');
+    if (addedFromDisk > 0) {
+      setNoticeMessage(
+        language === 'cn'
+          ? `已合并文件夹数据：新增 ${addedFromDisk} 个仅存在于文件中的自定义模版（当前编辑未覆盖）`
+          : `Merged from folder: added ${addedFromDisk} custom template(s) found only in the file.`
+      );
+    }
+  };
+
+  const handleRestoreEmergencySnapshotKey = React.useCallback(
+    async (key) => {
+      const { getEmergencySnapshotByKey } = await import('./utils/storageBackup');
+      const rec = await getEmergencySnapshotByKey(key);
+      if (!rec || !Array.isArray(rec.templates)) {
+        alert(language === 'cn' ? '备份无效或已损坏' : 'Invalid or corrupted backup');
+        return;
+      }
+      if (
+        !window.confirm(
+          language === 'cn'
+            ? '确定用此备份覆盖当前模版、词库与分类？（可先导出一份 JSON 再操作）'
+            : 'Replace all templates, banks and categories with this backup? Export JSON first if unsure.'
+        )
+      ) {
+        return;
+      }
+      applyPromptFillDataPayload(rec, {
+        setTemplates,
+        setBanks,
+        setCategories,
+        setDefaults,
+      });
+      setNoticeMessage(language === 'cn' ? '已从紧急备份恢复' : 'Restored from emergency backup');
+    },
+    [language, setTemplates, setBanks, setCategories, setDefaults]
+  );
+
+  const handleSelectDirectory = async () => {
+    try {
+      if (!isFileSystemSupported) {
+        alert(t('browser_not_supported'));
+        return;
+      }
+
+      const handle = await window.showDirectoryPicker({
+        mode: 'readwrite',
+        startIn: 'documents',
+      });
+
+      setIsFileSystemDataHydrated(false);
+
+      const readResult = await readPromptFillDataFile(handle);
+      let loadedFromDisk = false;
+
+      if (readResult.ok && readResult.data && Array.isArray(readResult.data.templates)) {
+        const loadFromDisk = window.confirm(t('folder_confirm_load_existing'));
+        if (loadFromDisk) {
+          try {
+            const { saveEmergencySnapshot } = await import('./utils/storageBackup');
+            await saveEmergencySnapshot({
+              reason: 'before_select_folder_confirm_load_disk',
               templates,
               banks,
               categories,
               defaults,
-              version: 'v9',
-              lastSaved: new Date().toISOString()
-          };
-          
-          const fileHandle = await handle.getFileHandle('prompt_fill_data.json', { create: true });
-          const writable = await fileHandle.createWritable();
-          await writable.write(JSON.stringify(data, null, 2));
-          await writable.close();
-          
-          console.log('数据已保存到本地文件夹');
-      } catch (error) {
-          console.error('保存到文件系统失败:', error);
+            });
+          } catch (e) {
+            console.warn('[Backup] 选择文件夹「从磁盘加载」前快照失败:', e);
+          }
+          const { applyMergedFolderPayloadToState } = await import('./utils/storageBackup');
+          const { addedFromDisk } = applyMergedFolderPayloadToState(
+            readResult.data,
+            { templates, banks, categories, defaults },
+            { setTemplates, setBanks, setCategories, setDefaults }
+          );
+          if (addedFromDisk > 0) {
+            setNoticeMessage(
+              language === 'cn'
+                ? `已合并文件夹存档：新增 ${addedFromDisk} 个仅存在于文件中的自定义模版`
+                : `Merged folder file: added ${addedFromDisk} custom template(s) only on disk.`
+            );
+          }
+          loadedFromDisk = true;
+        } else {
+          const overwrite = window.confirm(t('folder_confirm_overwrite_with_memory'));
+          if (!overwrite) {
+            setIsFileSystemDataHydrated(true);
+            return;
+          }
+        }
+      } else if (readResult.ok === false && readResult.reason !== 'not_found') {
+        alert(
+          language === 'cn'
+            ? '读取 prompt_fill_data.json 失败，请检查文件是否损坏。未更改存储位置。'
+            : 'Failed to read prompt_fill_data.json. Storage location unchanged.'
+        );
+        setIsFileSystemDataHydrated(true);
+        return;
       }
-  };
 
-  const loadFromFileSystem = async (handle) => {
-      if (!handle) return;
-      
+      // 切入文件夹模式前，先把当前内存快照写入 IDB。
+      // 这样即使后续写磁盘失败或权限丢失再降级回浏览器，IDB 里也有最新数据。
       try {
-          const fileHandle = await handle.getFileHandle('prompt_fill_data.json');
-          const file = await fileHandle.getFile();
-          const text = await file.text();
-          const data = JSON.parse(text);
-          
-          if (data.templates) setTemplates(data.templates);
-          if (data.banks) setBanks(data.banks);
-          if (data.categories) setCategories(data.categories);
-          if (data.defaults) setDefaults(data.defaults);
-          
-          console.log('从本地文件夹加载数据成功');
-      } catch (error) {
-          console.error('从文件系统读取失败:', error);
+        const { writeFullAppStateToIndexedDB } = await import('./utils/db');
+        await writeFullAppStateToIndexedDB({ templates, banks, categories, defaults });
+      } catch (e) {
+        console.warn('[Storage] 切入文件夹模式前写 IDB 快照失败:', e);
       }
+
+      await saveDirectoryHandle(handle);
+      localStorage.setItem('app_storage_mode', 'folder');
+      setStorageMode('folder');
+      setDirectoryHandle(handle);
+      folderBootstrapCompleteRef.current = true;
+
+      if (!loadedFromDisk) {
+        try {
+          const { templates: toWrite, changed } = await persistTemplateImagesToFolder(templates, handle);
+          await writePromptFillDataFile(handle, { templates: toWrite, banks, categories, defaults });
+          if (changed) {
+            setTemplates(toWrite);
+          }
+        } catch (writeErr) {
+          console.error(writeErr);
+          alert(
+            language === 'cn'
+              ? '首次写入存档失败（可能校验未通过），仍已启用文件夹模式，请稍后重试或检查控制台。'
+              : 'Initial save failed; folder mode is still on. Check console or try again.'
+          );
+        }
+      }
+
+      setIsFileSystemDataHydrated(true);
+      alert(t('auto_save_enabled'));
+    } catch (error) {
+      console.error('选择文件夹失败:', error);
+      setIsFileSystemDataHydrated(true);
+      if (error.name !== 'AbortError') {
+        alert(t('folder_access_denied'));
+      }
+    }
   };
 
-  // Auto-save to file system when data changes
+  // Auto-save to file system when data changes（必须等文件夹数据水合完成，避免用未加载的内存覆盖磁盘）
   useEffect(() => {
-      if (storageMode === 'folder' && directoryHandle) {
-          const timeoutId = setTimeout(() => {
-              saveToFileSystem(directoryHandle);
-          }, 1000); // Debounce 1 second
-          
-          return () => clearTimeout(timeoutId);
-      }
-  }, [templates, banks, categories, defaults, storageMode, directoryHandle]);
+    if (storageMode !== 'folder' || !directoryHandle || !isFileSystemDataHydrated) {
+      return;
+    }
+    const timeoutId = setTimeout(() => {
+      saveToFileSystem(directoryHandle);
+    }, 1000);
+    return () => clearTimeout(timeoutId);
+  }, [templates, banks, categories, defaults, storageMode, directoryHandle, isFileSystemDataHydrated]);
 
   // 存储空间管理
   const getStorageSize = () => {
@@ -2597,30 +2801,61 @@ ${tagsHint ? `\n${tagsHint}` : ''}
   }, [language, openActionConfirm]);
   
   const handleSwitchToLocalStorage = async () => {
-      setStorageMode('browser');
-      setDirectoryHandle(null);
-      localStorage.setItem('app_storage_mode', 'browser');
-      
-      // Clear directory handle from IndexedDB
-      try {
-          const db = await openDB();
-          const transaction = db.transaction(['handles'], 'readwrite');
-          const store = transaction.objectStore('handles');
-          await store.delete('directory');
-      } catch (error) {
-          console.error('清除文件夹句柄失败:', error);
-      }
+    try {
+      const { saveEmergencySnapshot } = await import('./utils/storageBackup');
+      await saveEmergencySnapshot({
+        reason: 'before_switch_from_folder_to_browser',
+        templates,
+        banks,
+        categories,
+        defaults,
+      });
+    } catch (e) {
+      console.warn('[Backup] 切回浏览器存储前快照失败:', e);
+    }
+
+    try {
+      const { writeFullAppStateToIndexedDB } = await import('./utils/db');
+      await writeFullAppStateToIndexedDB({ templates, banks, categories, defaults });
+    } catch (e) {
+      console.error('[Storage] 切回浏览器模式写入 IndexedDB 失败:', e);
+      alert(
+        language === 'cn'
+          ? '当前数据未能写入浏览器数据库，请勿立刻刷新页面，可重试一次或先导出备份。'
+          : 'Could not write to IndexedDB. Do not refresh yet; try again or export a backup.'
+      );
+      return;
+    }
+
+    setStorageMode('browser');
+    setDirectoryHandle(null);
+    folderBootstrapCompleteRef.current = false;
+    setIsFileSystemDataHydrated(true);
+    localStorage.setItem('app_storage_mode', 'browser');
+
+    try {
+      const { openDB } = await import('./utils/db');
+      const db = await openDB();
+      const transaction = db.transaction(['handles'], 'readwrite');
+      const store = transaction.objectStore('handles');
+      await store.delete('directory');
+    } catch (error) {
+      console.error('清除文件夹句柄失败:', error);
+    }
   };
-  
+
   const handleManualLoadFromFolder = async () => {
-      if (directoryHandle) {
-          try {
-              await loadFromFileSystem(directoryHandle);
-              alert('从文件夹加载成功！');
-          } catch (error) {
-              alert('从文件夹加载失败，请检查文件是否存在');
-          }
+    if (!directoryHandle) return;
+    try {
+      await loadFromFileSystem(directoryHandle);
+      alert(language === 'cn' ? '文件夹数据已合并完成！' : 'Folder data merged successfully.');
+    } catch (error) {
+      if (error.code === 'NOT_FOUND') {
+        alert(language === 'cn' ? '文件夹内没有 prompt_fill_data.json。' : 'prompt_fill_data.json not found in folder.');
+      } else {
+        alert(language === 'cn' ? '从文件夹加载失败，请检查文件是否存在或格式是否正确。' : 'Load failed. Check file exists and is valid JSON.');
       }
+    }
   };
 
   // 以下函数已移至自定义 Hooks:
@@ -3303,7 +3538,15 @@ ${tagsHint ? `\n${tagsHint}` : ''}
     );
   }
 
+  const folderMediaProviderEnabled =
+    storageMode === 'folder' && !!directoryHandle && isFileSystemDataHydrated;
+
   return (
+    <FolderStorageProvider
+      directoryHandle={directoryHandle}
+      enabled={folderMediaProviderEnabled}
+      folderMode={storageMode === 'folder'}
+    >
     <>
       {/* 移动端拖拽浮层 */}
       {touchDraggingVar && (
@@ -3349,6 +3592,7 @@ ${tagsHint ? `\n${tagsHint}` : ''}
             setICloudEnabled={setICloudEnabled}
             lastICloudSyncAt={lastICloudSyncAt}
             lastICloudSyncError={lastICloudSyncError}
+            onRestoreEmergencyBackup={handleRestoreEmergencySnapshotKey}
             />
           ) : (
             <SettingsView
@@ -3373,6 +3617,7 @@ ${tagsHint ? `\n${tagsHint}` : ''}
                   setICloudEnabled={setICloudEnabled}
                   lastICloudSyncAt={lastICloudSyncAt}
                   lastICloudSyncError={lastICloudSyncError}
+              onRestoreEmergencyBackup={handleRestoreEmergencySnapshotKey}
             />
           )
         ) : showDiscoveryOverlay ? (
@@ -4067,6 +4312,7 @@ ${tagsHint ? `\n${tagsHint}` : ''}
         accept="image/*,video/*" 
       />
     </>
+    </FolderStorageProvider>
   );
 };
 

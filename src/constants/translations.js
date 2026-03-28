@@ -100,6 +100,10 @@ export const TRANSLATIONS = {
     browser_not_supported: "浏览器不支持文件系统访问",
     folder_access_denied: "文件夹访问被拒绝",
     load_from_folder: "从文件夹加载",
+    folder_confirm_load_existing:
+      "该文件夹内已有 prompt_fill_data.json。\n\n点击「确定」将文件中的数据合并到当前应用（同名以当前为准，仅文件中多出的自定义模版会加入，不整表覆盖）。\n点击「取消」不合并文件，并再次确认是否用当前内存覆盖磁盘文件。",
+    folder_confirm_overwrite_with_memory:
+      "将用当前应用中的数据覆盖文件夹内的 prompt_fill_data.json，且无法撤销。\n\n确定覆盖吗？",
     refresh_system: "获取最新数据",
     refresh_desc: "同步官方",
     refresh_done_no_conflict: "刷新完成，系统内容已更新。",
@@ -251,6 +255,10 @@ export const TRANSLATIONS = {
     browser_not_supported: "Browser doesn't support file system access",
     folder_access_denied: "Folder access denied",
     load_from_folder: "Load from Folder",
+    folder_confirm_load_existing:
+      "This folder already contains prompt_fill_data.json.\n\nOK — merge file data into the app (current wins on conflicts; custom templates only on disk are added; no full replace).\nCancel — skip merging; you will be asked whether to overwrite the file with current data.",
+    folder_confirm_overwrite_with_memory:
+      "This will overwrite prompt_fill_data.json in the folder with your current in-app data. This cannot be undone.\n\nOverwrite?",
     refresh_system: "Get Latest Data",
     refresh_desc: "Sync Official Data",
     refresh_done_no_conflict: "Refreshed. System content is up to date.",

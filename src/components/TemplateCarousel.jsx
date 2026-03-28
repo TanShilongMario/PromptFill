@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Play } from 'lucide-react';
+import { OptimizedImage } from './OptimizedImage';
 
 /**
  * 模板轮播图组件
@@ -123,12 +124,14 @@ export const TemplateCarousel = ({ templates, language, isDarkMode, setZoomedIma
         onTouchEnd={onTouchEnd}
         onClick={handleClick}
       >
-        <img
+        <OptimizedImage
           src={currentImage.imageUrl}
           alt={currentImage.name?.[language] || currentImage.name?.cn || 'Template'}
           className="w-full h-full object-cover"
           referrerPolicy="no-referrer"
           draggable={false}
+          isDarkMode={isDarkMode}
+          priority={5}
         />
 
         {/* Video Indicator for Carousel */}

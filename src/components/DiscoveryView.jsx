@@ -10,6 +10,7 @@ import { useRootContext } from '../context/RootContext';
 import { TemplateCarousel } from './TemplateCarousel';
 import { MobileVideoFirstFrame } from './mobile';
 import { OptimizedImage } from './OptimizedImage';
+import { useResolvedFolderMediaSrc } from '../context/FolderStorageContext';
 import { TAG_LABELS } from '../constants/styles';
 import { openExternalLink } from '../utils/platform';
 
@@ -25,6 +26,8 @@ import { openExternalLink } from '../utils/platform';
 const VideoCard = React.memo(({ videoUrl, imageUrl, alt }) => {
   const [isHovered, setIsHovered] = useState(false);
   const videoRef = useRef(null);
+  const { displaySrc: resolvedVideo, failed: videoBroken } = useResolvedFolderMediaSrc(videoUrl || '');
+  const videoPlaySrc = videoBroken ? '' : resolvedVideo;
 
   const handleMouseEnter = useCallback(() => {
     setIsHovered(true);
@@ -63,7 +66,7 @@ const VideoCard = React.memo(({ videoUrl, imageUrl, alt }) => {
       {/* 视频层 - 始终存在，hover 时显示 */}
       <video
         ref={videoRef}
-        src={videoUrl}
+        src={videoPlaySrc || ''}
         className={`w-full h-auto object-cover ${imageUrl ? 'absolute inset-0 w-full h-full' : ''} transition-opacity duration-300 ${imageUrl && !isHovered ? 'opacity-0' : 'opacity-100'}`}
         muted
         playsInline
@@ -281,7 +284,8 @@ export const DiscoveryView = React.memo(({
                 }}
                 className={`break-inside-avoid mb-1 w-full rounded-lg overflow-hidden shadow-sm border active:scale-[0.98] transition-all ${isDarkMode ? 'bg-[#2A2726] border-white/5' : 'bg-white border-gray-100'}`}
               >
-                <div className="relative w-full bg-gray-50/5">
+                {/* min-h-px：避免 img 未解码前高度为 0 时与懒加载/Intersection 叠加导致永不拉取 */}
+                <div className="relative w-full min-h-px bg-gray-50/5">
                   {t_item.imageUrl ? (
                     <OptimizedImage
                       src={t_item.imageUrl}
@@ -410,7 +414,7 @@ export const DiscoveryView = React.memo(({
                                               }}
                                               className={`cursor-pointer group transition-shadow duration-300 relative overflow-hidden rounded-xl isolate border-2 hover:shadow-[0_0_15px_rgba(251,146,60,0.35)] will-change-transform ${isDarkMode ? 'border-white/10' : 'border-white'}`}
                                           >
-                                              <div className={`relative w-full overflow-hidden rounded-lg ${isDarkMode ? 'bg-[#2A2726]' : 'bg-gray-100'}`} style={{ transform: 'translateZ(0)' }}>
+                                              <div className={`relative w-full min-h-px overflow-hidden rounded-lg ${isDarkMode ? 'bg-[#2A2726]' : 'bg-gray-100'}`} style={{ transform: 'translateZ(0)' }}>
                                                   {t_item.type === 'video' && t_item.videoUrl ? (
                                                       <VideoCard
                                                           videoUrl={t_item.videoUrl}

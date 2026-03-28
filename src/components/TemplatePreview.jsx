@@ -5,6 +5,56 @@ import { EditorToolbar } from './EditorToolbar';
 import { ImageIcon, ArrowUpRight, Upload, Globe, RotateCcw, Pencil, Check, X, ChevronLeft, ChevronRight, Plus, Trash2, Play, Link } from 'lucide-react';
 import { WaypointsIcon } from './icons/WaypointsIcon';
 import { getLocalized, getVideoEmbedInfo } from '../utils/helpers';
+import { OptimizedImage } from './OptimizedImage';
+import { useResolvedFolderMediaSrc } from '../context/FolderStorageContext';
+import { isFolderMediaPath } from '../utils/folderImages';
+
+/** 本地文件夹下 images/ 路径的视频 + poster */
+function PreviewInlineVideo({ videoSrc, posterSrc, videoKey, isDarkMode, onLoaded, onClick, language }) {
+  const { displaySrc: vSrc, failed: vFail } = useResolvedFolderMediaSrc(videoSrc || '');
+  const { displaySrc: pSrc } = useResolvedFolderMediaSrc(posterSrc || '');
+  if (vFail || !vSrc) {
+    return (
+      <div className={`w-full min-h-[200px] flex items-center justify-center rounded-md text-xs ${isDarkMode ? 'bg-black/40 text-gray-500' : 'bg-gray-100 text-gray-400'}`}>
+        {language === 'cn' ? '视频不可用' : 'Video unavailable'}
+      </div>
+    );
+  }
+  return (
+    <video
+      key={videoKey}
+      src={vSrc}
+      poster={pSrc || undefined}
+      controls
+      playsInline
+      className="w-full h-auto block rounded-md"
+      onClick={onClick}
+      onLoadedData={onLoaded}
+      onCanPlay={onLoaded}
+    />
+  );
+}
+
+function SourceThumbVideo({ src, className, onMouseEnter, onMouseLeave }) {
+  const { displaySrc, failed } = useResolvedFolderMediaSrc(src || '');
+  if (failed || !displaySrc) {
+    return (
+      <div className={`${className} bg-black/20 flex items-center justify-center`}>
+        <Play size={24} className="text-white/60" fill="currentColor" />
+      </div>
+    );
+  }
+  return (
+    <video
+      src={displaySrc}
+      className={className}
+      muted
+      playsInline
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    />
+  );
+}
 
 /**
  * TemplatePreview 组件 - 负责渲染模版的预览内容，包括变量交互
@@ -466,10 +516,12 @@ export const TemplatePreview = React.memo(({
                                           <Play size={24} className="text-white/60" fill="currentColor" />
                                         </div>
                                       ) : (
-                                        <img 
-                                          src={src.url} 
+                                        <OptimizedImage
+                                          src={src.url}
                                           alt={getLocalized(src.label, language) || `Source ${sIdx + 1}`}
                                           className="w-full h-full object-cover"
+                                          isDarkMode={isDarkMode}
+                                          priority={10}
                                         />
                                       )}
                                     </div>
@@ -783,14 +835,12 @@ export const TemplatePreview = React.memo(({
                                         >
                                             <div className="w-28 h-28 md:w-36 md:h-36 overflow-hidden flex items-center justify-center cursor-zoom-in">
                                                 {src.type === 'video' ? (
-                                                    getVideoEmbedInfo(src.url)?.platform === 'video' ? (
-                                                        <video 
-                                                            src={src.url} 
-                                                            className="w-full h-full object-cover" 
-                                                            muted 
-                                                            playsInline
-                                                            onMouseEnter={e => e.target.play()}
-                                                            onMouseLeave={e => {
+                                                    getVideoEmbedInfo(src.url)?.platform === 'video' || isFolderMediaPath(src.url) ? (
+                                                        <SourceThumbVideo
+                                                            src={src.url}
+                                                            className="w-full h-full object-cover"
+                                                            onMouseEnter={(e) => e.target.play()}
+                                                            onMouseLeave={(e) => {
                                                                 e.target.pause();
                                                                 e.target.currentTime = 0;
                                                             }}
@@ -801,10 +851,12 @@ export const TemplatePreview = React.memo(({
                                                         </div>
                                                     )
                                                 ) : (
-                                                    <img 
-                                                        src={src.url} 
+                                                    <OptimizedImage
+                                                        src={src.url}
                                                         alt={getLocalized(src.label, language) || `Source ${sIdx + 1}`}
                                                         className="w-full h-full object-cover"
+                                                        isDarkMode={isDarkMode}
+                                                        priority={10}
                                                     />
                                                 )}
                                             </div>
@@ -918,34 +970,25 @@ export const TemplatePreview = React.memo(({
                                             />
                                         </div>
                                     ) : (
-                                        <video 
-                                            key={activeTemplate.id + '_video_edit'}
-                                            src={activeTemplate.videoUrl}
-                                            poster={currentImageUrl}
-                                            controls
-                                            playsInline
-                                            className="w-full h-auto block rounded-md"
+                                        <PreviewInlineVideo
+                                            videoKey={activeTemplate.id + '_video_edit'}
+                                            videoSrc={activeTemplate.videoUrl}
+                                            posterSrc={currentImageUrl}
+                                            isDarkMode={isDarkMode}
+                                            language={language}
+                                            onLoaded={() => setVideoLoading(false)}
                                             onClick={(e) => e.stopPropagation()}
-                                            onLoadedData={() => setVideoLoading(false)}
-                                            onCanPlay={() => setVideoLoading(false)}
                                         />
                                     )
                                 ) : currentImageUrl ? (
-                                    <img 
+                                    <OptimizedImage
                                         key={currentImageUrl}
-                                        src={currentImageUrl} 
+                                        src={currentImageUrl}
                                         referrerPolicy="no-referrer"
-                                        alt={getLocalized(activeTemplate.name, language) || "Template Preview"} 
-                                        className="w-full md:w-auto md:max-w-[400px] md:max-h-[400px] h-auto object-contain block animate-in fade-in duration-300" 
-                                        onError={(e) => {
-                                            e.target.style.display = 'none';
-                                            e.target.parentElement.style.backgroundColor = isDarkMode ? '#1a1a1a' : '#f1f5f9';
-                                            const span = document.createElement('span');
-                                            span.innerText = 'Image Failed';
-                                            span.style.color = isDarkMode ? '#333' : '#cbd5e1';
-                                            span.style.fontSize = '12px';
-                                            e.target.parentElement.appendChild(span);
-                                        }}
+                                        alt={getLocalized(activeTemplate.name, language) || 'Template Preview'}
+                                        className="w-full md:w-auto md:max-w-[400px] md:max-h-[400px] h-auto object-contain block animate-in fade-in duration-300"
+                                        isDarkMode={isDarkMode}
+                                        priority={0}
                                     />
                                 ) : (
                                     <div 
@@ -1105,14 +1148,12 @@ export const TemplatePreview = React.memo(({
                                                 >
                                                     <div className="w-24 h-24 md:w-28 md:h-28 overflow-hidden flex items-center justify-center cursor-zoom-in">
                                                         {src.type === 'video' ? (
-                                                            getVideoEmbedInfo(src.url)?.platform === 'video' ? (
-                                                                <video 
-                                                                    src={src.url} 
-                                                                    className="w-full h-full object-cover" 
-                                                                    muted 
-                                                                    playsInline
-                                                                    onMouseEnter={e => e.target.play()}
-                                                                    onMouseLeave={e => {
+                                                            getVideoEmbedInfo(src.url)?.platform === 'video' || isFolderMediaPath(src.url) ? (
+                                                                <SourceThumbVideo
+                                                                    src={src.url}
+                                                                    className="w-full h-full object-cover"
+                                                                    onMouseEnter={(e) => e.target.play()}
+                                                                    onMouseLeave={(e) => {
                                                                         e.target.pause();
                                                                         e.target.currentTime = 0;
                                                                     }}
@@ -1123,10 +1164,12 @@ export const TemplatePreview = React.memo(({
                                                                 </div>
                                                             )
                                                         ) : (
-                                                            <img 
-                                                                src={src.url} 
+                                                            <OptimizedImage
+                                                                src={src.url}
                                                                 alt={getLocalized(src.label, language) || `Source ${sIdx + 1}`}
                                                                 className="w-full h-full object-cover"
+                                                                isDarkMode={isDarkMode}
+                                                                priority={10}
                                                             />
                                                         )}
                                                     </div>
