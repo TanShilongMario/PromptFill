@@ -58,6 +58,17 @@ export const MobileSettingsView = ({
   // 完善后的更新日志 (同步桌面端内容)
   const updateLogs = language === 'cn' ? [
     {
+      "version": "V1.1.6",
+      "date": "2026-11-08",
+      "title": "GIF 动图模版 · GPT Image 2.6",
+      "content": [
+        "新增 4 套双语 GIF 模版：惊喜礼物盒、门后探头、感谢点赞、极致降噪，预设总数达到 248 套。",
+        "每套保留 3–4 个关键填空，配套角色、动作、文案与产品词库。",
+        "新增 GPT-image-2.6 模型选项，支持现有图片预览路径播放 GIF。",
+        "同步页脚应用版本显示。"
+      ]
+    },
+    {
       "version": "V1.1.5",
       "date": "2026-09-12",
       "title": "244 套模版 · 社区创意填空化",
@@ -269,6 +280,17 @@ export const MobileSettingsView = ({
       ]
     }
   ] : [
+    {
+      "version": "V1.1.6",
+      "date": "2026-11-08",
+      "title": "Animated GIF Templates · GPT Image 2.6",
+      "content": [
+        "Added four bilingual GIF templates: Surprise Gift Box, Peeking Cat, Thanks for the Like, and Noise Cancellation, bringing the library to 248 presets.",
+        "Each template includes 3–4 key variables with curated character, motion, text and product options.",
+        "Added GPT-image-2.6 model options; GIFs play through the existing image preview.",
+        "Updated the application version shown in the footer."
+      ]
+    },
     {
       "version": "V1.1.5",
       "date": "2026-09-12",

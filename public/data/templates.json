@@ -1,5 +1,5 @@
 {
-  "version": "1.2.2",
+  "version": "1.2.3",
   "config": [
     {
       "id": "tpl_photo_grid",
@@ -11721,6 +11721,169 @@
       "content": {
         "cn": "成年女性胸部以上近景，发型{{hair_style}}，穿{{clothing_female}}，一只手轻触耳边头发，表情{{portrait_mood}}。背景{{wall_material}}，机顶直闪在右侧投下头部和手部的柔边阴影。低饱和色彩、真实T区反光、细腻毛孔、清晰罗纹领口，3:4竖构图，不使用美颜磨皮。",
         "en": "Create a chest-up portrait of an adult woman with {{hair_style}} and {{clothing_female}}, touching the hair near one ear with a {{portrait_mood}} expression. Use {{wall_material}} behind her. Direct on-camera flash casts a softly edged head-and-hand shadow to the right. Muted color, realistic T-zone shine, pores and a detailed ribbed neckline preserve a candid feel. Vertical 3:4 frame without beauty smoothing."
+      }
+    },
+    {
+      "id": "tpl_gpt_image_2_6_ghost_gift_gif",
+      "name": {
+        "cn": "惊喜礼物盒·小鬼弹出 GIF",
+        "en": "Surprise Gift Box · Ghost Pop-up GIF"
+      },
+      "type": "image",
+      "imageUrl": "https://s3.bmp.ovh/2026/11/08/trrmZJX5.gif",
+      "author": "tanshilong",
+      "selections": {
+        "surprise_box": {
+          "cn": "系蝴蝶结的礼物盒",
+          "en": "a gift box tied with a bow"
+        },
+        "surprise_character": {
+          "cn": "白色小鬼",
+          "en": "a little white ghost"
+        },
+        "surprise_reveal_action": {
+          "cn": "跳出来",
+          "en": "jumps out"
+        },
+        "elastic_motion_feedback": {
+          "cn": "果冻或弹簧般的力学反馈",
+          "en": "jelly-like or spring-like physical feedback"
+        }
+      },
+      "tags": [
+        "卡通",
+        "创意"
+      ],
+      "language": [
+        "cn",
+        "en"
+      ],
+      "bestModel": "GPT-image-2.6",
+      "baseImage": "no_base_image",
+      "content": {
+        "cn": "创建一个卡通 3D 惊喜 GIF：一个{{surprise_box}}打开，里面有一个{{surprise_character}}{{surprise_reveal_action}}。宽高比 1:1，采用卡通 Blender 3D 渲染的圆润质感，动作具有{{elastic_motion_feedback}}。保持镜头固定，盒子与角色完整入镜，动作清楚连贯。",
+        "en": "Create a cartoon 3D surprise GIF: {{surprise_box}} opens, and {{surprise_character}} {{surprise_reveal_action}} from inside. Use a 1:1 aspect ratio and rounded cartoon Blender 3D rendering, with {{elastic_motion_feedback}} in the movement. Keep the camera fixed, the box and character fully in frame, and the action clear and coherent."
+      }
+    },
+    {
+      "id": "tpl_gpt_image_2_6_cat_door_gif",
+      "name": {
+        "cn": "门后探头·叫我干啥 GIF",
+        "en": "Peeking Cat · What Do You Need? GIF"
+      },
+      "type": "image",
+      "imageUrl": "https://s3.bmp.ovh/2026/11/08/6bEPT6Nu.gif",
+      "author": "tanshilong",
+      "selections": {
+        "character_animal": {
+          "cn": "小猫",
+          "en": "Little Kitten"
+        },
+        "peek_reaction_action": {
+          "cn": "从门后探头",
+          "en": "peek out from behind a door"
+        },
+        "reaction_bubble_text": {
+          "cn": "叫我干啥？",
+          "en": "What do you need me for?"
+        }
+      },
+      "tags": [
+        "卡通",
+        "宠物",
+        "创意"
+      ],
+      "language": [
+        "cn",
+        "en"
+      ],
+      "bestModel": "GPT-image-2.6",
+      "baseImage": "no_base_image",
+      "content": {
+        "cn": "创建一个 GIF 表情包，使用日式动漫风格。角色是一只可爱的{{character_animal}}。\n动作：{{peek_reaction_action}}。\n气泡文字：“{{reaction_bubble_text}}”。\n角色造型在动画中保持一致，动作自然清楚，气泡文字清晰可读，不遮挡角色的脸。",
+        "en": "Create a Japanese anime-style reaction GIF featuring a cute {{character_animal}}.\nAction: {{peek_reaction_action}}.\nSpeech bubble text: “{{reaction_bubble_text}}”.\nKeep the character design consistent throughout the animation, with clear, natural movement. Make the speech bubble legible without covering the character’s face."
+      }
+    },
+    {
+      "id": "tpl_gpt_image_2_6_thanks_like_gif",
+      "name": {
+        "cn": "感谢点赞·爱心气球 GIF",
+        "en": "Thanks for the Like · Balloon Heart GIF"
+      },
+      "type": "image",
+      "imageUrl": "https://s3.bmp.ovh/2026/11/08/ToShweQM.gif",
+      "author": "tanshilong",
+      "selections": {
+        "like_hand_style": {
+          "cn": "3D 形态的小手",
+          "en": "a small 3D hand"
+        },
+        "like_heart_color": {
+          "cn": "红色",
+          "en": "red"
+        },
+        "like_thanks_text": {
+          "cn": "感谢点赞～",
+          "en": "Thanks for the like!"
+        }
+      },
+      "tags": [
+        "卡通",
+        "创意"
+      ],
+      "language": [
+        "cn",
+        "en"
+      ],
+      "bestModel": "GPT-image-2.6",
+      "baseImage": "no_base_image",
+      "content": {
+        "cn": "生成一个长条形横向 GIF。画面左侧是一个{{like_hand_style}}，点击一颗白色填充、{{like_heart_color}}描边的小心心。爱心被点击后，内部逐渐填充为与描边相同的颜色，然后像气球一样膨胀起来，带有柔软的体积变化与弹性反馈。画面右侧用花字写着“{{like_thanks_text}}”。保持左右布局与镜头固定，预留爱心膨胀的空间，文字始终清晰可读，不被手或爱心遮挡。",
+        "en": "Generate a wide horizontal GIF. On the left, {{like_hand_style}} taps a small heart with a white interior and a {{like_heart_color}} outline. After the tap, the heart gradually fills with the outline color, then inflates like a balloon with soft volume changes and elastic feedback. On the right, decorative lettering reads “{{like_thanks_text}}”. Keep the left-right layout and camera fixed, allow space for the heart to expand, and keep the lettering legible and unobstructed by the hand or heart."
+      }
+    },
+    {
+      "id": "tpl_gpt_image_2_6_noise_cancel_gif",
+      "name": {
+        "cn": "极致降噪·街头切换摄影棚 GIF",
+        "en": "Ultimate Noise Cancellation · Street-to-Studio GIF"
+      },
+      "type": "image",
+      "imageUrl": "https://s3.bmp.ovh/2026/11/08/ZLDlGjPJ.gif",
+      "author": "tanshilong",
+      "selections": {
+        "character_subject": {
+          "cn": "一位欧洲成年人",
+          "en": "a European adult"
+        },
+        "urban_location": {
+          "cn": "喧嚣的城市街头",
+          "en": "a bustling city street"
+        },
+        "noise_cancel_headphones": {
+          "cn": "银白色头戴式降噪耳机",
+          "en": "silver-white over-ear noise-canceling headphones"
+        },
+        "noise_cancel_headline": {
+          "cn": "极致降噪",
+          "en": "Ultimate Noise Cancellation"
+        }
+      },
+      "tags": [
+        "人物",
+        "产品",
+        "摄影",
+        "创意"
+      ],
+      "language": [
+        "cn",
+        "en"
+      ],
+      "bestModel": "GPT-image-2.6",
+      "baseImage": "no_base_image",
+      "content": {
+        "cn": "生成一个竖版 GIF，以创意视觉手法体现降噪耳机的降噪效果。\n\n画面从{{urban_location}}开始，采用现实摄影与苹果广告摄影风格，以人群、车流和繁杂环境表现喧嚣。特写集中在{{character_subject}}的侧脸，真实皮肤纹理与精致光影清晰可见。\n\n人物戴上{{noise_cancel_headphones}}。耳机佩戴到位的瞬间，街道、人群和车辆直接切换为纯白色摄影棚，人物侧脸、耳机位置和镜头构图保持连续，通过瞬间的环境反差表达降噪效果。\n\n在白色摄影棚阶段配上科技感美学花字“{{noise_cancel_headline}}”，文字清晰可读，保留充分留白，不遮挡脸部与耳机。整体采用典型的苹果艺术风格和设计美学，极简、克制、精致，以柔和光线突出产品材质。",
+        "en": "Generate a vertical GIF that creatively visualizes the effect of noise-canceling headphones.\n\nBegin in {{urban_location}}, using realistic photography and an Apple-inspired advertising aesthetic. Crowds, traffic and environmental clutter convey the bustle. Frame a close-up side profile of {{character_subject}}, preserving natural skin texture and refined lighting.\n\nThe person puts on {{noise_cancel_headphones}}. The instant the headphones are in place, the street, people and vehicles switch directly to a pure white photography studio. Maintain continuity in the face, headphone position and camera framing; the sudden environmental contrast communicates noise cancellation visually.\n\nIn the white studio, add the headline “{{noise_cancel_headline}}” in refined, futuristic display typography. Keep it legible with generous whitespace, clear of the face and headphones. Use a minimalist, restrained Apple-inspired art direction with soft light and finely rendered product materials."
       }
     }
   ]

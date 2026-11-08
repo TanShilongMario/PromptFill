@@ -5,7 +5,7 @@ import { TRANSLATIONS } from '../constants/translations';
 
 const RootContext = createContext();
 
-const APP_VERSION = "1.1.4";
+const APP_VERSION = "1.1.6";
 
 export const RootProvider = ({ children }) => {
   const [language, setLanguage] = useStickyState(getSystemLanguage(), "app_language_v1");

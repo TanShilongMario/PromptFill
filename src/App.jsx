@@ -57,7 +57,7 @@ const App = () => {
   const navigate = useNavigate();
 
   // 当前应用代码版本 (必须与 package.json 和 version.json 一致)
-  const APP_VERSION = "1.1.5";
+  const APP_VERSION = "1.1.6";
 
   // 临时功能：瀑布流样式管理
   const [masonryStyleKey, setMasonryStyleKey] = useState('poster');

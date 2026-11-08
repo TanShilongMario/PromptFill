@@ -566,7 +566,7 @@ export const TemplateEditor = React.memo(({
                           </button>
                           {activeSelect === 'bestModel' && (
                             <div className={`absolute top-full left-0 right-0 mt-1 z-50 rounded-xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200 border ${isDarkMode ? 'bg-[#2A2928] border-white/10' : 'bg-white border-gray-100'}`} style={{ backdropFilter: 'blur(20px)' }}>
-                              {(activeTemplate.type === 'video' ? ['Seedance 2.0', 'Veo 3.1', 'Kling 3.0'] : ['Nano Banana Pro', 'Nano Banana 2', 'Midjourney V7', 'Midjourney niji 7', 'Midjourney v8.1', 'GPT-image-2', 'GPT-image-2.5', 'Zimage']).map((opt) => (
+                              {(activeTemplate.type === 'video' ? ['Seedance 2.0', 'Veo 3.1', 'Kling 3.0'] : ['Nano Banana Pro', 'Nano Banana 2', 'Midjourney V7', 'Midjourney niji 7', 'Midjourney v8.1', 'GPT-image-2', 'GPT-image-2.5', 'GPT-image-2.6', 'Zimage']).map((opt) => (
                                 <button key={opt} onClick={() => { updateTemplateProperty('bestModel', opt); setActiveSelect(null); }}
                                   className={`w-full text-left px-3 py-1.5 text-xs transition-all flex items-center justify-between ${tempTemplateBestModel === opt ? 'bg-orange-500/10 text-orange-500 font-bold' : (isDarkMode ? 'text-gray-400 hover:bg-white/5 hover:text-white' : 'text-gray-600 hover:bg-gray-50')}`}>
                                   {opt}{tempTemplateBestModel === opt && <Check size={10} />}
@@ -851,7 +851,7 @@ export const TemplateEditor = React.memo(({
                           </button>
                           {activeSelect === 'bestModel' && (
                             <div className={`absolute top-full left-0 right-0 mt-1 z-50 rounded-xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200 border ${isDarkMode ? 'bg-[#2A2928] border-white/10' : 'bg-white border-gray-100'}`} style={{ backdropFilter: 'blur(20px)' }}>
-                              {(activeTemplate.type === 'video' ? ['Seedance 2.0', 'Veo 3.1', 'Kling 3.0'] : ['Nano Banana Pro', 'Nano Banana 2', 'Midjourney V7', 'Midjourney niji 7', 'Midjourney v8.1', 'GPT-image-2', 'GPT-image-2.5', 'Zimage']).map((opt) => (
+                              {(activeTemplate.type === 'video' ? ['Seedance 2.0', 'Veo 3.1', 'Kling 3.0'] : ['Nano Banana Pro', 'Nano Banana 2', 'Midjourney V7', 'Midjourney niji 7', 'Midjourney v8.1', 'GPT-image-2', 'GPT-image-2.5', 'GPT-image-2.6', 'Zimage']).map((opt) => (
                                 <button key={opt} onClick={() => { updateTemplateProperty('bestModel', opt); setActiveSelect(null); }}
                                   className={`w-full text-left px-3 py-1.5 text-xs transition-all flex items-center justify-between ${tempTemplateBestModel === opt ? 'bg-orange-500/10 text-orange-500 font-bold' : (isDarkMode ? 'text-gray-400 hover:bg-white/5 hover:text-white' : 'text-gray-600 hover:bg-gray-50')}`}>
                                   {opt}{tempTemplateBestModel === opt && <Check size={10} />}

@@ -155,6 +155,7 @@ export const TemplatePreview = React.memo(({
     'Midjourney v8.1': 'text-purple-600/90 dark:text-purple-400/90',
     'GPT-image-2': 'text-green-600/90 dark:text-green-400/90',
     'GPT-image-2.5': 'text-green-600/90 dark:text-green-400/90',
+    'GPT-image-2.6': 'text-green-600/90 dark:text-green-400/90',
     'Zimage': 'text-emerald-600/90 dark:text-emerald-400/90',
     'Seedance 2.0': 'text-orange-600/90 dark:text-orange-400/90',
     'Veo 3.1': 'text-rose-600/90 dark:text-rose-400/90',
@@ -681,7 +682,7 @@ export const TemplatePreview = React.memo(({
                               className={`absolute top-full left-0 right-0 mt-2 z-[100] rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200 border ${isDarkMode ? 'bg-[#2A2928] border-white/10' : 'bg-white border-gray-100'}`}
                               style={{ backdropFilter: 'blur(20px)' }}
                             >
-                              {['Nano Banana Pro', 'Nano Banana 2', 'Midjourney V7', 'Midjourney niji 7', 'Midjourney v8.1', 'GPT-image-2', 'GPT-image-2.5', 'Zimage', 'Seedance 2.0', 'Veo 3.1', 'Kling 3.0'].map((opt) => (
+                              {['Nano Banana Pro', 'Nano Banana 2', 'Midjourney V7', 'Midjourney niji 7', 'Midjourney v8.1', 'GPT-image-2', 'GPT-image-2.5', 'GPT-image-2.6', 'Zimage', 'Seedance 2.0', 'Veo 3.1', 'Kling 3.0'].map((opt) => (
                                 <button
                                   key={opt}
                                   onClick={() => {

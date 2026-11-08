@@ -863,6 +863,10 @@ export const INITIAL_BANKS = {
     label: { cn: "城市地点", en: "Urban Location" },
     category: "location",
     options: [
+{
+  "cn": "喧嚣的城市街头",
+  "en": "a bustling city street"
+},
       { cn: "涩谷十字路口", en: "Shibuya Crossing" },
       { cn: "东京塔下", en: "Under Tokyo Tower" },
       { cn: "时代广场", en: "Times Square" },
@@ -1761,6 +1765,10 @@ export const INITIAL_BANKS = {
     label: { cn: "人物主体", en: "Character Subject" },
     category: "character",
     options: [
+{
+  "cn": "一位欧洲成年人",
+  "en": "a European adult"
+},
 {
   "cn": "穿礼服的中年男士",
   "en": "a middle-aged man in an evening gown"
@@ -5376,6 +5384,325 @@ export const INITIAL_BANKS = {
         "en": "cherry blossoms"
       }
     ]
+  },
+  "surprise_box": {
+    "label": {
+      "cn": "惊喜盒子",
+      "en": "Surprise Box"
+    },
+    "category": "item",
+    "options": [
+      {
+        "cn": "系蝴蝶结的礼物盒",
+        "en": "a gift box tied with a bow"
+      },
+      {
+        "cn": "带星星图案的礼物盒",
+        "en": "a star-patterned gift box"
+      },
+      {
+        "cn": "圆形礼物盒",
+        "en": "a round gift box"
+      },
+      {
+        "cn": "木质玩具箱",
+        "en": "a wooden toy chest"
+      },
+      {
+        "cn": "马戏团惊喜盒",
+        "en": "a circus jack-in-the-box"
+      }
+    ]
+  },
+  "surprise_character": {
+    "label": {
+      "cn": "惊喜角色",
+      "en": "Surprise Character"
+    },
+    "category": "character",
+    "options": [
+      {
+        "cn": "白色小鬼",
+        "en": "a little white ghost"
+      },
+      {
+        "cn": "圆滚滚的小猫",
+        "en": "a round little kitten"
+      },
+      {
+        "cn": "软萌小兔子",
+        "en": "a cute little bunny"
+      },
+      {
+        "cn": "黄色小星星",
+        "en": "a little yellow star"
+      },
+      {
+        "cn": "迷你小恐龙",
+        "en": "a miniature dinosaur"
+      }
+    ]
+  },
+  "surprise_reveal_action": {
+    "label": {
+      "cn": "出场动作",
+      "en": "Reveal Action"
+    },
+    "category": "action",
+    "options": [
+      {
+        "cn": "跳出来",
+        "en": "jumps out"
+      },
+      {
+        "cn": "弹出来后挥手",
+        "en": "pops out and waves"
+      },
+      {
+        "cn": "旋转着跳出来",
+        "en": "spins as it jumps out"
+      },
+      {
+        "cn": "探出头后眨眼",
+        "en": "peeks out and blinks"
+      },
+      {
+        "cn": "蹦出来后开心摇摆",
+        "en": "bounces out and sways happily"
+      }
+    ]
+  },
+  "elastic_motion_feedback": {
+    "label": {
+      "cn": "弹性反馈",
+      "en": "Elastic Motion"
+    },
+    "category": "action",
+    "options": [
+      {
+        "cn": "果冻或弹簧般的力学反馈",
+        "en": "jelly-like or spring-like physical feedback"
+      },
+      {
+        "cn": "柔软的挤压与拉伸",
+        "en": "soft squash and stretch"
+      },
+      {
+        "cn": "轻快的弹跳与回弹",
+        "en": "snappy bouncing and spring-back"
+      },
+      {
+        "cn": "缓慢蓄力后快速弹出",
+        "en": "slow anticipation followed by a quick pop"
+      },
+      {
+        "cn": "布偶般的轻柔晃动",
+        "en": "gentle plush-toy wobbling"
+      }
+    ]
+  },
+  "peek_reaction_action": {
+    "label": {
+      "cn": "探头动作",
+      "en": "Peeking Action"
+    },
+    "category": "action",
+    "options": [
+      {
+        "cn": "从门后探头",
+        "en": "peek out from behind a door"
+      },
+      {
+        "cn": "从门后探头并眨眼",
+        "en": "peek out from behind a door and blink"
+      },
+      {
+        "cn": "从门后探头并挥爪",
+        "en": "peek out from behind a door and wave a paw"
+      },
+      {
+        "cn": "从窗边探头",
+        "en": "peek out from beside a window"
+      },
+      {
+        "cn": "从桌子下方探头",
+        "en": "peek out from under a table"
+      }
+    ]
+  },
+  "reaction_bubble_text": {
+    "label": {
+      "cn": "表情包气泡文字",
+      "en": "Reaction Bubble Text"
+    },
+    "category": "other",
+    "options": [
+      {
+        "cn": "叫我干啥？",
+        "en": "What do you need me for?"
+      },
+      {
+        "cn": "找我有事？",
+        "en": "Need something?"
+      },
+      {
+        "cn": "我来啦！",
+        "en": "Here I am!"
+      },
+      {
+        "cn": "偷偷看看",
+        "en": "Just taking a peek"
+      },
+      {
+        "cn": "谁在叫我？",
+        "en": "Who’s calling me?"
+      }
+    ]
+  },
+  "like_hand_style": {
+    "label": {
+      "cn": "点赞小手造型",
+      "en": "Tapping Hand Style"
+    },
+    "category": "item",
+    "options": [
+      {
+        "cn": "3D 形态的小手",
+        "en": "a small 3D hand"
+      },
+      {
+        "cn": "圆润的白手套小手",
+        "en": "a rounded white-gloved hand"
+      },
+      {
+        "cn": "软糖质感的小手",
+        "en": "a gummy-textured hand"
+      },
+      {
+        "cn": "迷你机器人手",
+        "en": "a miniature robot hand"
+      },
+      {
+        "cn": "黏土质感的小手",
+        "en": "a clay-textured hand"
+      }
+    ]
+  },
+  "like_heart_color": {
+    "label": {
+      "cn": "爱心描边与填充色",
+      "en": "Heart Outline and Fill Color"
+    },
+    "category": "visual",
+    "options": [
+      {
+        "cn": "红色",
+        "en": "red"
+      },
+      {
+        "cn": "珊瑚橙",
+        "en": "coral orange"
+      },
+      {
+        "cn": "樱花粉",
+        "en": "cherry-blossom pink"
+      },
+      {
+        "cn": "薰衣草紫",
+        "en": "lavender purple"
+      },
+      {
+        "cn": "金黄色",
+        "en": "golden yellow"
+      }
+    ]
+  },
+  "like_thanks_text": {
+    "label": {
+      "cn": "点赞感谢文案",
+      "en": "Like Thank-You Text"
+    },
+    "category": "other",
+    "options": [
+      {
+        "cn": "感谢点赞～",
+        "en": "Thanks for the like!"
+      },
+      {
+        "cn": "谢谢支持～",
+        "en": "Thanks for your support!"
+      },
+      {
+        "cn": "收到你的喜欢啦！",
+        "en": "Your like made my day!"
+      },
+      {
+        "cn": "给你一个小心心～",
+        "en": "Sending you a little heart!"
+      },
+      {
+        "cn": "比心感谢！",
+        "en": "A heart to say thanks!"
+      }
+    ]
+  },
+  "noise_cancel_headphones": {
+    "label": {
+      "cn": "降噪耳机造型",
+      "en": "Noise-Canceling Headphones"
+    },
+    "category": "item",
+    "options": [
+      {
+        "cn": "银白色头戴式降噪耳机",
+        "en": "silver-white over-ear noise-canceling headphones"
+      },
+      {
+        "cn": "哑光黑色头戴式降噪耳机",
+        "en": "matte black over-ear noise-canceling headphones"
+      },
+      {
+        "cn": "深空灰金属头戴式降噪耳机",
+        "en": "space-gray metal over-ear noise-canceling headphones"
+      },
+      {
+        "cn": "奶油白色头戴式降噪耳机",
+        "en": "cream-white over-ear noise-canceling headphones"
+      },
+      {
+        "cn": "冰蓝色头戴式降噪耳机",
+        "en": "ice-blue over-ear noise-canceling headphones"
+      }
+    ]
+  },
+  "noise_cancel_headline": {
+    "label": {
+      "cn": "降噪广告标题",
+      "en": "Noise-Canceling Headline"
+    },
+    "category": "other",
+    "options": [
+      {
+        "cn": "极致降噪",
+        "en": "Ultimate Noise Cancellation"
+      },
+      {
+        "cn": "一戴，世界安静",
+        "en": "Put Them On. Tune the World Out."
+      },
+      {
+        "cn": "喧嚣之外",
+        "en": "Beyond the Noise"
+      },
+      {
+        "cn": "只听见自己",
+        "en": "Hear Yourself"
+      },
+      {
+        "cn": "让世界静下来",
+        "en": "Quiet the World"
+      }
+    ]
   }
 };
 
@@ -5850,6 +6177,50 @@ export const INITIAL_DEFAULTS = {
   "botanical_accent": {
     "cn": "白色小花与绿藤",
     "en": "small white flowers and green vines"
+  },
+  "surprise_box": {
+    "cn": "系蝴蝶结的礼物盒",
+    "en": "a gift box tied with a bow"
+  },
+  "surprise_character": {
+    "cn": "白色小鬼",
+    "en": "a little white ghost"
+  },
+  "surprise_reveal_action": {
+    "cn": "跳出来",
+    "en": "jumps out"
+  },
+  "elastic_motion_feedback": {
+    "cn": "果冻或弹簧般的力学反馈",
+    "en": "jelly-like or spring-like physical feedback"
+  },
+  "peek_reaction_action": {
+    "cn": "从门后探头",
+    "en": "peek out from behind a door"
+  },
+  "reaction_bubble_text": {
+    "cn": "叫我干啥？",
+    "en": "What do you need me for?"
+  },
+  "like_hand_style": {
+    "cn": "3D 形态的小手",
+    "en": "a small 3D hand"
+  },
+  "like_heart_color": {
+    "cn": "红色",
+    "en": "red"
+  },
+  "like_thanks_text": {
+    "cn": "感谢点赞～",
+    "en": "Thanks for the like!"
+  },
+  "noise_cancel_headphones": {
+    "cn": "银白色头戴式降噪耳机",
+    "en": "silver-white over-ear noise-canceling headphones"
+  },
+  "noise_cancel_headline": {
+    "cn": "极致降噪",
+    "en": "Ultimate Noise Cancellation"
   }
 };
 
